@@ -1,104 +1,31 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { BrandPageLayout } from '@/components/BrandPageLayout';
-import { BRAND_PAGES_DATA, BUSINESS_DETAILS } from '@/data/content';
-import { optimizeCloudinary } from '@/utils/imageOptimizer';
-import type { BrandInfo } from '@/types';
+import { BRAND_PAGES_DATA } from '@/data/content';
 
-export async function getStaticPaths() {
-  const brands = Object.values(BRAND_PAGES_DATA);
-  const paths = [];
+const { brand: brandSlug } = Astro.params;
 
-  for (const brand of brands) {
-    const key = brand.slug.replace(/^\//, '');
-    paths.push({
-      params: { brand: key },
-      props: { brand },
-    });
-    if (brand.id && brand.id !== key) {
-      paths.push({
-        params: { brand: brand.id },
-        props: { brand },
-      });
-    }
-  }
+// Data file se brand ka data nikalna
+const brandData = BRAND_PAGES_DATA[brandSlug?.toLowerCase() || ''];
 
-  return paths;
-}
-
-const { brand } = Astro.props;
-
-if (!brand) {
+if (!brandData) {
   return Astro.redirect('/404');
 }
 
-const brandKey = brand.slug.replace(/^\//, '');
-const pageUrl = `https://www.roservicesupport.co.in/${brandKey}`;
+const title = brandData.metaTitle || `${brandData.name} RO Service Bangalore`;
+const description = brandData.metaDescription || 'Doorstep RO service in Bangalore.';
+const canonical = `https://Roservicecare24x7.co.in/${brandSlug}`;
 
-// ✅ Hero image for preload (LCP optimization)
-const heroImageRaw = brand.heroBgImage || (
-  brand.id === 'ro-service-24x7' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813499/IMG-20260918-WA0073_qesfc9.jpg'
-    : brand.id === 'aquaguard' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_00000000b97c8211b0ff0be33d753076_wncmpj.png'
-    : brand.id === 'livpure' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_0000000053b082099c9bb495de926e14_zlptot.png'
-    : brand.id === 'pureit' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666101/file_00000000c8308206b3080195508f65f9_kdu2po.png'
-    : brand.id === 'ao-smith' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789748961/IMG-20260918-WA0071_woclww.jpg'
-    : 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_00000000087882078f47eb6ab54f5d99_aeo7v5.png'
-);
-
-const heroImagePreload = optimizeCloudinary(heroImageRaw, { width: 1200, quality: 'auto:good' });
-
-const jsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    '@id': `${pageUrl}#service`,
-    url: pageUrl,
-    name: `${brand.name} Water Purifier Repair & Service Bangalore`,
-    serviceType: 'Water Purifier Repair, Maintenance & Filter Replacement',
-    provider: {
-      '@type': 'LocalBusiness',
-      '@id': 'https://www.roservicesupport.co.in/#localbusiness',
-      name: BUSINESS_DETAILS.name,
-      telephone: `+91${BUSINESS_DETAILS.phone}`,
-      url: 'https://www.roservicesupport.co.in',
-    },
-    areaServed: { '@type': 'City', name: 'Bangalore' },
-    description: brand.metaDescription,
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'INR',
-      description: 'Doorstep inspection and diagnosis, 100% adjusted against final repair bill upon approval.',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '10480',
-      bestRating: '5',
-      worstRating: '1',
-    },
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: brand.brandFaqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-    })),
-  },
-];
+// Preload image for speed
+const heroImagePreload = brandData.heroBgImage;
 ---
 
 <Layout
-  title={brand.metaTitle}
-  description={brand.metaDescription}
-  canonical={pageUrl}
-  ogTitle={brand.metaTitle}
-  ogDescription={brand.metaDescription}
-  ogUrl={pageUrl}
-  ogImage={brand.heroImage}
+  title={title}
+  description={description}
+  canonical={canonical}
   preloadImage={heroImagePreload}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  <BrandPageLayout brand={brand} client:only="react" />
+  <!-- ⭐ client:load use kiya hai taaki page turant load ho -->
+  <BrandPageLayout brand={brandData} client:load />
 </Layout>

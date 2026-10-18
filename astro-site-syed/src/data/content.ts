@@ -14,7 +14,7 @@ export const BUSINESS_DETAILS = {
   state: 'Karnataka',
   pincodePlaceholder: '560001',
   workingHours: '8:00 AM - 9:00 PM (All 7 Days)',
-  email: 'contact@roservicesupport.co.in',
+  email: 'contact@roservicecare24x7.co.in',
   formSubmitEmail: 'syedsmaula786@gmail.com',
   disclaimer: 'Disclaimer: RO Service Support is an independent multi-brand water purifier service center in Bangalore. We provide repair, maintenance, and genuine filter replacement services. Brand names and logos are used strictly for identification and compatibility purposes.',
 };
@@ -96,42 +96,15 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'High TDS output due to exhausted RO membrane or clogged pre-carbon filter',
     ],
     brandFaqs: [
-      {
-        question: 'Are your technicians trained specifically on Kent RO systems?',
-        answer: 'Yes, our senior technicians have extensive hands-on expertise with all Kent models including Kent Grand, Prime, Supreme, Pearl, Mineral RO, and Under-Sink commercial purifiers throughout Bangalore.',
-      },
-      {
-        question: 'Do you provide authentic Kent replacement filters and RO membranes?',
-        answer: 'We exclusively fit certified high-grade sediment filters, coconut shell carbon blocks, Philips UV lamps, and authentic high-rejection RO membranes built to handle Bangalore borewell water.',
-      },
-      {
-        question: 'How fast can a technician arrive at my home in Bangalore?',
-        answer: 'Our local technicians are positioned across Bangalore, reaching your doorstep within 60 to 90 minutes of booking confirmation.',
-      },
-      {
-        question: 'What is the starting cost for Kent RO servicing?',
-        answer: 'Our doorstep inspection and complete diagnostic check starts at just ₹299. If you proceed with recommended filter changes or repairs, this fee is adjusted against the final invoice.',
-      },
-      {
-        question: 'Why is my Kent RO purifier making a continuous beeping sound?',
-        answer: 'A constant beeping alert typically indicates a UV lamp failure or an electronic sensor alert. Our technician will inspect the UV ballast and lamp assembly to resolve the issue on the spot.',
-      },
-      {
-        question: 'What does a Kent Annual Maintenance Contract (AMC) include?',
-        answer: 'Our Kent AMC plan includes 3 scheduled preventive maintenance visits, complete replacement of sediment and carbon filters, membrane health testing, and unlimited free breakdown calls throughout the year.',
-      },
-      {
-        question: 'How do I know when to replace my Kent RO membrane?',
-        answer: 'Key indicators include a noticeable drop in flow rate, a rise in water TDS level, or a flat/unusual taste. We conduct electronic TDS tests before and after any filter replacement to verify membrane performance.',
-      },
-      {
-        question: 'Do you offer a post-service warranty on Kent repairs?',
-        answer: 'Yes, we provide an ironclad 30-day labor warranty on all repair work, along with manufacturer warranties on newly fitted booster pumps, SMPS units, and RO membranes.',
-      },
-      {
-        question: 'Can you adjust the mineral and TDS level on my Kent RO?',
-        answer: 'Yes, our technicians calibrate the built-in Kent TDS controller and mineralizer valve to achieve the ideal 50–120 PPM drinking water range recommended for health.',
-      },
+      { question: 'Are your technicians trained specifically on Kent RO systems?', answer: 'Yes, our senior technicians have extensive hands-on expertise with all Kent models including Kent Grand, Prime, Supreme, Pearl, Mineral RO, and Under-Sink commercial purifiers throughout Bangalore.' },
+      { question: 'Do you provide authentic Kent replacement filters and RO membranes?', answer: 'We exclusively fit certified high-grade sediment filters, coconut shell carbon blocks, Philips UV lamps, and authentic high-rejection RO membranes built to handle Bangalore borewell water.' },
+      { question: 'How fast can a technician arrive at my home in Bangalore?', answer: 'Our local technicians are positioned across Bangalore, reaching your doorstep within 60 to 90 minutes of booking confirmation.' },
+      { question: 'What is the starting cost for Kent RO servicing?', answer: 'Our doorstep inspection and complete diagnostic check starts at just ₹299. If you proceed with recommended filter changes or repairs, this fee is adjusted against the final invoice.' },
+      { question: 'Why is my Kent RO purifier making a continuous beeping sound?', answer: 'A constant beeping alert typically indicates a UV lamp failure or an electronic sensor alert. Our technician will inspect the UV ballast and lamp assembly to resolve the issue on the spot.' },
+      { question: 'What does a Kent Annual Maintenance Contract (AMC) include?', answer: 'Our Kent AMC plan includes 3 scheduled preventive maintenance visits, complete replacement of sediment and carbon filters, membrane health testing, and unlimited free breakdown calls throughout the year.' },
+      { question: 'How do I know when to replace my Kent RO membrane?', answer: 'Key indicators include a noticeable drop in flow rate, a rise in water TDS level, or a flat/unusual taste. We conduct electronic TDS tests before and after any filter replacement to verify membrane performance.' },
+      { question: 'Do you offer a post-service warranty on Kent repairs?', answer: 'Yes, we provide an ironclad 30-day labor warranty on all repair work, along with manufacturer warranties on newly fitted booster pumps, SMPS units, and RO membranes.' },
+      { question: 'Can you adjust the mineral and TDS level on my Kent RO?', answer: 'Yes, our technicians calibrate the built-in Kent TDS controller and mineralizer valve to achieve the ideal 50–120 PPM drinking water range recommended for health.' },
     ],
     popularSearches: [
       'Kent RO service Bangalore',
@@ -141,8 +114,11 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'Kent RO technician near me'
     ],
     showcaseImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1787239134/file_00000000cb9082119ada12e5c50c238d_yb23pj.png',
-    heroImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1786544412/IMG_20260812_194243_himoc3.jpg',
-    heroBgImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_00000000087882078f47eb6ab54f5d99_aeo7v5.png',
+    
+    // ⭐ Local Images Updated Here
+    heroImage: '/images/kent.webp',
+    heroBgImage: '/images/kent.webp',
+    
     partsBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789672646/file_0000000075fc8208a4db72abe1abf045_bakaut.png',
     bottomBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789674504/IMG-20260918-WA0002_whpvlb.jpg',
     serviceImages: {
@@ -186,42 +162,15 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'Metallic or bitter aftertaste in purified drinking water',
     ],
     brandFaqs: [
-      {
-        question: 'How quickly can I get an Aquaguard technician at my residence?',
-        answer: 'Our mobile service network covers every major neighborhood in Bangalore. Once booked, a certified technician arrives at your doorstep within 60 to 90 minutes.',
-      },
-      {
-        question: 'Do you replace authentic Aquaguard Active Copper and Biotron cartridges?',
-        answer: 'Yes, we carry original Active Copper, Mineral Guard, Chemi-Block, and HD RO cartridges designed specifically for Eureka Forbes Aquaguard purifiers.',
-      },
-      {
-        question: 'What is included during an Aquaguard full service visit?',
-        answer: 'A comprehensive check includes input/output TDS measurement, pre-filter candle cleaning, high-pressure pump testing, UV tube inspection, electronic leak test, and sanitized storage tank cleaning.',
-      },
-      {
-        question: 'Why is my Aquaguard blinking a red light and beeping?',
-        answer: 'A flashing red light with an audible beep typically signals that the internal filter lifecycle has elapsed or that the UV sterilizer requires attention. Our technician can replace the needed cartridge and reset the sensor counter on-site.',
-      },
-      {
-        question: 'Do you provide AMC plans for Aquaguard water purifiers in Bangalore?',
-        answer: 'Yes, our Aquaguard Annual Maintenance Contracts provide comprehensive coverage with scheduled filter replacements, regular sanitization visits, and free emergency breakdown calls.',
-      },
-      {
-        question: 'How often should Aquaguard Active Copper cartridges be replaced?',
-        answer: 'We recommend replacing the Active Copper cartridge every 12 months or 6,000 liters to ensure consistent copper infusion and optimum water purity.',
-      },
-      {
-        question: 'Are your service charges fixed and transparent?',
-        answer: 'Yes. Our technician provides a clear, itemized quote after the physical inspection, with zero surprise fees or hidden add-ons.',
-      },
-      {
-        question: 'Do you offer a warranty on Aquaguard replacement parts?',
-        answer: 'All repair work includes our 30-day labor guarantee, plus full warranty coverage on replaced membranes, pumps, and electronics.',
-      },
-      {
-        question: 'Can you handle Aquaguard models with hot & cold water dispensers?',
-        answer: 'Yes, our technicians are trained to service Aquaguard Blaze and other dual-temperature systems, safely testing heating coils and cooling thermostats.',
-      },
+      { question: 'How quickly can I get an Aquaguard technician at my residence?', answer: 'Our mobile service network covers every major neighborhood in Bangalore. Once booked, a certified technician arrives at your doorstep within 60 to 90 minutes.' },
+      { question: 'Do you replace authentic Aquaguard Active Copper and Biotron cartridges?', answer: 'Yes, we carry original Active Copper, Mineral Guard, Chemi-Block, and HD RO cartridges designed specifically for Eureka Forbes Aquaguard purifiers.' },
+      { question: 'What is included during an Aquaguard full service visit?', answer: 'A comprehensive check includes input/output TDS measurement, pre-filter candle cleaning, high-pressure pump testing, UV tube inspection, electronic leak test, and sanitized storage tank cleaning.' },
+      { question: 'Why is my Aquaguard blinking a red light and beeping?', answer: 'A flashing red light with an audible beep typically signals that the internal filter lifecycle has elapsed or that the UV sterilizer requires attention. Our technician can replace the needed cartridge and reset the sensor counter on-site.' },
+      { question: 'Do you provide AMC plans for Aquaguard water purifiers in Bangalore?', answer: 'Yes, our Aquaguard Annual Maintenance Contracts provide comprehensive coverage with scheduled filter replacements, regular sanitization visits, and free emergency breakdown calls.' },
+      { question: 'How often should Aquaguard Active Copper cartridges be replaced?', answer: 'We recommend replacing the Active Copper cartridge every 12 months or 6,000 liters to ensure consistent copper infusion and optimum water purity.' },
+      { question: 'Are your service charges fixed and transparent?', answer: 'Yes. Our technician provides a clear, itemized quote after the physical inspection, with zero surprise fees or hidden add-ons.' },
+      { question: 'Do you offer a warranty on Aquaguard replacement parts?', answer: 'All repair work includes our 30-day labor guarantee, plus full warranty coverage on replaced membranes, pumps, and electronics.' },
+      { question: 'Can you handle Aquaguard models with hot & cold water dispensers?', answer: 'Yes, our technicians are trained to service Aquaguard Blaze and other dual-temperature systems, safely testing heating coils and cooling thermostats.' },
     ],
     popularSearches: [
       'Aquaguard service Bangalore',
@@ -231,8 +180,11 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'Aquaguard technician near me'
     ],
     showcaseImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1787239134/file_000000009e748211af646f5d6dda5fcb_wzukgr.png',
-    heroImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1790093416/IMG-20260922-WA0045_fqt9bj.jpg',
-    heroBgImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_00000000b97c8211b0ff0be33d753076_wncmpj.png',
+
+    // ⭐ Local Images Updated Here
+    heroImage: '/images/aquaguard.webp',
+    heroBgImage: '/images/aquaguard.webp',
+
     partsBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742669/file_00000000dca481f594fbe17b45c4fbf9_o20n4v.png',
     bottomBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742391/IMG-20260918-WA0044_mt8t6n.jpg',
     serviceImages: {
@@ -276,42 +228,15 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'High TDS readings or unpleasant taste after prolonged filter operation',
     ],
     brandFaqs: [
-      {
-        question: 'Do you carry original Pureit Germkill Kits (GKK)?',
-        answer: 'Yes, our technicians carry factory-sealed, genuine Pureit GKK kits for 1500L, 2000L, 3000L, and 6000L purifiers, ensuring authentic replacement on the spot.',
-      },
-      {
-        question: 'My Pureit stopped dispensing water because the light is red. Can you fix it today?',
-        answer: 'Yes! The red indicator is Pureits auto-shutoff safety mechanism. Our technician will visit within 60 to 90 minutes, replace the GKK kit, reset the digital indicator, and restore immediate water flow.',
-      },
-      {
-        question: 'Can you upgrade my Pureit purifier to handle high Bangalore borewell TDS?',
-        answer: 'Absolutely. We can install high-rejection 3000+ PPM RO membranes and auxiliary pre-filter housings to safeguard your Pureit system against heavy borewell sediment.',
-      },
-      {
-        question: 'Does Pureit servicing include storage tank sanitization?',
-        answer: 'Yes, every comprehensive service includes thorough sanitization and descaling of the internal storage reservoir to maintain optimal hygiene.',
-      },
-      {
-        question: 'How long does a Pureit GKK replacement visit take?',
-        answer: 'A standard GKK kit replacement and complete diagnostic inspection typically takes between 30 to 45 minutes right in your home.',
-      },
-      {
-        question: 'What is the cost of Pureit RO servicing in Bangalore?',
-        answer: 'Our doorstep inspection fee is ₹299 (adjusted upon service completion). Replacement GKK kits and parts are priced transparently at fair rates.',
-      },
-      {
-        question: 'Do you provide AMC coverage for Pureit models?',
-        answer: 'Yes, our Pureit AMC contracts cover all regular GKK kit replacements, preventive checkups, and unlimited breakdown repairs with zero labor charges.',
-      },
-      {
-        question: 'Are your technicians certified for Pureit digital models?',
-        answer: 'Our technicians possess specialized diagnostic tools to decode error alerts on digital displays for Pureit Ultima, Copper RO, and Marvella purifiers.',
-      },
-      {
-        question: 'What warranty is provided on Pureit repair work?',
-        answer: 'We provide a 30-day labor warranty on all repairs, ensuring you have total confidence in our workmanship.',
-      },
+      { question: 'Do you carry original Pureit Germkill Kits (GKK)?', answer: 'Yes, our technicians carry factory-sealed, genuine Pureit GKK kits for 1500L, 2000L, 3000L, and 6000L purifiers, ensuring authentic replacement on the spot.' },
+      { question: 'My Pureit stopped dispensing water because the light is red. Can you fix it today?', answer: 'Yes! The red indicator is Pureits auto-shutoff safety mechanism. Our technician will visit within 60 to 90 minutes, replace the GKK kit, reset the digital indicator, and restore immediate water flow.' },
+      { question: 'Can you upgrade my Pureit purifier to handle high Bangalore borewell TDS?', answer: 'Absolutely. We can install high-rejection 3000+ PPM RO membranes and auxiliary pre-filter housings to safeguard your Pureit system against heavy borewell sediment.' },
+      { question: 'Does Pureit servicing include storage tank sanitization?', answer: 'Yes, every comprehensive service includes thorough sanitization and descaling of the internal storage reservoir to maintain optimal hygiene.' },
+      { question: 'How long does a Pureit GKK replacement visit take?', answer: 'A standard GKK kit replacement and complete diagnostic inspection typically takes between 30 to 45 minutes right in your home.' },
+      { question: 'What is the cost of Pureit RO servicing in Bangalore?', answer: 'Our doorstep inspection fee is ₹299 (adjusted upon service completion). Replacement GKK kits and parts are priced transparently at fair rates.' },
+      { question: 'Do you provide AMC coverage for Pureit models?', answer: 'Yes, our Pureit AMC contracts cover all regular GKK kit replacements, preventive checkups, and unlimited breakdown repairs with zero labor charges.' },
+      { question: 'Are your technicians certified for Pureit digital models?', answer: 'Our technicians possess specialized diagnostic tools to decode error alerts on digital displays for Pureit Ultima, Copper RO, and Marvella purifiers.' },
+      { question: 'What warranty is provided on Pureit repair work?', answer: 'We provide a 30-day labor warranty on all repairs, ensuring you have total confidence in our workmanship.' },
     ],
     popularSearches: [
       'Pureit service Bangalore',
@@ -321,8 +246,11 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'Pureit AMC plan Bangalore'
     ],
     showcaseImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1787239134/file_0000000011a48211aeafadfc49fb86c5_ohr8va.png',
-    heroImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1790093416/IMG-20260922-WA0044_sreaci.jpg',
-    heroBgImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666101/file_00000000c8308206b3080195508f65f9_kdu2po.png',
+
+    // ⭐ Local Images Updated Here
+    heroImage: '/images/pureit.webp',
+    heroBgImage: '/images/pureit.webp',
+
     partsBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742669/file_000000006a7881f89f7423968dbdf36e_nnkyny.png',
     bottomBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742395/file_0000000062e4820b88f376aa9d87322a_zgjamt.png',
     serviceImages: {
@@ -366,42 +294,15 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'Power light blinking intermittently or display unit failure',
     ],
     brandFaqs: [
-      {
-        question: 'Do you carry original AO Smith MIN-TECH and SCM replacement filters?',
-        answer: 'Yes, we stock genuine AO Smith pre-filter cartridges, sediment filters, activated carbon blocks, patented SCM membranes, and MIN-TECH mineral cartridges.',
-      },
-      {
-        question: 'Can you repair heating and hot water dispensing faults on AO Smith Z8/Z9 purifiers?',
-        answer: 'Yes, our senior technicians are certified in repairing heating elements, thermal safety sensors, and PCB controllers on AO Smith hot water RO units.',
-      },
-      {
-        question: 'How fast can an AO Smith technician visit my home in Bangalore?',
-        answer: 'We dispatch a technician within 60 to 90 minutes of your booking confirmation across all Bangalore localities.',
-      },
-      {
-        question: 'Why is my AO Smith purifier continuously beeping?',
-        answer: 'Continuous beeping or illuminated icons indicate filter life expiration or internal pressure imbalance. Our technician will test each stage and reset the digital alert.',
-      },
-      {
-        question: 'What is the visiting and diagnostic fee for AO Smith systems?',
-        answer: 'Our diagnostic inspection is ₹299. All necessary replacement components are quoted clearly before installation.',
-      },
-      {
-        question: 'How often should AO Smith MIN-TECH mineralizer cartridges be replaced?',
-        answer: 'We recommend replacing the MIN-TECH cartridge every 12 months to ensure essential calcium and magnesium minerals are added back to your drinking water.',
-      },
-      {
-        question: 'Do you offer an Annual Maintenance Contract (AMC) for AO Smith purifiers?',
-        answer: 'Yes, our comprehensive AO Smith AMC includes regular preventive servicing, filter changes, membrane checks, and zero-cost breakdown support.',
-      },
-      {
-        question: 'What warranty is offered on AO Smith repair and spare parts?',
-        answer: 'Every service includes a 30-day labor warranty, alongside standard manufacturer warranties on replacement pumps and electronic boards.',
-      },
-      {
-        question: 'Why is my AO Smith RO running wastewater non-stop?',
-        answer: 'This is commonly caused by a faulty auto-shutoff valve or high-pressure switch. Our technician can replace the defective switch on the spot.',
-      },
+      { question: 'Do you carry original AO Smith MIN-TECH and SCM replacement filters?', answer: 'Yes, we stock genuine AO Smith pre-filter cartridges, sediment filters, activated carbon blocks, patented SCM membranes, and MIN-TECH mineral cartridges.' },
+      { question: 'Can you repair heating and hot water dispensing faults on AO Smith Z8/Z9 purifiers?', answer: 'Yes, our senior technicians are certified in repairing heating elements, thermal safety sensors, and PCB controllers on AO Smith hot water RO units.' },
+      { question: 'How fast can an AO Smith technician visit my home in Bangalore?', answer: 'We dispatch a technician within 60 to 90 minutes of your booking confirmation across all Bangalore localities.' },
+      { question: 'Why is my AO Smith purifier continuously beeping?', answer: 'Continuous beeping or illuminated icons indicate filter life expiration or internal pressure imbalance. Our technician will test each stage and reset the digital alert.' },
+      { question: 'What is the visiting and diagnostic fee for AO Smith systems?', answer: 'Our diagnostic inspection is ₹299. All necessary replacement components are quoted clearly before installation.' },
+      { question: 'How often should AO Smith MIN-TECH mineralizer cartridges be replaced?', answer: 'We recommend replacing the MIN-TECH cartridge every 12 months to ensure essential calcium and magnesium minerals are added back to your drinking water.' },
+      { question: 'Do you offer an Annual Maintenance Contract (AMC) for AO Smith purifiers?', answer: 'Yes, our comprehensive AO Smith AMC includes regular preventive servicing, filter changes, membrane checks, and zero-cost breakdown support.' },
+      { question: 'What warranty is offered on AO Smith repair and spare parts?', answer: 'Every service includes a 30-day labor warranty, alongside standard manufacturer warranties on replacement pumps and electronic boards.' },
+      { question: 'Why is my AO Smith RO running wastewater non-stop?', answer: 'This is commonly caused by a faulty auto-shutoff valve or high-pressure switch. Our technician can replace the defective switch on the spot.' },
     ],
     popularSearches: [
       'AO Smith water purifier service Bangalore',
@@ -411,8 +312,11 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'AO Smith AMC cost Bangalore'
     ],
     showcaseImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1787239134/file_00000000fd3c8211b4b336a783a3474e_wzjdjr.png',
-    heroImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789748961/IMG-20260918-WA0071_woclww.jpg',
-    heroBgImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789748961/IMG-20260918-WA0071_woclww.jpg',
+
+    // ⭐ Local Images Updated Here
+    heroImage: '/images/ao-smith.webp',
+    heroBgImage: '/images/ao-smith.webp',
+
     partsBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742670/file_0000000009ec81fdad912727b6638014_jadzuy.png',
     bottomBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742391/IMG-20260918-WA0043_lofbp9.jpg',
     serviceImages: {
@@ -456,42 +360,15 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'Water taste has turned bitter or sour indicating depleted RO membrane',
     ],
     brandFaqs: [
-      {
-        question: 'Why is my Livpure water purifier not dispensing water?',
-        answer: 'Possible causes include a choked sediment pre-filter, low municipal/borewell water inlet pressure, an exhausted RO membrane, or a faulty solenoid valve. Our technician checks the full pipeline.',
-      },
-      {
-        question: 'How fast can a Livpure RO technician reach my location in Bangalore?',
-        answer: 'Our certified mobile technicians are stationed across Bangalore, reaching your doorstep within 60 to 90 minutes of booking.',
-      },
-      {
-        question: 'How often should Livpure filters and membranes be replaced?',
-        answer: 'Sediment and carbon pre-filters should generally be replaced every 6 to 12 months, while the high-rejection RO membrane typically lasts 18 to 24 months based on input TDS levels.',
-      },
-      {
-        question: 'Do you supply genuine Livpure-compatible replacement filters and membranes?',
-        answer: 'Yes, we supply authentic Livpure-compatible sediment filters, activated pre-carbon blocks, post-carbon mineralizers, and certified high-rejection RO membranes.',
-      },
-      {
-        question: 'What is the diagnostic inspection fee for Livpure water purifiers?',
-        answer: 'Our doorstep inspection and diagnosis fee is ₹299. If you approve our recommended service or part replacement, this fee is adjusted on your final invoice.',
-      },
-      {
-        question: 'Do you provide Annual Maintenance Contracts (AMC) for Livpure purifiers in Bangalore?',
-        answer: 'Yes! Our Livpure AMC plan offers comprehensive yearly protection with scheduled preventive servicing, free replacement filters, and unlimited emergency breakdown visits.',
-      },
-      {
-        question: 'Can you repair Livpure smart touch panels and digital sensors?',
-        answer: 'Yes, our technicians specialize in repairing touch sensors, smart LED indicators, PCB motherboards, and electronic dispensing switches for Livpure Touch and Bolt models.',
-      },
-      {
-        question: 'What warranty is offered on Livpure repair services?',
-        answer: 'Every service includes a 30-day labor warranty and standard replacement warranties on all installed spare parts and pumps.',
-      },
-      {
-        question: 'Can you test and calibrate the output TDS on my Livpure RO machine?',
-        answer: 'Yes, our technicians carry calibrated digital TDS meters to balance output minerals, ensuring fresh, sweet, and healthy drinking water.',
-      },
+      { question: 'Why is my Livpure water purifier not dispensing water?', answer: 'Possible causes include a choked sediment pre-filter, low municipal/borewell water inlet pressure, an exhausted RO membrane, or a faulty solenoid valve. Our technician checks the full pipeline.' },
+      { question: 'How fast can a Livpure RO technician reach my location in Bangalore?', answer: 'Our certified mobile technicians are stationed across Bangalore, reaching your doorstep within 60 to 90 minutes of booking.' },
+      { question: 'How often should Livpure filters and membranes be replaced?', answer: 'Sediment and carbon pre-filters should generally be replaced every 6 to 12 months, while the high-rejection RO membrane typically lasts 18 to 24 months based on input TDS levels.' },
+      { question: 'Do you supply genuine Livpure-compatible replacement filters and membranes?', answer: 'Yes, we supply authentic Livpure-compatible sediment filters, activated pre-carbon blocks, post-carbon mineralizers, and certified high-rejection RO membranes.' },
+      { question: 'What is the diagnostic inspection fee for Livpure water purifiers?', answer: 'Our doorstep inspection and diagnosis fee is ₹299. If you approve our recommended service or part replacement, this fee is adjusted on your final invoice.' },
+      { question: 'Do you provide Annual Maintenance Contracts (AMC) for Livpure purifiers in Bangalore?', answer: 'Yes! Our Livpure AMC plan offers comprehensive yearly protection with scheduled preventive servicing, free replacement filters, and unlimited emergency breakdown visits.' },
+      { question: 'Can you repair Livpure smart touch panels and digital sensors?', answer: 'Yes, our technicians specialize in repairing touch sensors, smart LED indicators, PCB motherboards, and electronic dispensing switches for Livpure Touch and Bolt models.' },
+      { question: 'What warranty is offered on Livpure repair services?', answer: 'Every service includes a 30-day labor warranty and standard replacement warranties on all installed spare parts and pumps.' },
+      { question: 'Can you test and calibrate the output TDS on my Livpure RO machine?', answer: 'Yes, our technicians carry calibrated digital TDS meters to balance output minerals, ensuring fresh, sweet, and healthy drinking water.' },
     ],
     popularSearches: [
       'Livpure water purifier service Bangalore',
@@ -502,8 +379,11 @@ export const BRAND_PAGES_DATA: Record<string, BrandInfo> = {
       'Livpure technician Bangalore'
     ],
     showcaseImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1787239134/file_00000000cb9082119ada12e5c50c238d_yb23pj.png',
-    heroImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1786544412/IMG_20260812_194243_himoc3.jpg',
-    heroBgImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_0000000053b082099c9bb495de926e14_zlptot.png',
+
+    // ⭐ Local Images Updated Here
+    heroImage: '/images/livpure.webp',
+    heroBgImage: '/images/livpure.webp',
+
     partsBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742670/file_00000000980c8230b73a31ab0aba807a_jujtjk.png',
     bottomBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742391/IMG-20260918-WA0045_otqkvz.jpg',
     serviceImages: {
@@ -549,233 +429,47 @@ export const BANGALORE_LOCALITIES = [
 ];
 
 export const HOMEPAGE_FAQS: FAQItem[] = [
-  {
-    question: 'How quickly can a service technician visit my home in Bangalore?',
-    answer: 'We provide prompt 60 to 90 minute doorstep service across all Bangalore areas including Whitefield, Koramangala, HSR Layout, Indiranagar, Electronic City, Marathahalli, Bellandur, Hebbal, and Jayanagar. You can book online or call 070901 70092 for immediate dispatch.',
-  },
-  {
-    question: 'Which water purifier brands do you repair and service in Bangalore?',
-    answer: 'We service all leading domestic and commercial water purifier brands including Kent, Aquaguard (Eureka Forbes), Pureit, AO Smith, Livpure, Blue Star, Havells, V-Guard, Zero B, and custom multi-stage RO+UV+UF systems.',
-  },
-  {
-    question: 'What is the visiting and diagnostic inspection fee?',
-    answer: 'Our initial doorstep inspection and diagnostic check fee is just ₹299. If you proceed with the recommended repair or filter replacement through us, this fee is adjusted against your final invoice.',
-  },
-  {
-    question: 'How often should RO water purifier filters and membranes be replaced?',
-    answer: 'Sediment and Activated Carbon pre-filters should generally be replaced every 6 to 12 months depending on raw water turbidity and daily usage. High-TDS RO Membranes typically last 18 to 24 months. We conduct digital TDS testing before and after service to verify performance.',
-  },
-  {
-    question: 'What is included in an Annual Maintenance Contract (AMC)?',
-    answer: 'Our comprehensive AMC plan includes 3 scheduled preventive maintenance visits per year, complete replacement of sediment and carbon filters, RO membrane health testing, zero labor charges on breakdown visits, and priority technician dispatch across Bangalore.',
-  },
-  {
-    question: 'Do you use 100% genuine spare parts and high-rejection membranes?',
-    answer: 'Yes! We strictly install certified high-density sediment cartridges, coconut-shell activated carbon blocks, high-TDS rejection RO membranes, heavy-duty booster pumps, and food-grade silicone tubing for long-lasting reliability.',
-  },
-  {
-    question: 'Do you offer a warranty on repairs and replaced parts?',
-    answer: 'Yes, we provide a 30-day labor warranty on our workmanship and up to 1-year manufacturer warranty on major replaced components including booster pumps, SMPS power adapters, and RO membranes.',
-  },
-  {
-    question: 'What are the main warning signs that my RO purifier needs immediate repair?',
-    answer: 'Key warning signs include continuous water leakage from the bottom or pipes, low or stopped water output, foul smell or bitter/metallic taste, loud pump buzzing/vibrations, and persistent beeping or red indicator error lights.',
-  },
-  {
-    question: 'What is the ideal TDS level for drinking water after RO purification?',
-    answer: 'According to WHO and BIS guidelines, ideal drinking water TDS ranges between 50 and 150 PPM. Our technician tests both input and output water with a calibrated digital TDS meter and adjusts the mineralizer or TDS modulator to ensure healthy essential mineral retention.',
-  },
-  {
-    question: 'What causes foul odor or bitter taste in purified water?',
-    answer: 'Unpleasant taste or odor usually stems from an exhausted post-carbon polish filter, bio-film accumulation in the internal storage tank, or an expired RO membrane. Our technician sanitizes the storage tank and installs silver-impregnated carbon blocks to restore refreshing water taste.',
-  },
-  {
-    question: 'Why does reject water continuously leak or drain even when the tank is full?',
-    answer: 'Continuous reject drain flow even after the purified tank is full is typically caused by a failing Auto Cut-Off Solenoid Valve (SV) or low pressure cutoff switch. This wastes significant water and strains the booster pump. Our technician carries genuine replacement solenoid valves to fix this on the spot.',
-  },
-  {
-    question: 'Do you supply genuine booster pumps, SMPS adapters, and UV lamps?',
-    answer: 'Yes! We stock certified high-pressure copper-wound booster pumps (75 GPD / 100 GPD), surge-protected SMPS power adapters, long-life quartz glass UV lamps, and leak-proof push-fit connectors with manufacturer-backed replacement warranties.',
-  },
-  {
-    question: 'Can you uninstall, shift, and reinstall my water purifier when moving homes in Bangalore?',
-    answer: 'Absolutely! We provide safe de-installation, protective transit packaging, and complete re-installation at your new apartment or home anywhere in Bangalore, including wall drilling, plumbing inlet connections, and high-pressure leak testing.',
-  },
-  {
-    question: 'What immediate steps should I take if my RO machine starts leaking water on the floor?',
-    answer: 'Immediately shut off the cold water divertor valve feeding the purifier and unplug the electrical adapter from the wall socket to prevent electrical hazards. Then call our Bangalore helpline at 070901 70092 for prompt 60–90 minute doorstep emergency assistance.',
-  },
-  {
-    question: 'Is borewell or tanker water with high TDS suitable for domestic RO purifiers?',
-    answer: 'Yes. Many Bangalore localities depend on deep borewells or private water tankers with TDS exceeding 1000–1800 PPM and high mineral hardness. We equip your system with high-rejection anti-scalant membranes capable of purifying input water up to 2500 PPM TDS.',
-  },
-  {
-    question: 'How long does a typical doorstep servicing or filter change visit take?',
-    answer: 'A standard preventive maintenance and filter cartridge change visit takes around 45 to 60 minutes. This includes multi-stage physical inspection, cartridge replacement, electrical safety check, tank disinfection, and digital pre/post TDS verification.',
-  },
-  {
-    question: 'Are service engineers available on weekends and holidays across Bangalore?',
-    answer: 'Yes, our service engineers operate 7 days a week from 8:00 AM to 9:00 PM, including Saturdays, Sundays, and public holidays across all Bangalore zones, ensuring you never run out of clean drinking water.',
-  },
-  {
-    question: 'What payment options are available once the service is completed?',
-    answer: 'We provide complete post-service billing with no advance fees. Once you inspect the purifier and verify water purity, you can pay conveniently via UPI (Google Pay, PhonePe, Paytm), debit/credit card, net banking, or cash.',
-  },
+  { question: 'How quickly can a service technician visit my home in Bangalore?', answer: 'We provide prompt 60 to 90 minute doorstep service across all Bangalore areas including Whitefield, Koramangala, HSR Layout, Indiranagar, Electronic City, Marathahalli, Bellandur, Hebbal, and Jayanagar. You can book online or call 070901 70092 for immediate dispatch.' },
+  { question: 'Which water purifier brands do you repair and service in Bangalore?', answer: 'We service all leading domestic and commercial water purifier brands including Kent, Aquaguard (Eureka Forbes), Pureit, AO Smith, Livpure, Blue Star, Havells, V-Guard, Zero B, and custom multi-stage RO+UV+UF systems.' },
+  { question: 'What is the visiting and diagnostic inspection fee?', answer: 'Our initial doorstep inspection and diagnostic check fee is just ₹299. If you proceed with the recommended repair or filter replacement through us, this fee is adjusted against your final invoice.' },
+  { question: 'How often should RO water purifier filters and membranes be replaced?', answer: 'Sediment and Activated Carbon pre-filters should generally be replaced every 6 to 12 months depending on raw water turbidity and daily usage. High-TDS RO Membranes typically last 18 to 24 months. We conduct digital TDS testing before and after service to verify performance.' },
+  { question: 'What is included in an Annual Maintenance Contract (AMC)?', answer: 'Our comprehensive AMC plan includes 3 scheduled preventive maintenance visits per year, complete replacement of sediment and carbon filters, RO membrane health testing, zero labor charges on breakdown visits, and priority technician dispatch across Bangalore.' },
+  { question: 'Do you use 100% genuine spare parts and high-rejection membranes?', answer: 'Yes! We strictly install certified high-density sediment cartridges, coconut-shell activated carbon blocks, high-TDS rejection RO membranes, heavy-duty booster pumps, and food-grade silicone tubing for long-lasting reliability.' },
+  { question: 'Do you offer a warranty on repairs and replaced parts?', answer: 'Yes, we provide a 30-day labor warranty on our workmanship and up to 1-year manufacturer warranty on major replaced components including booster pumps, SMPS power adapters, and RO membranes.' },
+  { question: 'What are the main warning signs that my RO purifier needs immediate repair?', answer: 'Key warning signs include continuous water leakage from the bottom or pipes, low or stopped water output, foul smell or bitter/metallic taste, loud pump buzzing/vibrations, and persistent beeping or red indicator error lights.' },
+  { question: 'What is the ideal TDS level for drinking water after RO purification?', answer: 'According to WHO and BIS guidelines, ideal drinking water TDS ranges between 50 and 150 PPM. Our technician tests both input and output water with a calibrated digital TDS meter and adjusts the mineralizer or TDS modulator to ensure healthy essential mineral retention.' },
+  { question: 'What causes foul odor or bitter taste in purified water?', answer: 'Unpleasant taste or odor usually stems from an exhausted post-carbon polish filter, bio-film accumulation in the internal storage tank, or an expired RO membrane. Our technician sanitizes the storage tank and installs silver-impregnated carbon blocks to restore refreshing water taste.' },
+  { question: 'Why does reject water continuously leak or drain even when the tank is full?', answer: 'Continuous reject drain flow even after the purified tank is full is typically caused by a failing Auto Cut-Off Solenoid Valve (SV) or low pressure cutoff switch. This wastes significant water and strains the booster pump. Our technician carries genuine replacement solenoid valves to fix this on the spot.' },
+  { question: 'Do you supply genuine booster pumps, SMPS adapters, and UV lamps?', answer: 'Yes! We stock certified high-pressure copper-wound booster pumps (75 GPD / 100 GPD), surge-protected SMPS power adapters, long-life quartz glass UV lamps, and leak-proof push-fit connectors with manufacturer-backed replacement warranties.' },
+  { question: 'Can you uninstall, shift, and reinstall my water purifier when moving homes in Bangalore?', answer: 'Absolutely! We provide safe de-installation, protective transit packaging, and complete re-installation at your new apartment or home anywhere in Bangalore, including wall drilling, plumbing inlet connections, and high-pressure leak testing.' },
+  { question: 'What immediate steps should I take if my RO machine starts leaking water on the floor?', answer: 'Immediately shut off the cold water divertor valve feeding the purifier and unplug the electrical adapter from the wall socket to prevent electrical hazards. Then call our Bangalore helpline at 070901 70092 for prompt 60–90 minute doorstep emergency assistance.' },
+  { question: 'Is borewell or tanker water with high TDS suitable for domestic RO purifiers?', answer: 'Yes. Many Bangalore localities depend on deep borewells or private water tankers with TDS exceeding 1000–1800 PPM and high mineral hardness. We equip your system with high-rejection anti-scalant membranes capable of purifying input water up to 2500 PPM TDS.' },
+  { question: 'How long does a typical doorstep servicing or filter change visit take?', answer: 'A standard preventive maintenance and filter cartridge change visit takes around 45 to 60 minutes. This includes multi-stage physical inspection, cartridge replacement, electrical safety check, tank disinfection, and digital pre/post TDS verification.' },
+  { question: 'Are service engineers available on weekends and holidays across Bangalore?', answer: 'Yes, our service engineers operate 7 days a week from 8:00 AM to 9:00 PM, including Saturdays, Sundays, and public holidays across all Bangalore zones, ensuring you never run out of clean drinking water.' },
+  { question: 'What payment options are available once the service is completed?', answer: 'We provide complete post-service billing with no advance fees. Once you inspect the purifier and verify water purity, you can pay conveniently via UPI (Google Pay, PhonePe, Paytm), debit/credit card, net banking, or cash.' },
 ];
 
 export const HOMEPAGE_TESTIMONIALS: Testimonial[] = [
-  {
-    id: 't1',
-    name: 'Suresh Kumar',
-    locality: 'Whitefield, Bangalore',
-    rating: 5,
-    brandServiced: 'Kent Grand Plus',
-    comment: 'My Kent RO started leaking from the bottom connectors. The technician arrived within 40 minutes of calling 070901 70092, fixed the leak, and replaced the sediment filter cleanly. Very transparent pricing!',
-    date: '2 days ago',
-  },
-  {
-    id: 't2',
-    name: 'Ananya Sharma',
-    locality: 'Koramangala 4th Block',
-    rating: 5,
-    brandServiced: 'Aquaguard Active Copper',
-    comment: 'Courteous and skilled technician. Tested our water TDS before and after service (dropped from 580 to 42 PPM). Great communication, no hidden fees, and excellent water taste.',
-    date: '1 week ago',
-  },
-  {
-    id: 't3',
-    name: 'Praveen Reddy',
-    locality: 'HSR Layout Sector 1',
-    rating: 5,
-    brandServiced: 'Pureit Ultima RO',
-    comment: 'Got my Pureit GKK kit replaced on a Sunday morning. The team arranged a technician in under an hour. Quick job, genuine sealed parts, and digital receipt provided.',
-    date: '2 weeks ago',
-  },
-  {
-    id: 't4',
-    name: 'Meenakshi Sundaram',
-    locality: 'Indiranagar 100ft Road',
-    rating: 5,
-    brandServiced: 'AO Smith Z8',
-    comment: 'Opted for their Annual Maintenance Contract for our AO Smith purifier. Smooth booking process, thorough preventive inspection, and water tastes completely fresh again.',
-    date: '3 weeks ago',
-  },
-  {
-    id: 't5',
-    name: 'Rahul Verma',
-    locality: 'Hebbal',
-    rating: 5,
-    brandServiced: 'Livpure Smart',
-    comment: 'The Livpure machine was making a loud vibrating noise. Technician quickly identified a faulty booster pump and replaced it with a genuine spare. Runs perfectly silent now.',
-    date: '1 month ago',
-  },
-  {
-    id: 't6',
-    name: 'Sneha Rao',
-    locality: 'JP Nagar 7th Phase',
-    rating: 5,
-    brandServiced: 'Livpure Touch',
-    comment: 'Amazing service! The technician arrived within 70 minutes, replaced the sediment cartridge and calibrated the TDS level. Water taste is fresh and pure now. Highly recommended!',
-    date: '1 month ago',
-  },
-  {
-    id: 't7',
-    name: 'Vikram Singh',
-    locality: 'BTM Layout',
-    rating: 4,
-    brandServiced: 'Havells Max',
-    comment: 'Good experience overall. The technician arrived a bit late due to traffic but did a very professional job replacing the UV lamp and checking all connections.',
-    date: '2 months ago',
-  },
-  {
-    id: 't8',
-    name: 'Priya Desai',
-    locality: 'Malleshwaram',
-    rating: 5,
-    brandServiced: 'Blue Star Excella',
-    comment: 'We have an older Blue Star model and were struggling to find authentic filters. These guys brought the exact matching filters. Very knowledgeable team.',
-    date: '2 months ago',
-  },
-  {
-    id: 't9',
-    name: 'Amit Kulkarni',
-    locality: 'Banashankari',
-    rating: 5,
-    brandServiced: 'Kent Supreme',
-    comment: 'Booked a complete RO membrane overhaul. The water taste improved dramatically. They even showed me the TDS readings before and after the membrane swap.',
-    date: '2 months ago',
-  },
-  {
-    id: 't10',
-    name: 'Pooja Shetty',
-    locality: 'Electronic City Phase 1',
-    rating: 5,
-    brandServiced: 'Eureka Forbes Aquaguard',
-    comment: 'Extremely polite technician. He didn\'t just replace the filters but also cleaned the entire outer casing and explained how to maintain the purifier. 5 stars!',
-    date: '3 months ago',
-  },
-  {
-    id: 't11',
-    name: 'Kiran Kumar',
-    locality: 'Marathahalli',
-    rating: 5,
-    brandServiced: 'Pureit Eco Water Saver',
-    comment: 'Our purifier stopped powering on. Thought the motherboard was dead, but the technician honestly diagnosed it as a simple SMPS adapter issue. Saved us a lot of money.',
-    date: '3 months ago',
-  },
-  {
-    id: 't12',
-    name: 'Neha Patil',
-    locality: 'Bellandur',
-    rating: 4,
-    brandServiced: 'Zero B',
-    comment: 'Quick and hassle-free AMC renewal. They keep track of the filter replacement schedule and call me when it is due. Very convenient for working professionals.',
-    date: '4 months ago',
-  },
-  {
-    id: 't13',
-    name: 'Rajesh Iyer',
-    locality: 'Rajajinagar',
-    rating: 5,
-    brandServiced: 'AO Smith Green',
-    comment: 'Had a major leakage issue that flooded our kitchen counter. Called them at 8 AM, and the issue was fixed by 9:30 AM. Excellent emergency response.',
-    date: '4 months ago',
-  },
-  {
-    id: 't14',
-    name: 'Swati Reddy',
-    locality: 'Yelahanka',
-    rating: 5,
-    brandServiced: 'Kent Pearl',
-    comment: 'Used their uninstallation and reinstallation service when shifting houses. They handled the equipment carefully and set it up perfectly at the new place without any leaks.',
-    date: '5 months ago',
-  },
+  { id: 't1', name: 'Suresh Kumar', locality: 'Whitefield, Bangalore', rating: 5, brandServiced: 'Kent Grand Plus', comment: 'My Kent RO started leaking from the bottom connectors. The technician arrived within 40 minutes of calling 070901 70092, fixed the leak, and replaced the sediment filter cleanly. Very transparent pricing!', date: '2 days ago' },
+  { id: 't2', name: 'Ananya Sharma', locality: 'Koramangala 4th Block', rating: 5, brandServiced: 'Aquaguard Active Copper', comment: 'Courteous and skilled technician. Tested our water TDS before and after service (dropped from 580 to 42 PPM). Great communication, no hidden fees, and excellent water taste.', date: '1 week ago' },
+  { id: 't3', name: 'Praveen Reddy', locality: 'HSR Layout Sector 1', rating: 5, brandServiced: 'Pureit Ultima RO', comment: 'Got my Pureit GKK kit replaced on a Sunday morning. The team arranged a technician in under an hour. Quick job, genuine sealed parts, and digital receipt provided.', date: '2 weeks ago' },
+  { id: 't4', name: 'Meenakshi Sundaram', locality: 'Indiranagar 100ft Road', rating: 5, brandServiced: 'AO Smith Z8', comment: 'Opted for their Annual Maintenance Contract for our AO Smith purifier. Smooth booking process, thorough preventive inspection, and water tastes completely fresh again.', date: '3 weeks ago' },
+  { id: 't5', name: 'Rahul Verma', locality: 'Hebbal', rating: 5, brandServiced: 'Livpure Smart', comment: 'The Livpure machine was making a loud vibrating noise. Technician quickly identified a faulty booster pump and replaced it with a genuine spare. Runs perfectly silent now.', date: '1 month ago' },
+  { id: 't6', name: 'Sneha Rao', locality: 'JP Nagar 7th Phase', rating: 5, brandServiced: 'Livpure Touch', comment: 'Amazing service! The technician arrived within 70 minutes, replaced the sediment cartridge and calibrated the TDS level. Water taste is fresh and pure now. Highly recommended!', date: '1 month ago' },
+  { id: 't7', name: 'Vikram Singh', locality: 'BTM Layout', rating: 4, brandServiced: 'Havells Max', comment: 'Good experience overall. The technician arrived a bit late due to traffic but did a very professional job replacing the UV lamp and checking all connections.', date: '2 months ago' },
+  { id: 't8', name: 'Priya Desai', locality: 'Malleshwaram', rating: 5, brandServiced: 'Blue Star Excella', comment: 'We have an older Blue Star model and were struggling to find authentic filters. These guys brought the exact matching filters. Very knowledgeable team.', date: '2 months ago' },
+  { id: 't9', name: 'Amit Kulkarni', locality: 'Banashankari', rating: 5, brandServiced: 'Kent Supreme', comment: 'Booked a complete RO membrane overhaul. The water taste improved dramatically. They even showed me the TDS readings before and after the membrane swap.', date: '2 months ago' },
+  { id: 't10', name: 'Pooja Shetty', locality: 'Electronic City Phase 1', rating: 5, brandServiced: 'Eureka Forbes Aquaguard', comment: 'Extremely polite technician. He didn\'t just replace the filters but also cleaned the entire outer casing and explained how to maintain the purifier. 5 stars!', date: '3 months ago' },
+  { id: 't11', name: 'Kiran Kumar', locality: 'Marathahalli', rating: 5, brandServiced: 'Pureit Eco Water Saver', comment: 'Our purifier stopped powering on. Thought the motherboard was dead, but the technician honestly diagnosed it as a simple SMPS adapter issue. Saved us a lot of money.', date: '3 months ago' },
+  { id: 't12', name: 'Neha Patil', locality: 'Bellandur', rating: 4, brandServiced: 'Zero B', comment: 'Quick and hassle-free AMC renewal. They keep track of the filter replacement schedule and call me when it is due. Very convenient for working professionals.', date: '4 months ago' },
+  { id: 't13', name: 'Rajesh Iyer', locality: 'Rajajinagar', rating: 5, brandServiced: 'AO Smith Green', comment: 'Had a major leakage issue that flooded our kitchen counter. Called them at 8 AM, and the issue was fixed by 9:30 AM. Excellent emergency response.', date: '4 months ago' },
+  { id: 't14', name: 'Swati Reddy', locality: 'Yelahanka', rating: 5, brandServiced: 'Kent Pearl', comment: 'Used their uninstallation and reinstallation service when shifting houses. They handled the equipment carefully and set it up perfectly at the new place without any leaks.', date: '5 months ago' },
 ];
 
 export const WHY_CHOOSE_US_POINTS = [
-  {
-    title: 'Experienced & Verified Technicians',
-    description: 'Skilled professionals trained to handle all RO models.',
-    iconName: 'UserCheck',
-  },
-  {
-    title: 'Same-Day Doorstep Service',
-    description: 'Fast response and quick service at your location.',
-    iconName: 'Zap',
-  },
-  {
-    title: 'Affordable & Transparent Pricing',
-    description: 'No hidden charges, clear cost estimates.',
-    iconName: 'Tag',
-  },
-  {
-    title: 'Support for All RO Models',
-    description: 'Old and new water purifiers and RO systems covered.',
-    iconName: 'Wrench',
-  },
-  {
-    title: 'Customer Satisfaction Guaranteed',
-    description: 'Quality service you can trust.',
-    iconName: 'Award',
-  },
+  { title: 'Experienced & Verified Technicians', description: 'Skilled professionals trained to handle all RO models.', iconName: 'UserCheck' },
+  { title: 'Same-Day Doorstep Service', description: 'Fast response and quick service at your location.', iconName: 'Zap' },
+  { title: 'Affordable & Transparent Pricing', description: 'No hidden charges, clear cost estimates.', iconName: 'Tag' },
+  { title: 'Support for All RO Models', description: 'Old and new water purifiers and RO systems covered.', iconName: 'Wrench' },
+  { title: 'Customer Satisfaction Guaranteed', description: 'Quality service you can trust.', iconName: 'Award' },
 ];

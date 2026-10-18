@@ -1,34 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-
 import {
-  Phone,
-  MapPin,
-  Check,
-  ShieldCheck,
-  Headset,
-  Star,
-  Clock,
-  Wrench,
-  Droplets,
-  CheckCircle2,
-  ChevronDown,
-  Search,
-  User,
-  ArrowRight,
-  X,
-  Menu,
-  CheckCircle,
-  Truck,
-  IndianRupee,
-  Settings,
-  HelpCircle,
-  Lock,
-  Loader2,
+  Phone, MapPin, Check, ShieldCheck, Star, Clock, Wrench, CheckCircle2, ChevronDown, Search, User, ArrowRight, X, Menu, CheckCircle, IndianRupee, Settings, HelpCircle, Lock, Loader2, Home
 } from 'lucide-react';
 import type { BrandInfo } from '@/types';
 import { BUSINESS_DETAILS } from '@/data/content';
 import { optimizeCloudinary } from '@/utils/imageOptimizer';
-import { HomeBlogSection } from './HomeBlogSection';
 
 interface BrandPageLayoutProps {
   brand: BrandInfo;
@@ -43,18 +19,65 @@ const BRAND_RELEVANT_FOOTER_KEYWORDS: Record<string, string> = {
   havells: 'Havells RO Repair Bangalore | Havells Water Purifier Service Near Me | Havells Filter Replacement | Havells AMC Service | Havells Service Center | Same Day Havells Repair',
 };
 
+const SEO_CONTENT_DATA: Record<string, { intro: string; sections: { title: string; text: string }[] }> = {
+  kent: {
+    intro: "Searching for a trusted Kent RO service near me? We provide top-rated doorstep Kent water purifier repair, installation, and maintenance in Bangalore. Whether your Kent Grand Plus is leaking or your Kent Prime is showing a UV failure, our certified technicians are just a call away. Get your Kent RO fixed today with a 90-day service warranty and 100% genuine spare parts.",
+    sections: [
+      { title: "1. Kent RO Repair & Filter Replacement", text: "Is your Kent water purifier not working properly? We offer fast, same-day Kent RO repair at your doorstep. From fixing mineral RO issues and water leakage to replacing clogged sediment filters and high-TDS membranes, we do it all. Our technicians use advanced TDS meters to ensure your Kent purifier perfectly balances minerals for safe drinking water. Every repair is backed by a written 90-day warranty." },
+      { title: "2. New Kent RO Installation & Setup", text: "Bought a new Kent RO system? Don't let a local plumber ruin it. We provide professional Kent water purifier installation services in Bangalore. Our team handles the complete wall-mounting setup, checks the inlet water pressure, calibrates the TDS controller, and gives you a full demonstration of how to use and maintain the machine for long-lasting performance." },
+      { title: "3. Kent Annual Maintenance Plans (AMC)", text: "To keep your Kent purifier running smoothly year-round, we offer affordable Kent AMC plans. Regular servicing prevents sudden breakdowns and extends the life of your RO. Our Kent AMC includes scheduled filter cleaning, UV lamp checks, priority customer support, and exclusive discounts on genuine Kent spare parts." }
+    ]
+  },
+  aquaguard: {
+    intro: "Looking for an Aquaguard service center near me? We offer expert doorstep Aquaguard water purifier repair, active copper filter replacement, and AMC services in Bangalore. Whether your Eureka Forbes Aquaguard is blinking a red error light or the water flow has slowed down, our certified technicians can fix it the same day with genuine parts.",
+    sections: [
+      { title: "1. Aquaguard RO Repair & Copper Filter Change", text: "Is your Aquaguard active copper cartridge exhausted? We offer fast doorstep Aquaguard repair. From replacing active copper cartridges and fixing UV sterilizer failures to resolving leakage and motor issues, we do it all. Our experts use original replacement parts to ensure your Aquaguard delivers 100% safe, copper-infused water for your family's health." },
+      { title: "2. New Aquaguard Installation & Setup", text: "Need to install a new Aquaguard purifier? Our certified technicians provide professional installation for all Eureka Forbes models, including Geneus, Enhance, and Blaze. We handle the complete plumbing, pressure testing, and provide a full demo of the hot, cold, and normal water dispensing features to ensure you get the best out of your machine." },
+      { title: "3. Aquaguard AMC & Maintenance", text: "Protect your investment with our comprehensive Aquaguard AMC plans. We offer yearly maintenance contracts that cover scheduled sanitization, filter replacements, and unlimited breakdown visits. Enjoy priority service and zero labor charges with our affordable Aquaguard service plans designed to save you money." }
+    ]
+  },
+  pureit: {
+    intro: "Searching for a reliable Pureit service center near me? We provide same-day doorstep Pureit water purifier repair, Germkill Kit (GKK) replacement, and installation in Bangalore. If your Pureit Ultima is locked with a red indicator or your Marvella is not dispensing water, our experts are just a call away to restore your pure water supply.",
+    sections: [
+      { title: "1. Pureit RO Repair & GKK Replacement", text: "The red indicator on your Pureit means the Germkill Kit is exhausted. We provide fast doorstep replacement of original Pureit GKK kits along with digital sensor resets. From fixing motor noise and water leakage to replacing faulty solenoid valves, our technicians handle all Pureit models efficiently and affordably." },
+      { title: "2. New Pureit Installation & Setup", text: "Bought a new Pureit RO system? Our professionals offer seamless installation for all Pureit models, including Eco Water Saver and Copper RO. We ensure proper wall mounting, water inlet connection, and perform a complete TDS and purity test right after installation to guarantee your family's safety and peace of mind." },
+      { title: "3. Pureit AMC & Maintenance Plans", text: "Keep your Pureit running smoothly with our affordable AMC plans. Our annual maintenance covers scheduled GKK replacements, internal tank sanitization, and priority breakdown support. Save money and stay worry-free with our genuine Pureit service contracts tailored for Bangalore households." }
+    ]
+  },
+  'ao-smith': {
+    intro: "Looking for expert AO Smith RO service near me? We specialize in doorstep repair, SCM membrane replacement, and AMC for all AO Smith water purifiers in Bangalore. Whether your AO Smith Z8 hot water function has failed or your ProPlanet is leaking, our certified technicians use genuine MIN-TECH and SCM parts for a perfect fix.",
+    sections: [
+      { title: "1. AO Smith RO Repair & SCM Filter Change", text: "Is your AO Smith purifier showing a filter change alert? We offer premium doorstep repair for all AO Smith models, including Z8, Z9, X8, and Green Series. From replacing the patented SCM membrane and MIN-TECH mineralizer to fixing electronic PCB and hot water heating elements, we do it all with precision." },
+      { title: "2. New AO Smith Installation & Setup", text: "Proper installation is key to AO Smith's advanced technology. Our trained technicians ensure correct wall mounting, precise inlet plumbing, and optimal water pressure balancing. We also demonstrate how to use the digital touch panel and MIN-TECH mineralizer controls to get the best-tasting water." },
+      { title: "3. AO Smith AMC & Priority Support", text: "Our specialized AO Smith AMC plans offer complete peace of mind. We cover scheduled preventive maintenance, genuine filter replacements, and provide priority emergency support. Ensure your premium AO Smith purifier always delivers pure, mineral-rich water without any sudden repair costs." }
+    ]
+  },
+  livpure: {
+    intro: "Searching for a trusted Livpure water purifier service near me? We provide fast doorstep Livpure RO repair, filter replacement, and installation in Bangalore. If your Livpure Bolt or Touch model has a blocked filter or an unresponsive touch panel, our expert technicians are ready to fix it the same day with original spare parts.",
+    sections: [
+      { title: "1. Livpure RO Repair & 7-Stage Filter Replacement", text: "Is your Livpure purifier dispensing water slowly? We offer complete doorstep repair, including the replacement of 7-stage filters, RO membranes, and booster pumps. From fixing smart touch panel errors to resolving leakage, we use 100% genuine Livpure-compatible parts to restore your water quality and machine performance." },
+      { title: "2. New Livpure Installation & Setup", text: "Get your new Livpure water purifier installed by experts. We handle safe wall mounting, inlet water connection, and pressure testing for all Livpure models. Our technicians will also calibrate the TDS controller and show you how to operate the smart LED indicators and maintenance alerts." },
+      { title: "3. Livpure AMC & Maintenance Plans", text: "Keep your Livpure purifier in top condition with our affordable AMC plans. Our comprehensive contracts include scheduled filter cleaning, deep tank sanitization, and unlimited breakdown support. Get priority service and save money on expensive repairs with our reliable Livpure service network." }
+    ]
+  }
+};
+
+const defaultSeoContent = {
+  intro: "Searching for a trusted RO service near me? We provide top-rated doorstep repair, installation, and maintenance for all major water purifier brands. Whether your purifier is leaking, making noise, or giving bad-tasting water, our certified technicians are just a call away. Get your water purifier fixed today with a 90-day service warranty and 100% genuine spare parts.",
+  sections: [
+    { title: "1. RO Repair & Filter Replacement", text: "Is your RO water purifier not working properly? We offer fast, same-day water purifier repair at your doorstep. From fixing motor issues and water leakage to replacing clogged filters and membranes, we do it all. Our technicians use advanced TDS meters to ensure your water is perfectly safe to drink. Every repair is backed by a written 90-day warranty for your peace of mind." },
+    { title: "2. New RO Installation & Setup", text: "Bought a new RO system? Don't let a local plumber ruin it. We provide professional new RO installation services for homes and offices. Our team handles the complete setup, checks the inlet water pressure, calibrates the TDS levels, and gives you a full demonstration of how to use and maintain the machine. We also offer free water testing after installation." },
+    { title: "3. Annual Maintenance Plans (AMC)", text: "To keep your purifier running smoothly year-round, we offer affordable AMC plans. Regular servicing prevents sudden breakdowns and extends the life of your RO. Our AMC includes scheduled filter cleaning, priority customer support, and discounts on genuine spare parts." }
+  ]
+};
+
 export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showBlog, setShowBlog] = useState(false);
-  const blogSectionRef = useRef<HTMLDivElement>(null);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const brandDisplayName =
-    brand.id === 'ro-service-24x7' || brand.name.toLowerCase().includes('multi-brand') || brand.name.toLowerCase().includes('ro service center')
-      ? 'RO' : brand.name === 'KENT' ? 'Kent' : brand.name;
-
+  const brandDisplayName = brand.id === 'ro-service-24x7' || brand.name.toLowerCase().includes('multi-brand') || brand.name.toLowerCase().includes('ro service center') ? 'RO' : brand.name === 'KENT' ? 'Kent' : brand.name;
   const lookingForHeading = `${brandDisplayName} Water Purifier Repair Service Bangalore`;
   const isHomepage = brand.id === 'ro-service-24x7' || brand.slug === '/' || brand.name.toLowerCase().includes('ro service center');
 
@@ -91,6 +114,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [pincode, setPincode] = useState('');
+  const [address, setAddress] = useState(''); 
   const [serviceType, setServiceType] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState('');
@@ -130,36 +154,24 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
   const displayPhone = BUSINESS_DETAILS.phone;
   const formEmail = 'syedsmaula786@gmail.com';
 
-  const heroImageRaw = brand.heroBgImage || (
-    brand.id === 'ro-service-24x7' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813499/IMG-20260918-WA0073_qesfc9.jpg'
-      : brand.id === 'aquaguard' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_00000000b97c8211b0ff0be33d753076_wncmpj.png'
-      : brand.id === 'livpure' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_0000000053b082099c9bb495de926e14_zlptot.png'
-      : brand.id === 'pureit' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666101/file_00000000c8308206b3080195508f65f9_kdu2po.png'
-      : brand.id === 'ao-smith' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789748961/IMG-20260918-WA0071_woclww.jpg'
-      : 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789666091/file_00000000087882078f47eb6ab54f5d99_aeo7v5.png'
-  );
-  const heroImageToDisplay = optimizeCloudinary(heroImageRaw, { width: 1200, quality: 'auto:good' });
-  const heroImageMobile = optimizeCloudinary(heroImageRaw, { width: 600, quality: 'auto:good' });
+  const heroImageRaw = brand.heroBgImage || '/images/hero-bg.webp';
+  const heroImageToDisplay = heroImageRaw.startsWith('http') ? optimizeCloudinary(heroImageRaw, { width: 1200, quality: 'auto:good' }) : heroImageRaw;
+  const heroImageMobile = heroImageRaw.startsWith('http') ? optimizeCloudinary(heroImageRaw, { width: 600, quality: 'auto:good' }) : heroImageRaw;
 
-  const bottomBannerRaw = brand.bottomBannerImage || (
-    brand.id === 'ro-service-24x7' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789744714/file_00000000c0e082118f500d75d9418d25_a6woez.png'
-      : brand.id === 'pureit' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742395/file_0000000062e4820b88f376aa9d87322a_zgjamt.png'
-      : brand.id === 'ao-smith' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742391/IMG-20260918-WA0043_lofbp9.jpg'
-      : brand.id === 'livpure' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742391/IMG-20260918-WA0045_otqkvz.jpg'
-      : brand.id === 'aquaguard' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742391/IMG-20260918-WA0044_mt8t6n.jpg'
-      : 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789674504/IMG-20260918-WA0002_whpvlb.jpg'
-  );
-  const bottomBannerToDisplay = optimizeCloudinary(bottomBannerRaw, { width: 1200, quality: 'auto:good' });
+  const bottomBannerToDisplay = '/images/bottom-banner.webp';
+  const currentSeoContent = SEO_CONTENT_DATA[brand.id] || defaultSeoContent;
 
   const toggleFaq = (index: number) => setOpenFaqs((prev) => ({ ...prev, [index]: !prev[index] }));
-  const toggleBlog = () => {
-    setShowBlog(true);
-    setMobileMenuOpen(false);
-    setTimeout(() => blogSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-  };
 
+  // ⭐ HANDLE BOOKING SUBMIT (With Booking ID & Return URL)
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (typeof window !== 'undefined' && (window as any).WM_BLOCKED === true) {
+      alert('Access Restricted: Suspicious activity detected from this device.');
+      return; 
+    }
+
     if (!fullName.trim()) { setFormError('Please enter your full name.'); return; }
     const cleanPhone = phone.replace(/\D/g, '');
     if (!cleanPhone || cleanPhone.length < 10) { setFormError('Please enter a valid 10-digit mobile number.'); return; }
@@ -167,27 +179,48 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     setFormError('');
     setIsSubmitting(true);
 
+    // ⭐ Booking ID Generate Kiya
+    const bookingId = 'RO-' + Math.floor(100000 + Math.random() * 900000);
+    
+    // ⭐ Current Path (Return URL) Nikala
+    const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+
     try {
       await fetch(`https://formsubmit.co/ajax/${formEmail}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
+          'Booking ID': bookingId,
           'Customer Name': fullName.trim(),
           'Mobile Number': cleanPhone,
           'Pincode': pincode.trim() || 'Bangalore (Not specified)',
+          'Address': address.trim() || 'Not specified',
           'Service Type': serviceType,
           'Brand': brand.name,
           'Page URL': typeof window !== 'undefined' ? window.location.href : '',
           'Submitted At': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-          _subject: `New RO Lead: ${fullName.trim()} - ${brand.name} (${cleanPhone})`,
+          _subject: `New RO Lead: ${fullName.trim()} - ${brand.name} (${cleanPhone}) - ID: ${bookingId}`,
           _template: 'table',
           _captcha: 'false',
         }),
       });
+      
       setFormSubmitted(true);
+
+      if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'conversion', { 
+          'send_to': 'AW-NAYA_ID_YAHAN/NAYA_LABEL_YAHAN' 
+        });
+      }
+
+      // ⭐ Thank You Page Par Redirect Karo Booking ID aur Return URL ke sath
+      window.location.href = `/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(currentPath)}`;
+
     } catch (err) {
       console.warn('FormSubmit lead sending note:', err);
       setFormSubmitted(true);
+      // Error aane par bhi redirect karo taaki user atak na jaye
+      window.location.href = `/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(currentPath)}`;
     } finally {
       setIsSubmitting(false);
     }
@@ -225,14 +258,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     setNewsletterSubmitted(true);
   };
 
-  const repairImage = optimizeCloudinary(brand.serviceImages?.repair || (
-    brand.id === 'ro-service-24x7' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789744767/file_0000000072548211b75cdf8e48b91b7d_mmuame.png'
-      : brand.id === 'ao-smith' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789743886/IMG-20260918-WA0051_ov3w2q.jpg'
-      : brand.id === 'pureit' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789743886/IMG-20260918-WA0052_wlnsxq.jpg'
-      : brand.id === 'livpure' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789743886/IMG-20260918-WA0053_jzf7ky.jpg'
-      : brand.id === 'aquaguard' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789743886/IMG-20260918-WA0050_ffapvn.jpg'
-      : 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789669453/IMG-20260917-WA0015_ptidj8.jpg'
-  ), { width: 450, quality: 'auto:good' });
+  const repairImage = '/images/technician.webp';
 
   const servicesList = [
     { title: `Installation of all ${brand.name} models`, description: `Professional doorstep installation for all ${brand.name} RO, UV, and UF water purifiers.` },
@@ -242,22 +268,22 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
   ];
 
   const commonProblems = [
-    { problem: 'Slow water flow', cause: 'Clogged sediment or carbon filter' },
-    { problem: 'Bad taste or smell', cause: 'Exhausted post-carbon filter' },
-    { problem: 'TDS levels rising', cause: 'Membrane degradation' },
-    { problem: 'Motor not running', cause: 'Pump failure or electrical issue' },
-    { problem: 'Water leakage', cause: 'Worn O-rings or cracked housing' },
-    { problem: 'Frequent beeping', cause: 'Filter change alert or sensor issue' },
-    { problem: 'No water storage', cause: 'Float valve malfunction' },
+    { problem: 'High TDS in Borewell Water', cause: 'Rapid scaling and choking of the RO membrane due to high mineral content in Bangalore groundwater.' },
+    { problem: 'Hard Water White Residue', cause: 'Ineffective pre-filters causing white stains on taps, glasses, and internal storage tanks.' },
+    { problem: 'Slow Water Output & Pressure Drop', cause: 'Clogged sediment filters or a weak booster pump unable to push water through the membrane.' },
+    { problem: 'Foul Smell or Algae Growth', cause: 'No UV sterilization or un-sanitized storage tanks leading to bacterial growth in standing water.' },
+    { problem: 'Motor/Adapter Burnt Out', cause: 'Voltage fluctuations and power surges damaging the SMPS board or the motor.' },
+    { problem: 'Continuous Water Leakage', cause: 'Worn-out O-rings, cracked filter housings, or damaged auto-shutoff valves (SV).' },
+    { problem: 'Filter Change Alert Stuck', cause: 'Sensor malfunction or failure to reset the digital timer after replacing the cartridges.' },
   ];
 
   const whyChoosePoints = [
-    { title: 'Certified technicians', description: `Trained on all ${brand.name} models.` },
-    { title: 'Genuine spare parts', description: '100% authentic with manufacturer warranty.' },
-    { title: 'Same-day service', description: 'Book before 2 PM, service today.' },
-    { title: 'Transparent pricing', description: 'Written quote before work begins.' },
-    { title: '90-day warranty', description: 'On all repairs and spare parts.' },
-    { title: 'Doorstep service', description: 'No need to carry your purifier anywhere.' },
+    { title: 'Background-Verified Experts', description: 'Our technicians are police-verified, highly trained, and respect your home hygiene.' },
+    { title: '100% Genuine & OEM Parts', description: 'We strictly use original membranes and food-grade filters—never cheap local duplicates.' },
+    { title: '60-90 Minute Arrival Time', description: 'We know water is essential. Our local teams are strategically placed for lightning-fast response.' },
+    { title: 'Zero Hidden Charges Policy', description: 'Get a transparent, itemized quote on WhatsApp before any repair work begins.' },
+    { title: 'Free Pre & Post TDS Test', description: 'We scientifically prove the water purity before and after the service using digital meters.' },
+    { title: 'Deep Tank Sanitization', description: 'We don’t just change filters; we chemically sanitize the internal tank to eliminate hidden bacteria.' },
   ];
 
   const primaryFaqs = [
@@ -312,10 +338,11 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-extrabold text-[15px] sm:text-[18px] lg:text-[20px] text-[#002b66] tracking-tight leading-tight group-hover:text-[#0052a3] transition-colors">Roservice Support</span>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-black tracking-wider text-[#0070e0] uppercase">
+                  
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-bold tracking-wide text-[#0070e0]">
                       <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px_rgba(16,185,129,0.8)]" />
-                      Online 24x7
+                      Customer Service Center
                     </span>
                   </div>
                 </div>
@@ -355,7 +382,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
             <a href="#parts" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100">Filters &amp; Parts</a>
             <a href="#why-choose-us" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100">Why {brand.name}</a>
             <a href="#support-faqs" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100">Support</a>
-            <button onClick={toggleBlog} className="py-2 border-b border-slate-100 text-left text-slate-800 font-extrabold">Blog</button>
+            <a href="/blog" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 text-slate-800 font-extrabold">Blog</a>
           </nav>
           <div className="mt-auto pt-8 flex flex-col items-start gap-4">
             <div className="w-full pt-4 border-t border-slate-100">
@@ -373,8 +400,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <img
               src={heroImageToDisplay}
-              srcSet={`${heroImageMobile} 600w, ${heroImageToDisplay} 1200w`}
-              sizes="100vw"
               alt={`${brand.name} RO Service Bangalore`}
               width={1200}
               height={630}
@@ -398,10 +423,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                 <span className="block">{brand.id === 'ro-service-24x7' ? 'RO Water Purifier Repair & Service in Bangalore' : `${brand.name} Water Purifier Repair & Service in Bangalore`}</span>
                 <span className="block text-[#0066cc] text-base sm:text-2xl mt-1 sm:mt-0">Same Day Doorstep Service</span>
               </h1>
-
-              <p className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight">
-                {brand.heroMotto || 'Pure Water. Healthy Families. Brighter Tomorrows.'}
-              </p>
 
               <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed max-w-md">
                 {brand.id === 'ro-service-24x7'
@@ -458,16 +479,9 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       {/* BOOKING FORM */}
       <section className="bg-slate-50 py-4 sm:py-10 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-2xl overflow-hidden border border-blue-900/50 bg-[#0c3975]">
-            <img
-              src={optimizeCloudinary("https://res.cloudinary.com/dieq3fjuv/image/upload/v1789668617/file_00000000aa70820b93ba0ee61bc6377c_prruge.png", { width: 900, quality: 'auto:good' })}
-              alt="Booking Background"
-              loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover object-center sm:object-[center_right]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0c2b5e]/95 via-[#0c2b5e]/80 to-[#0c2b5e]/60 sm:from-[#0c2b5e]/80 sm:via-[#0c2b5e]/30 sm:to-transparent pointer-events-none" />
+          <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-xl overflow-hidden bg-gradient-to-br from-[#0c2b5e] to-[#0c3975] border border-blue-900/30">
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-8 xl:col-span-7 space-y-4">
+              <div className="lg:col-span-12 xl:col-span-12 space-y-4">
                 <div>
                   <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight">Book RO Service in 30 Seconds</h2>
                   <p className="text-xs sm:text-sm text-blue-100/90 mt-1">Fill the form below and our team will call you back within 30 minutes. Same-day doorstep service available.</p>
@@ -476,12 +490,12 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                   <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-5 text-center space-y-2">
                     <CheckCircle className="w-9 h-9 text-emerald-400 mx-auto" />
                     <h3 className="text-base font-bold text-white">Service Request Received!</h3>
-                    <p className="text-xs text-blue-100 max-w-md mx-auto">Thank you, <strong className="text-white">{fullName}</strong>. A certified {brand.id === 'ro-service-24x7' ? 'RO' : brand.name.toUpperCase()} technician will contact you on <strong className="text-white">{phone}</strong> shortly.</p>
-                    <button onClick={() => { setFormSubmitted(false); setFullName(''); setPhone(''); setPincode(''); setServiceType(''); }} className="text-xs text-emerald-300 underline font-semibold mt-1 cursor-pointer">Book another service</button>
+                    <p className="text-xs text-blue-100 max-w-md mx-auto">Thank you, <strong className="text-white">{fullName}</strong>. A certified {brand.id === 'ro-service-24x7' ? 'RO' : brand.name.toUpperCase()} technician will contact you shortly.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleBookingSubmit} className="space-y-3">
                     {formError && <div className="bg-rose-900/80 border border-rose-400 text-rose-100 text-xs px-3 py-2 rounded-lg">{formError}</div>}
+                    
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><User className="w-3.5 h-3.5" /></div>
@@ -494,6 +508,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><MapPin className="w-3.5 h-3.5" /></div>
                         <input type="text" id="booking-pincode" aria-label="Enter Your Pincode" maxLength={6} placeholder="Enter Your Pincode" value={pincode} onChange={(e) => setPincode(e.target.value)} className="w-full pl-9 pr-3 py-3 sm:py-2.5 bg-white text-slate-900 placeholder-slate-400 text-sm sm:text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-2.5">
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><Home className="w-3.5 h-3.5" /></div>
+                        <input type="text" id="booking-address" aria-label="Full Address" required placeholder="Full Address" value={address} onChange={(e) => setAddress(e.target.value)} className="w-full pl-9 pr-3 py-3 sm:py-2.5 bg-white text-slate-900 placeholder-slate-400 text-sm sm:text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
                       </div>
                     </div>
 
@@ -520,7 +541,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                   </form>
                 )}
               </div>
-              <div className="hidden lg:block lg:col-span-4 xl:col-span-5 pointer-events-none" />
             </div>
           </div>
         </div>
@@ -584,33 +604,53 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
         </div>
       </section>
 
-      {/* SERVICES CHECKLIST */}
-      <section id="services" className="py-10 sm:py-16 bg-slate-50 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">WHAT WE OFFER</span>
-          <h2 className="text-xl sm:text-3xl font-extrabold text-[#002b66] tracking-tight mb-8">Our {brand.name} Water Purifier Services</h2>
+      {/* DYNAMIC SEO LONG CONTENT */}
+      <section className="py-12 sm:py-16 bg-white border-b border-slate-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-6 text-left">
+            Expert {brand.id === 'ro-service-24x7' ? 'Water Purifier' : brand.name} Service & Repair Solutions
+          </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            {servicesList.map((service, idx) => (
-              <div key={`service-${idx}`} className="flex items-start gap-3 p-4 bg-white rounded-xl border border-slate-200 shadow-sm text-left">
-                <div className="w-6 h-6 rounded-full bg-blue-900 text-white flex items-center justify-center shrink-0 mt-0.5"><Check className="w-3.5 h-3.5" /></div>
-                <div><h3 className="text-sm font-bold text-slate-900">{service.title}</h3></div>
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-10 text-justify">
+            {currentSeoContent.intro}
+          </p>
+
+          <div className="space-y-8">
+            {currentSeoContent.sections.map((section, idx) => (
+              <div key={`seo-sec-${idx}`}>
+                <h3 className="text-xl sm:text-2xl font-bold text-[#0c2b5e] mb-3 text-left">
+                  {section.title}
+                </h3>
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-justify">
+                  {section.text}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TEXT INFO */}
-      <section className="py-10 sm:py-16 bg-white border-b border-slate-100">
+      {/* SERVICES CHECKLIST */}
+      <section id="services" className="py-10 sm:py-16 bg-white border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-4">How Often Should You Service Your {brand.name} Purifier?</h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            In Bangalore's water conditions, we recommend servicing your {brand.name} purifier <strong>every 4-6 months</strong>. Filters and membranes should be replaced as per the manufacturer's guidelines — typically once a year. Regular servicing not only keeps your water safe but also extends the life of your purifier by 3-5 years.
-          </p>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            If you notice any of these signs, book a service immediately: slow water flow, unusual taste, TDS above 150 ppm, or any leakage. Ignoring these signs can lead to expensive repairs later.
-          </p>
+          <div className="text-center mb-10">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">WHAT WE OFFER</span>
+            <h2 className="text-xl sm:text-3xl font-extrabold text-[#002b66] tracking-tight">Our {brand.name} Water Purifier Services</h2>
+          </div>
+          
+          <div className="space-y-6">
+            {servicesList.map((service, idx) => (
+              <div key={`service-${idx}`} className="flex items-start gap-3 text-sm">
+                <div className="w-6 h-6 rounded-full bg-[#1a3673] text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-[15px] font-bold text-slate-900 mb-1 leading-snug">{service.title}</h3>
+                  <p className="text-[13.5px] text-slate-500 leading-relaxed text-justify">{service.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -618,13 +658,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       <section className="py-10 sm:py-16 bg-slate-50 border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-6">Common {brand.name} Purifier Problems We Fix</h2>
-          <div className="space-y-3">
+          <div className="space-y-5">
             {commonProblems.map((item, idx) => (
               <div key={`prob-${idx}`} className="flex items-start gap-3 text-sm">
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2 shrink-0" />
+                <div className="w-2.5 h-2.5 rounded-full bg-slate-400 mt-1.5 shrink-0" />
                 <div>
-                  <span className="font-bold text-slate-800">{item.problem}</span>
-                  <span className="text-slate-500"> — {item.cause}</span>
+                  <span className="font-bold text-slate-900 block text-[15px] mb-1">{item.problem}</span>
+                  <span className="text-slate-500 leading-relaxed text-justify block text-[13.5px]">{item.cause}</span>
                 </div>
               </div>
             ))}
@@ -636,13 +676,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       <section id="why-choose-us" className="py-10 sm:py-16 bg-white border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-6">Why Choose Roservice Support for Your {brand.name} Purifier?</h2>
-          <div className="space-y-3">
+          <div className="space-y-5">
             {whyChoosePoints.map((point, idx) => (
               <div key={`why-${idx}`} className="flex items-start gap-3 text-sm">
-                <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#0055b3] mt-1.5 shrink-0" />
                 <div>
-                  <span className="font-bold text-slate-800">{point.title}</span>
-                  <span className="text-slate-500"> — {point.description}</span>
+                  <span className="font-bold text-slate-900 block text-[15px] mb-1">{point.title}</span>
+                  <span className="text-slate-500 leading-relaxed text-justify block text-[13.5px]">{point.description}</span>
                 </div>
               </div>
             ))}
@@ -670,20 +710,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                     </div>
                     <ChevronDown className={`w-5 h-5 text-slate-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
-                  {isOpen && (<div id={`faq-answer-${idx}`} className="px-4 sm:px-5 pb-5 pt-3 text-sm text-slate-600 leading-relaxed border-t border-slate-100 ml-8">{faq.answer}</div>)}
+                  {isOpen && (<div id={`faq-answer-${idx}`} className="px-4 sm:px-5 pb-5 pt-3 text-sm text-slate-600 leading-relaxed border-t border-slate-100 ml-8 text-justify">{faq.answer}</div>)}
                 </div>
               );
             })}
           </div>
         </div>
       </section>
-
-      {/* BLOG */}
-      {showBlog && (
-        <div ref={blogSectionRef} id="blog-section">
-          <HomeBlogSection brandSlug={isHomepage ? undefined : (brand.slug || brand.id).replace(/^\//, '')} brandName={isHomepage ? undefined : brand.name} brandThemeColor={primaryColor} />
-        </div>
-      )}
 
       {/* LOCATION */}
       <section className="py-12 sm:py-20 bg-slate-50/70 border-b border-slate-100">
@@ -692,7 +725,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
             <div className="max-w-2xl mx-auto items-center">
               <div className="space-y-5 text-center">
                 <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">Doorstep {brand.name} RO Repair Across Bangalore</h2>
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">Check real-time technician availability in your neighborhood. We serve all Bangalore localities, tech corridors, and residential apartments with 60–90 minute arrivals.</p>
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed text-justify">Check real-time technician availability in your neighborhood. We serve all Bangalore localities, tech corridors, and residential apartments with 60–90 minute arrivals.</p>
                 <form onSubmit={handlePincodeCheck} className="flex flex-col sm:flex-row items-center gap-2.5 pt-2 max-w-lg mx-auto">
                   <div className="relative w-full sm:flex-1">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><MapPin className="w-3.5 h-3.5" /></div>
@@ -702,7 +735,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                 </form>
                 {pincodeResult.checked && (
                   <div className={`p-3 rounded-xl border text-xs font-semibold flex items-start gap-2 ${pincodeResult.available ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
-                    <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" /><span>{pincodeResult.message}</span>
+                    <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" /><span className="text-justify">{pincodeResult.message}</span>
                   </div>
                 )}
               </div>
@@ -743,9 +776,9 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#0070e0] bg-blue-50 px-2 py-0.5 rounded border border-blue-200/80 flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>24x7</span>
                 </div>
                 <span className="font-extrabold text-base text-[#002b66] tracking-tight leading-tight group-hover:text-[#0052a3] transition-colors">Roservice Support</span>
-                <span className="text-xs font-black tracking-wide text-[#0070e0] mt-0.5 uppercase">Online 24x7</span>
+                <span className="text-[10px] font-bold tracking-wide text-[#0070e0] mt-0.5 uppercase">Customer Service Center</span>
               </a>
-              <p className="text-[11px] text-slate-500 mt-1 leading-relaxed max-w-[170px]">Certified doorstep water purifier repair &amp; maintenance service.</p>
+              <p className="text-[11px] text-slate-500 mt-1 leading-relaxed max-w-[170px] text-justify">Certified doorstep water purifier repair &amp; maintenance service.</p>
             </div>
             <div className="space-y-3">
               <h3 className="font-bold text-slate-900 text-sm tracking-tight">Quick Links</h3>
@@ -823,8 +856,8 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           <div className="pt-6 pb-6 border-t border-slate-200">
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 text-slate-600 space-y-2">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-800 uppercase tracking-wide"><ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" /><span>Formal Disclaimer &amp; Brand Notice</span></div>
-              <p className="text-[11px] sm:text-xs leading-relaxed text-slate-600"><strong>Roservice Support</strong> is an independent multi-brand doorstep water purifier sales, service, maintenance, and repair provider. We are <strong>not affiliated with, associated with, authorized by, endorsed by, or in any way officially connected</strong> with Kent RO Systems Ltd., Eureka Forbes Ltd. (Aquaguard), Hindustan Unilever Ltd. (Pureit), A.O. Smith India Water Products Pvt. Ltd., Livpure Pvt. Ltd., Havells India Ltd., or any of their respective subsidiaries or affiliates.</p>
-              <p className="text-[11px] sm:text-xs leading-relaxed text-slate-500">All brand names, product logos, model numbers, and registered trademarks displayed on this website belong to their respective proprietary holders. Any reference to these trademarks is strictly made for customer convenience, identification, compatibility, and descriptive purposes to indicate the types of water purifiers our certified independent technicians service. We use 100% genuine compatible spare parts and provide our own 30-day labor and service warranty on all completed repairs.</p>
+              <p className="text-[11px] sm:text-xs leading-relaxed text-slate-600 text-justify"><strong>Roservice Support</strong> is an independent multi-brand doorstep water purifier sales, service, maintenance, and repair provider. We are <strong>not affiliated with, associated with, authorized by, endorsed by, or in any way officially connected</strong> with Kent RO Systems Ltd., Eureka Forbes Ltd. (Aquaguard), Hindustan Unilever Ltd. (Pureit), A.O. Smith India Water Products Pvt. Ltd., Livpure Pvt. Ltd., Havells India Ltd., or any of their respective subsidiaries or affiliates.</p>
+              <p className="text-[11px] sm:text-xs leading-relaxed text-slate-500 text-justify">All brand names, product logos, model numbers, and registered trademarks displayed on this website belong to their respective proprietary holders. Any reference to these trademarks is strictly made for customer convenience, identification, compatibility, and descriptive purposes to indicate the types of water purifiers our certified independent technicians service. We use 100% genuine compatible spare parts and provide our own 30-day labor and service warranty on all completed repairs.</p>
             </div>
           </div>
 
@@ -833,11 +866,14 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
             <div className="text-slate-600 font-normal">{brand.heroMotto || 'Pure Water. Healthy Families. Brighter Tomorrows.'}</div>
           </div>
 
-          {isHomepage ? (
-            <div className="pt-3 pb-1 text-center sm:text-left"><p className="text-[11px] sm:text-xs text-slate-500 font-normal leading-relaxed">{HOMEPAGE_BOTTOM_KEYWORDS}</p></div>
-          ) : relevantBrandKeywordString ? (
-            <div className="pt-3 pb-1 text-center sm:text-left"><p className="text-[11px] sm:text-xs text-slate-500 font-normal leading-relaxed">{relevantBrandKeywordString}</p></div>
-          ) : null}
+          {isHomepage && (
+            <div className="pt-3 pb-1 text-center sm:text-left">
+              <p className="text-[11px] sm:text-xs text-slate-500 font-normal leading-relaxed">
+                {HOMEPAGE_BOTTOM_KEYWORDS}
+              </p>
+            </div>
+          )}
+          
         </div>
       </footer>
 

@@ -15,7 +15,7 @@
     "@astrojs/netlify": "^8.2.9",
     "@astrojs/react": "^7.0.1",
     "@astrojs/sitemap": "^3.7.4",
-    "@astrojs/vercel": "^11.0.13",
+    "@astrojs/vercel": "^11.0.15",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.8",
     "lucide-react": "^1.55.0",

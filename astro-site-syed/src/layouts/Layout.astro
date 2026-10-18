@@ -11,16 +11,18 @@ interface Props {
   ogDescription?: string;
   ogUrl?: string;
   ogImage?: string;
+  preloadImage?: string; // ⭐ Naya prop preload ke liye
 }
 
 const {
   title = `${BUSINESS_DETAILS.name} | Doorstep RO Water Purifier Repair & Service Bangalore`,
   description = 'Fast 60–90 min doorstep RO water purifier repair, filter replacement, AMC & installation service in Bangalore. Kent, Aquaguard, Pureit, AO Smith & Livpure expert service.',
-  canonical = 'https://www.roservicesupport.co.in',
+  canonical = 'https://Roservicecare24x7.co.in',
   ogTitle,
   ogDescription,
   ogUrl,
   ogImage,
+  preloadImage,
 } = Astro.props;
 
 const fullTitle = title.includes(BUSINESS_DETAILS.name)
@@ -39,6 +41,9 @@ const fullTitle = title.includes(BUSINESS_DETAILS.name)
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    
+    <!-- ⭐ Preload Hero Image for LCP Speed -->
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
 
     <!-- Robots -->
     <meta name="robots" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
@@ -54,15 +59,134 @@ const fullTitle = title.includes(BUSINESS_DETAILS.name)
     <link rel="icon" href="https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg" />
     <link rel="apple-touch-icon" href="https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg" />
 
-    <!-- Preconnect -->
+    <!-- Preconnect & DNS -->
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
     <link rel="preconnect" href="https://formsubmit.co" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
-
-    <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+
+    <!-- ⭐ SMART GOOGLE TAG (Lazy Loaded for Speed) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      // ⚠️ YAHAN ASLI AW-ID DAALO
+      gtag('config', 'AW-NAYA_ID_YAHAN');
+
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-NAYA_ID_YAHAN'; // Yahan bhi ID badalna
+          document.head.appendChild(script);
+        }, 2000);
+      });
+    </script>
+
+    <!-- ⭐ DEVICE GUARD TRACKING SCRIPT -->
+    <script is:inline>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          (function() {
+            var MY_FINGERPRINTS = []; // Apne fingerprint yahan daalo
+            
+            var savedBlockStatus = localStorage.getItem('wm_device_blocked');
+            if (savedBlockStatus === 'true') {
+              window.WM_BLOCKED = true;
+            } else {
+              window.WM_BLOCKED = false;
+            }
+
+            function getFingerprint() {
+              try {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                ctx.textBaseline = 'top'; ctx.font = '14px Arial';
+                ctx.fillText('Device Guard', 2, 2);
+                var canvasData = canvas.toDataURL().slice(-50);
+                
+                var gl = document.createElement('canvas').getContext('webgl');
+                var webglInfo = '';
+                if (gl) {
+                  var dbg = gl.getExtension('WEBGL_debug_renderer_info');
+                  if (dbg) webglInfo = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '';
+                }
+                
+                var fpData = [
+                  navigator.userAgent, navigator.language, 
+                  screen.width + 'x' + screen.height + 'x' + screen.colorDepth,
+                  new Date().getTimezoneOffset(), navigator.hardwareConcurrency || 0, 
+                  canvasData, webglInfo
+                ].join('|');
+
+                var hash = 0;
+                for (var i = 0; i < fpData.length; i++) {
+                  hash = ((hash << 5) - hash) + fpData.charCodeAt(i);
+                  hash = hash & hash; 
+                }
+                return 'fp_' + Math.abs(hash).toString(36);
+                
+              } catch(e) { 
+                return 'fp_' + Math.random().toString(36).substring(2, 14); 
+              }
+            }
+
+            var fp = getFingerprint();
+            document.cookie = 'fp=' + fp + '; max-age=' + (30 * 24 * 60 * 60) + '; path=/';
+
+            if (MY_FINGERPRINTS.indexOf(fp) !== -1) return;
+
+            var params = new URLSearchParams(window.location.search);
+            var gclid = params.get('gclid') || params.get('gbraid') || params.get('wbraid');
+
+            if (gclid) {
+              var key = 'wm_clicks_' + fp;
+              var clicks = parseInt(localStorage.getItem(key) || '0') + 1;
+              localStorage.setItem(key, clicks);
+
+              fetch('/api/track-device', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  fp: fp, clicks: clicks, gclid: gclid,
+                  url: window.location.href, ua: navigator.userAgent
+                })
+              })
+              .then(function(res) { return res.json(); })
+              .then(function(data) {
+                if (data.blocked === true) { 
+                  window.WM_BLOCKED = true; 
+                  localStorage.setItem('wm_device_blocked', 'true'); 
+                }
+              })
+              .catch(function() {});
+            }
+          })();
+        }, 1500); 
+      });
+    </script>
+
+    <!-- ⭐ UNIVERSAL CONVERSION BLOCK (Catches Call/WhatsApp dynamically) -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.addEventListener('click', function(e) {
+          if (window.WM_BLOCKED === true) {
+            var target = e.target.closest('a');
+            if (target) {
+              var href = target.getAttribute('href') || '';
+              if (href.startsWith('tel:') || href.includes('wa.me') || href.includes('whatsapp') || href.startsWith('mailto:')) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Access Restricted');
+                return false;
+              }
+            }
+          }
+        }, true);
+      });
+    </script>
   </head>
   <body class="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-800 antialiased selection:bg-sky-500 selection:text-white">
     <main class="flex-1">

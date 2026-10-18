@@ -1,7 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { BrandPageLayout } from '@/components/BrandPageLayout';
-import { optimizeCloudinary } from '@/utils/imageOptimizer';
 import type { BrandInfo } from '@/types';
 import { BUSINESS_DETAILS, HOMEPAGE_FAQS } from '@/data/content';
 
@@ -35,10 +34,10 @@ const genericBrand: BrandInfo = {
     lightBg: '#f0f5fb',
     border: '#e1e9f2',
   },
-  heroBgImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813499/IMG-20260918-WA0073_qesfc9.jpg',
-  heroImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813499/IMG-20260918-WA0073_qesfc9.jpg',
+  heroBgImage: '/images/hero-bg.webp',
+  heroImage: '/images/hero-bg.webp',
   partsBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789744713/file_00000000be388230a7ea3fe9b5fef059_oqqijq.png',
-  bottomBannerImage: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789744714/file_00000000c0e082118f500d75d9418d25_a6woez.png',
+  bottomBannerImage: '/images/bottom-banner.webp',
   serviceImages: {
     repair: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789744767/file_0000000072548211b75cdf8e48b91b7d_mmuame.png',
     filter: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789744766/file_00000000696c8211b0e9d31b75c0009e_rpigfw.png',
@@ -47,20 +46,19 @@ const genericBrand: BrandInfo = {
   },
 };
 
-// ✅ Hero image preload (LCP optimization)
-const heroImagePreload = optimizeCloudinary(genericBrand.heroBgImage, { width: 1200, quality: 'auto:good' });
+const heroImagePreload = '/images/hero-bg.webp';
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://www.roservicesupport.co.in/#localbusiness',
+    '@id': 'https://Roservicecare24x7.co.in/#localbusiness',
     name: BUSINESS_DETAILS.name,
     telephone: '+917090170092',
     email: BUSINESS_DETAILS.email,
-    url: 'https://www.roservicesupport.co.in',
+    url: 'https://Roservicecare24x7.co.in',
     logo: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg',
-    image: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813499/IMG-20260918-WA0073_qesfc9.jpg',
+    image: '/images/hero-bg.webp',
     priceRange: '₹₹',
     description: 'Certified doorstep RO water purifier repair, filter replacement, AMC and installation service in Bangalore within 60–90 minutes.',
     address: {
@@ -71,46 +69,26 @@ const jsonLd = [
       postalCode: '560001',
       addressCountry: 'IN',
     },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: '12.9716',
-      longitude: '77.5946',
-    },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        opens: '08:00',
-        closes: '21:00',
-      },
-    ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '10480',
-      bestRating: '5',
-      worstRating: '1',
-    },
+    geo: { '@type': 'GeoCoordinates', latitude: '12.9716', longitude: '77.5946' },
+    openingHoursSpecification: [{
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '08:00',
+      closes: '21:00',
+    }],
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', reviewCount: '10480', bestRating: '5', worstRating: '1' },
   },
   {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    '@id': 'https://www.roservicesupport.co.in/#service',
-    url: 'https://www.roservicesupport.co.in',
+    '@id': 'https://Roservicecare24x7.co.in/#service',
+    url: 'https://Roservicecare24x7.co.in',
     name: 'Doorstep RO Water Purifier Repair & Service Bangalore',
     serviceType: 'Water Purifier Repair, Maintenance & Filter Replacement',
-    provider: {
-      '@type': 'LocalBusiness',
-      '@id': 'https://www.roservicesupport.co.in/#localbusiness',
-    },
+    provider: { '@type': 'LocalBusiness', '@id': 'https://Roservicecare24x7.co.in/#localbusiness' },
     areaServed: { '@type': 'City', name: 'Bangalore' },
     description,
-    offers: {
-      '@type': 'Offer',
-      price: '299',
-      priceCurrency: 'INR',
-      description: 'Doorstep inspection fee, 100% adjusted against final repair bill.',
-    },
+    offers: { '@type': 'Offer', price: '299', priceCurrency: 'INR', description: 'Doorstep inspection fee, 100% adjusted against final repair bill.' },
   },
   {
     '@context': 'https://schema.org',
@@ -118,10 +96,7 @@ const jsonLd = [
     mainEntity: HOMEPAGE_FAQS.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
     })),
   },
 ];
@@ -130,12 +105,14 @@ const jsonLd = [
 <Layout
   title={title}
   description={description}
-  canonical="https://www.roservicesupport.co.in"
+  canonical="https://Roservicecare24x7.co.in"
   ogTitle="RO Service 24x7 | Best RO Water Purifier Repair & Maintenance Bangalore"
   ogDescription="Fastest 60–90 min doorstep RO water purifier repair, filter replacement & AMC in Bangalore."
-  ogUrl="https://www.roservicesupport.co.in"
+  ogUrl="https://Roservicecare24x7.co.in"
   preloadImage={heroImagePreload}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  <BrandPageLayout brand={genericBrand} client:only="react" />
+  
+  <!-- ⭐ client:load use kiya hai taaki page turant load ho -->
+  <BrandPageLayout brand={genericBrand} client:load />
 </Layout>
