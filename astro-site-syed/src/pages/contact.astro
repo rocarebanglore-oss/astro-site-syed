@@ -1,0 +1,179 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { ArrowLeft, Phone, Mail, MapPin, Clock, MessageCircle, CheckCircle2 } from 'lucide-react';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+const title = 'Contact Us | RO Service Support Bangalore | Call 070901 70092';
+const description = 'Contact RO Service Support for doorstep RO water purifier repair, filter replacement, installation and AMC in Bangalore. Call 070901 70092 for 60-90 min same-day service.';
+const canonical = 'https://www.roservicesupport.co.in/contact';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/contact" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+
+      <a
+        href="/"
+        class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Back to Homepage
+      </a>
+
+      <!-- Header -->
+      <div class="text-center mb-10">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-blue-50 text-[#0066cc]">
+          <MessageCircle className="w-3.5 h-3.5" />
+          We're Here to Help
+        </span>
+        <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          Contact RO Service Support
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 mt-3 max-w-2xl mx-auto">
+          Have a question about your RO water purifier? Need urgent service in Bangalore? Reach out to us via phone, WhatsApp, or email — we respond within minutes.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Contact Details Column -->
+        <div class="space-y-4">
+
+          <!-- Phone Card -->
+          <a
+            href={`tel:${BUSINESS_DETAILS.phone}`}
+            class="block bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all group"
+          >
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
+                <Phone class="w-6 h-6 text-[#0066cc]" />
+              </div>
+              <div>
+                <h2 class="text-base font-bold text-slate-900 mb-1">Call Us (24x7 Support)</h2>
+                <p class="text-lg font-black text-[#0066cc] mb-1">{BUSINESS_DETAILS.formattedPhone}</p>
+                <p class="text-xs text-slate-500">Instant booking &amp; emergency assistance</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- WhatsApp Card -->
+          <a
+            href={`https://wa.me/${BUSINESS_DETAILS.whatsappNumber}?text=Hi%2C%20I%20need%20RO%20service%20in%20Bangalore`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all group"
+          >
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors">
+                <MessageCircle class="w-6 h-6 text-emerald-600" />
+              </div>
+              <div>
+                <h2 class="text-base font-bold text-slate-900 mb-1">WhatsApp Us</h2>
+                <p class="text-lg font-black text-emerald-600 mb-1">{BUSINESS_DETAILS.formattedPhone}</p>
+                <p class="text-xs text-slate-500">Quick replies, photos, and booking confirmations</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Email Card -->
+          <a
+            href={`mailto:${BUSINESS_DETAILS.email}`}
+            class="block bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition-all group"
+          >
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center shrink-0 group-hover:bg-purple-100 transition-colors">
+                <Mail class="w-6 h-6 text-purple-600" />
+              </div>
+              <div>
+                <h2 class="text-base font-bold text-slate-900 mb-1">Email Us</h2>
+                <p class="text-sm font-bold text-purple-600 mb-1 break-all">{BUSINESS_DETAILS.email}</p>
+                <p class="text-xs text-slate-500">For AMC queries, corporate tie-ups, and billing</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Hours Card -->
+          <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center shrink-0">
+                <Clock class="w-6 h-6 text-amber-600" />
+              </div>
+              <div>
+                <h2 class="text-base font-bold text-slate-900 mb-1">Working Hours</h2>
+                <p class="text-sm font-bold text-slate-800 mb-1">{BUSINESS_DETAILS.workingHours}</p>
+                <p class="text-xs text-slate-500">Service available all 7 days, including Sundays &amp; public holidays</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Area Card -->
+          <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center shrink-0">
+                <MapPin class="w-6 h-6 text-rose-600" />
+              </div>
+              <div>
+                <h2 class="text-base font-bold text-slate-900 mb-1">Service Area</h2>
+                <p class="text-sm font-bold text-slate-800 mb-1">All Bangalore Localities</p>
+                <p class="text-xs text-slate-500">Whitefield, Koramangala, HSR Layout, Indiranagar, Electronic City, Marathahalli, Bellandur, Hebbal, Jayanagar, JP Nagar, and 20+ more areas</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column — Why Contact / Highlights -->
+        <div class="bg-gradient-to-br from-[#0c2b5e] to-[#0c3975] rounded-3xl p-6 sm:p-8 text-white shadow-2xl">
+          <h2 class="text-xl sm:text-2xl font-black mb-2">Why Customers Trust Us</h2>
+          <p class="text-sm text-blue-100 mb-6">Bangalore's fastest growing independent RO service network.</p>
+
+          <ul class="space-y-4">
+            {[
+              { title: '60–90 Minute Doorstep Arrival', desc: 'Technicians positioned across all Bangalore zones.' },
+              { title: '15+ Years of Experience', desc: 'Trained specialists on all major RO brands.' },
+              { title: '100% Genuine Spare Parts', desc: 'OEM-grade, food-safe, and NSF-certified materials.' },
+              { title: '30-Day Labor Warranty', desc: 'Every repair backed by our written warranty.' },
+              { title: 'Transparent Pricing', desc: 'Written quote before work begins. Zero hidden fees.' },
+              { title: '20,000+ Happy Families', desc: 'Trusted by households across Bangalore since 2018.' },
+            ].map((item) => (
+              <li class="flex items-start gap-3">
+                <CheckCircle2 class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <div>
+                  <p class="font-bold text-white text-sm">{item.title}</p>
+                  <p class="text-xs text-blue-100/90 mt-0.5">{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-8 pt-6 border-t border-white/20">
+            <p class="text-xs text-blue-100/90 mb-3">Ready to book? Call now and we'll dispatch a technician within minutes.</p>
+            <a
+              href={`tel:${BUSINESS_DETAILS.phone}`}
+              class="inline-flex items-center gap-2 bg-white text-[#0c2b5e] font-bold px-5 py-3 rounded-xl hover:opacity-95 transition text-sm"
+            >
+              <Phone className="w-4 h-4" />
+              Call {BUSINESS_DETAILS.formattedPhone}
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Legal / Disclaimer Note -->
+      <div class="mt-10 bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-sm">
+        <h3 class="text-sm font-bold text-slate-900 mb-2">Independent Multi-Brand Service Provider</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          RO Service Support is an independent doorstep water purifier service company in Bangalore. We are not affiliated with, authorized by, or franchised by Kent RO Systems Ltd., Eureka Forbes (Aquaguard), Hindustan Unilever (Pureit), AO Smith, Livpure, Havells, or any other brand. All trademarks belong to their respective owners and are used strictly for identification and compatibility purposes. We use 100% genuine-compatible, food-grade spare parts and provide our own 30-day labor warranty on completed repairs.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer currentRoute="/contact" client:only="react" />
+</Layout>

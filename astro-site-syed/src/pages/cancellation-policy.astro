@@ -1,0 +1,121 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { ArrowLeft, XCircle } from 'lucide-react';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+const title = 'Cancellation Policy | RO Service Support Bangalore';
+const description = 'Cancellation policy for RO water purifier repair and AMC service bookings with RO Service Support in Bangalore.';
+const canonical = 'https://www.roservicesupport.co.in/cancellation-policy';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/cancellation-policy" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <a href="/" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        Back to Homepage
+      </a>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md">
+        <div class="border-b border-slate-100 pb-6 mb-8">
+          <div class="inline-flex items-center gap-2 bg-rose-50 text-rose-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-rose-200">
+            <XCircle className="w-3.5 h-3.5" />
+            <span>Legal Document</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Cancellation Policy</h1>
+          <p class="text-xs text-slate-400 mt-2">Last Updated: January 2026</p>
+        </div>
+
+        <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+
+          <p class="text-slate-600">
+            This Cancellation Policy applies to all bookings made with <strong>RO Service Support</strong> for doorstep RO water purifier repair, filter replacement, installation, and AMC services in Bangalore.
+          </p>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">1. Cancellation by Customer</h2>
+
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 space-y-2">
+              <h3 class="text-sm font-bold text-emerald-900">Before Technician Dispatch — FREE</h3>
+              <p class="text-xs text-slate-700">You can cancel your service request free of charge at any time before the technician is dispatched. Simply call <strong>{BUSINESS_DETAILS.formattedPhone}</strong>.</p>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2">
+              <h3 class="text-sm font-bold text-amber-900">After Technician Dispatch — ₹199 Visit Charge</h3>
+              <p class="text-xs text-slate-700">If cancellation occurs after the technician has been dispatched but before the diagnostic begins, a nominal visit charge of ₹199 may apply.</p>
+            </div>
+
+            <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 space-y-2">
+              <h3 class="text-sm font-bold text-rose-900">After Service Begins — Not Cancellable</h3>
+              <p class="text-xs text-slate-700">Once service work has commenced (filters replaced, parts installed, repairs performed), cancellation is not possible. Full payment is due.</p>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">2. How to Cancel</h2>
+            <p class="text-slate-600">To cancel your booking, use any of these methods:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Phone:</strong> Call <a href="tel:{BUSINESS_DETAILS.phone}" class="text-sky-600 underline">{BUSINESS_DETAILS.formattedPhone}</a> and quote your registered mobile number.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>WhatsApp:</strong> Reply "CANCEL" to your booking confirmation message.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Email:</strong> Send a cancellation request to <a href="mailto:{BUSINESS_DETAILS.email}" class="text-sky-600 underline">{BUSINESS_DETAILS.email}</a>.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">3. Cancellation by RO Service Support</h2>
+            <p class="text-slate-600">We reserve the right to cancel or reschedule a booking in the following situations:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0" /><span>Severe weather conditions, strikes, or natural disasters affecting technician movement.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0" /><span>Safety concerns at the service location (aggressive behaviour, unsafe environment).</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0" /><span>Incorrect or fraudulent booking information.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0" /><span>Insufficient spare parts availability for a specific brand/model.</span></li>
+            </ul>
+            <p class="text-slate-600 pt-2">
+              In such cases, if any advance payment was made, it will be refunded in full within 5–7 business days.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">4. Rescheduling</h2>
+            <p class="text-slate-600">
+              You may reschedule your booking free of charge by informing us at least 1 hour before the scheduled time. Rescheduling is subject to technician availability on the new date/time.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">5. No-Show by Customer</h2>
+            <p class="text-slate-600">
+              If our technician arrives at the scheduled address but cannot access the premises or reach you on your registered number, the booking will be marked as a "no-show". A visit charge of ₹199 may apply for future bookings. Repeated no-shows may result in restricted booking access.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">6. AMC Plan Cancellation</h2>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0" /><span>AMC cancellations within <strong>7 days of purchase</strong> and <strong>before any service visit</strong> are eligible for a full refund minus 5% processing fee.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" /><span>After the first AMC service visit, no refund is possible.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 shrink-0" /><span>Partial refunds (pro-rata) may be considered in exceptional cases at our discretion.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">7. Contact</h2>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
+              <p class="text-slate-700"><strong>RO Service Support</strong></p>
+              <p class="text-slate-600 text-xs">Bangalore, Karnataka, India</p>
+              <p class="text-slate-600 text-xs">Phone: <a href="tel:{BUSINESS_DETAILS.phone}" class="text-sky-600 underline">{BUSINESS_DETAILS.formattedPhone}</a></p>
+              <p class="text-slate-600 text-xs">Email: <a href="mailto:{BUSINESS_DETAILS.email}" class="text-sky-600 underline">{BUSINESS_DETAILS.email}</a></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer currentRoute="/cancellation-policy" client:only="react" />
+</Layout>

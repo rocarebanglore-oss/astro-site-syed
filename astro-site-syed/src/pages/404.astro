@@ -1,0 +1,110 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { Home, Phone, Search, ArrowRight } from 'lucide-react';
+import { BUSINESS_DETAILS, BRAND_PAGES_DATA } from '@/data/content';
+
+const title = '404 - Page Not Found | RO Service Support Bangalore';
+const description = 'The page you are looking for could not be found. Browse our popular RO services or call us directly at 070901 70092.';
+const canonical = 'https://www.roservicesupport.co.in/404';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/404" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 flex items-center justify-center py-16 sm:py-24">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 w-full text-center">
+
+      <!-- 404 Number -->
+      <div class="text-[80px] sm:text-[140px] font-black leading-none bg-gradient-to-br from-[#0c2b5e] to-[#0070e0] bg-clip-text text-transparent select-none">
+        404
+      </div>
+
+      <!-- Message -->
+      <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight mt-4">
+        Page Not Found
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 mt-3 max-w-xl mx-auto">
+        The page you're looking for doesn't exist, has been moved, or is temporarily unavailable. Let's get you back on track.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 bg-[#0066cc] hover:bg-[#0055b3] text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all"
+        >
+          <Home className="w-4 h-4" />
+          Back to Home
+        </a>
+        <a
+          href={`tel:${BUSINESS_DETAILS.phone}`}
+          class="inline-flex items-center gap-2 bg-white border-2 border-[#0066cc] text-[#0066cc] hover:bg-blue-50 font-bold text-sm px-6 py-3 rounded-xl transition-all"
+        >
+          <Phone className="w-4 h-4" />
+          Call {BUSINESS_DETAILS.formattedPhone}
+        </a>
+      </div>
+
+      <!-- Popular Services -->
+      <div class="mt-16 pt-10 border-t border-slate-200">
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2 flex items-center justify-center gap-2">
+          <Search className="w-5 h-5 text-[#0066cc]" />
+          Popular Services
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 mb-6">
+          Choose your water purifier brand to see dedicated service options
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-2xl mx-auto">
+          {Object.values(BRAND_PAGES_DATA).map((brand) => (
+            <a
+              href={brand.slug}
+              class="group flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0"
+                  style={`background-color: ${brand.brandThemeColors?.primary || '#0b5cbe'};`}
+                >
+                  {brand.name.charAt(0)}
+                </div>
+                <div class="text-left">
+                  <div class="font-bold text-sm text-slate-900 group-hover:text-[#0066cc] transition-colors">
+                    {brand.name}
+                  </div>
+                  <div class="text-[11px] text-slate-500">RO Repair & Service</div>
+                </div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#0066cc] group-hover:translate-x-1 transition-all" />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="mt-12 pt-8 border-t border-slate-200">
+        <h3 class="text-sm font-bold text-slate-700 mb-4 uppercase tracking-wider">
+          Quick Links
+        </h3>
+        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600">
+          <a href="/" class="hover:text-[#0066cc] transition-colors">Home</a>
+          <span class="text-slate-300">•</span>
+          <a href="/about-us" class="hover:text-[#0066cc] transition-colors">About Us</a>
+          <span class="text-slate-300">•</span>
+          <a href="/contact" class="hover:text-[#0066cc] transition-colors">Contact</a>
+          <span class="text-slate-300">•</span>
+          <a href="/blog" class="hover:text-[#0066cc] transition-colors">Blog</a>
+          <span class="text-slate-300">•</span>
+          <a href="/privacy-policy" class="hover:text-[#0066cc] transition-colors">Privacy</a>
+          <span class="text-slate-300">•</span>
+          <a href="/terms-of-service" class="hover:text-[#0066cc] transition-colors">Terms</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer currentRoute="/404" client:only="react" />
+</Layout>

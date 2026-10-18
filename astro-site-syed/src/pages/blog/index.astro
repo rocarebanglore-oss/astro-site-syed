@@ -1,0 +1,94 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { BLOG_POSTS } from '@/data/blogPosts';
+import { BookOpen, Calendar, Clock, ArrowRight } from 'lucide-react';
+
+const title = 'RO Water Purifier Blog & Maintenance Guides | Bangalore';
+const description = 'Expert RO water purifier maintenance guides, troubleshooting tips, filter replacement schedules, and TDS insights for Bangalore households.';
+const canonical = 'https://www.roservicesupport.co.in/blog';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/blog" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-12">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-blue-50 text-[#0066cc]">
+          <BookOpen className="w-3.5 h-3.5" />
+          Expert Knowledge Base
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-[#002b66] tracking-tight leading-tight">
+          RO Water Purifier Guides & Maintenance Tips
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 mt-3 max-w-2xl mx-auto">
+          Actionable maintenance schedules, DIY fault checklists, and water quality insights from Bangalore senior water purification engineers.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {BLOG_POSTS.map((post) => (
+          <article class="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group hover:border-blue-300/80">
+            <a href={`/blog/${post.slug}`} class="relative h-48 sm:h-52 w-full bg-slate-100 block overflow-hidden">
+              <img
+                src={post.image}
+                alt={post.title}
+                loading="lazy"
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              />
+            </a>
+
+            <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-3 text-xs text-slate-400 mb-2.5">
+                  <span class="flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {post.publishedAt}
+                  </span>
+                  <span>•</span>
+                  <span class="flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" />
+                    {post.readingTime}
+                  </span>
+                </div>
+
+                <h2 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-[#0066cc] transition-colors leading-snug mb-2.5">
+                  <a href={`/blog/${post.slug}`}>{post.title}</a>
+                </h2>
+
+                <p class="text-xs sm:text-[13px] text-slate-600 leading-relaxed line-clamp-3 mb-5">
+                  {post.description}
+                </p>
+              </div>
+
+              <div class="pt-3.5 border-t border-slate-100 flex items-center justify-between mt-auto">
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0066cc] group-hover:text-[#0052a3] transition-colors"
+                >
+                  <span>Read Guide</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </a>
+
+                {post.relatedBrandSlug && (
+                  <a
+                    href={`/${post.relatedBrandSlug}`}
+                    class="text-[11px] font-semibold text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200/80 px-2 py-0.5 rounded transition-colors"
+                  >
+                    {post.relatedBrandName} →
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </main>
+
+  <Footer currentRoute="/blog" client:only="react" />
+</Layout>

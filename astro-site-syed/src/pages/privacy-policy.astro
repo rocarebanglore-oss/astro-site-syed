@@ -1,0 +1,144 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+const title = 'Privacy Policy | RO Service Support Bangalore';
+const description = 'Privacy Policy of RO Service Support - how we collect, use, and protect your personal information when you book doorstep RO water purifier services in Bangalore.';
+const canonical = 'https://www.roservicesupport.co.in/privacy-policy';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/privacy-policy" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <a href="/" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        Back to Homepage
+      </a>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md">
+        <div class="border-b border-slate-100 pb-6 mb-8">
+          <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Legal Document</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Privacy Policy</h1>
+          <p class="text-xs text-slate-400 mt-2">Last Updated: January 2026</p>
+        </div>
+
+        <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+
+          <p class="text-slate-600">
+            At <strong>RO Service Support</strong> (accessible from <a href="https://www.roservicesupport.co.in" class="text-sky-600 underline">www.roservicesupport.co.in</a>), the privacy of our visitors and customers is one of our top priorities. This Privacy Policy document outlines the types of information we collect, how we use it, and the steps we take to protect it. By using our website and services, you consent to this Privacy Policy.
+          </p>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">1. Information We Collect</h2>
+            <p class="text-slate-600">
+              When you book a service, submit a lead form, subscribe to our newsletter, or contact us via phone, we may collect the following personal information:
+            </p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Personal Identification Details:</strong> Full name, mobile number, WhatsApp number, email address.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Location Details:</strong> Residential address, apartment/house number, locality, and pincode in Bangalore.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Service Details:</strong> Water purifier brand, model, and the specific service requested (repair, filter change, installation, AMC).</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Technical Data:</strong> IP address, browser type, device information, pages visited, and time spent on our site.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">2. How We Use Your Information</h2>
+            <p class="text-slate-600">The information we collect is used strictly for the following purposes:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>To schedule, dispatch, and complete the requested doorstep RO service.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>To contact you via phone call, SMS, or WhatsApp regarding your booking status and technician arrival.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>To process service invoices and share digital receipts.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>To send periodic newsletters, service reminders, AMC renewal alerts, and promotional offers.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>To improve our website, user experience, and service quality based on aggregated analytics.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">3. Third-Party Service Providers</h2>
+            <p class="text-slate-600">
+              We do not sell, rent, or trade your personal information to any third party. However, we use trusted third-party platforms to deliver our services, and your data may be processed through them:
+            </p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>FormSubmit.co</strong> — for secure transmission of lead form submissions to our email inbox.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Cloudinary</strong> — for hosting and optimizing images displayed on our website.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Vercel</strong> — for website hosting and content delivery.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Google Analytics / Search Console</strong> — for anonymous traffic analysis.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">4. Cookies and Web Beacons</h2>
+            <p class="text-slate-600">
+              Like most websites, RO Service Support uses cookies to store information such as visitor preferences and the pages accessed. This helps us optimize content and improve user experience. You may disable cookies through your browser settings. However, disabling cookies may affect certain interactive features of this website.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">5. Data Security</h2>
+            <p class="text-slate-600">
+              We implement industry-standard administrative, technical, and physical safeguards to protect your personal information against unauthorized access, alteration, disclosure, or destruction. All form submissions are transmitted securely. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">6. Data Retention</h2>
+            <p class="text-slate-600">
+              We retain your personal data for as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law. Service records are retained for warranty, AMC tracking, and legal compliance purposes.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">7. Your Rights</h2>
+            <p class="text-slate-600">You have the right to:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Request access to the personal information we hold about you.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Request correction of inaccurate or incomplete data.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Request deletion of your personal data (subject to legal obligations).</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Opt out of promotional communications at any time.</span></li>
+            </ul>
+            <p class="text-slate-600 pt-2">
+              To exercise any of these rights, contact us at <strong>{BUSINESS_DETAILS.email}</strong> or call <strong>{BUSINESS_DETAILS.formattedPhone}</strong>.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">8. Children's Privacy</h2>
+            <p class="text-slate-600">
+              Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If a parent or guardian becomes aware that their child has provided us with personal data, please contact us immediately, and we will delete such information from our records.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">9. Updates to This Policy</h2>
+            <p class="text-slate-600">
+              RO Service Support reserves the right to update, amend, or modify this Privacy Policy at any time without prior notice. Changes will be posted on this page with a revised "Last Updated" date. We encourage you to review this page periodically.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">10. Contact Us</h2>
+            <p class="text-slate-600">If you have any questions or concerns regarding this Privacy Policy, please contact us:</p>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2 mt-3">
+              <p class="text-slate-700"><strong>RO Service Support</strong></p>
+              <p class="text-slate-600 text-xs">Bangalore, Karnataka, India</p>
+              <p class="text-slate-600 text-xs">Phone: <a href="tel:{BUSINESS_DETAILS.phone}" class="text-sky-600 underline">{BUSINESS_DETAILS.formattedPhone}</a></p>
+              <p class="text-slate-600 text-xs">Email: <a href="mailto:{BUSINESS_DETAILS.email}" class="text-sky-600 underline">{BUSINESS_DETAILS.email}</a></p>
+              <p class="text-slate-600 text-xs">Working Hours: {BUSINESS_DETAILS.workingHours}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer currentRoute="/privacy-policy" client:only="react" />
+</Layout>

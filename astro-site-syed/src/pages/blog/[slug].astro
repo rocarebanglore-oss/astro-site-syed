@@ -1,0 +1,118 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { BLOG_POSTS } from '@/data/blogPosts';
+import { Calendar, Clock, User, ArrowLeft, BookOpen, ArrowRight } from 'lucide-react';
+
+export async function getStaticPaths() {
+  return BLOG_POSTS.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const otherPosts = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+
+const title = `${post.title} | RO Service Support Bangalore`;
+const description = post.description;
+const canonical = `https://www.roservicesupport.co.in/blog/${post.slug}`;
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute={`/blog/${post.slug}`} client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <a href="/blog" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        Back to All Guides
+      </a>
+
+      <article class="bg-white rounded-3xl border border-slate-200/80 shadow-md overflow-hidden">
+        <div class="relative h-64 sm:h-96 w-full bg-slate-100 overflow-hidden">
+          <img src={post.image} alt={post.title} loading="eager" class="absolute inset-0 w-full h-full object-cover" />
+        </div>
+
+        <div class="p-6 sm:p-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 bg-blue-50 text-[#0066cc]">
+            <BookOpen className="w-3.5 h-3.5" />
+            {post.category}
+          </span>
+
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight mb-5">
+            {post.title}
+          </h1>
+
+          <div class="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-500 mb-8 pb-6 border-b border-slate-100">
+            <span class="flex items-center gap-1.5"><User className="w-4 h-4" />{post.author}</span>
+            <span class="flex items-center gap-1.5"><Calendar className="w-4 h-4" />{post.publishedAt}</span>
+            <span class="flex items-center gap-1.5"><Clock className="w-4 h-4" />{post.readingTime}</span>
+          </div>
+
+          <div class="space-y-6 text-slate-700 text-sm sm:text-base leading-relaxed">
+            <p class="text-base sm:text-lg font-medium text-slate-800 leading-relaxed">{post.content.lead}</p>
+
+            {post.content.sections.map((section) => (
+              <div class="space-y-3">
+                <h2 class="text-lg sm:text-xl font-bold text-slate-900 pt-3">{section.heading}</h2>
+                {section.paragraphs.map((para) => (<p class="text-slate-600">{para}</p>))}
+                {section.bulletPoints && section.bulletPoints.length > 0 && (
+                  <ul class="space-y-2 pt-2">
+                    {section.bulletPoints.map((point) => (
+                      <li class="flex items-start gap-2.5 text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-10 p-6 rounded-2xl bg-gradient-to-br from-[#0c2b5e] to-[#0c3975] text-white">
+            <h3 class="text-lg font-bold mb-2">Need RO Service in Bangalore?</h3>
+            <p class="text-sm text-blue-100 mb-4">Certified technicians, 60–90 min doorstep service, genuine spare parts, and 90-day warranty.</p>
+            <div class="flex flex-wrap gap-3">
+              <a href="tel:07090170092" class="bg-white text-[#0c2b5e] font-bold px-5 py-2.5 rounded-lg text-sm hover:opacity-95 transition">Call 070901 70092</a>
+              <a href="/" class="border border-white/40 text-white font-bold px-5 py-2.5 rounded-lg text-sm hover:bg-white/10 transition">Book Online</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      {otherPosts.length > 0 && (
+        <section class="mt-16">
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight mb-6">Continue Reading</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {otherPosts.map((p) => (
+              <article class="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+                <a href={`/blog/${p.slug}`} class="relative h-40 w-full bg-slate-100 block overflow-hidden">
+                  <img src={p.image} alt={p.title} loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </a>
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-sm font-bold text-slate-900 group-hover:text-[#0066cc] transition-colors leading-snug mb-2">{p.title}</h3>
+                    <p class="text-xs text-slate-500 line-clamp-2 mb-3">{p.description}</p>
+                  </div>
+                  <a href={`/blog/${p.slug}`} class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0066cc] mt-auto">Read Guide<ArrowRight className="w-3.5 h-3.5" /></a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+    </div>
+  </main>
+
+  <Footer currentRoute={`/blog/${post.slug}`} client:only="react" />
+</Layout>

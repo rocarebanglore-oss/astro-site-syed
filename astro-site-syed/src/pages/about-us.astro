@@ -1,0 +1,91 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { ArrowLeft, CheckCircle2, ShieldCheck, Droplets } from 'lucide-react';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+const title = 'About Us | RO Service Support Bangalore';
+const description = 'About RO Service Support - Bangalore leading independent multi-brand doorstep water purifier service, repair, and AMC provider.';
+const canonical = 'https://www.roservicesupport.co.in/about-us';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/about-us" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+
+      <a
+        href="/"
+        class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors cursor-pointer"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Back to Homepage
+      </a>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md">
+        <div class="border-b border-slate-100 pb-6 mb-8">
+          <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
+            <Droplets className="w-3.5 h-3.5" />
+            <span>Bangalore's Independent Multi-Brand Specialist</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            About RO Service Support
+          </h1>
+          <p class="text-xs text-slate-400 mt-2">
+            Serving Bangalore Households &amp; Commercial Establishments Since 2018
+          </p>
+        </div>
+
+        <div class="space-y-8 text-sm text-slate-700 leading-relaxed">
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">
+              Our Mission: Pure Water for Every Family
+            </h2>
+            <p class="text-slate-600 text-xs sm:text-sm">
+              RO Service Support was established with a singular objective: providing rapid, reliable, transparent, and affordable doorstep repair and maintenance for all domestic and commercial RO water purifiers across Bangalore.
+            </p>
+            <p class="text-slate-600 text-xs sm:text-sm">
+              With a fleet of over 50+ background-verified, certified technicians distributed across North, South, East, and West Bangalore, we guarantee quick doorstep arrival within 60 to 90 minutes of booking.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
+              <div class="flex items-center gap-2 font-bold text-slate-900 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                100% Genuine Spare Parts
+              </div>
+              <p class="text-xs text-slate-600">
+                We use brand-compatible genuine filters, high-pressure booster pumps, copper wound adapters, and genuine RO membranes.
+              </p>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl space-y-2">
+              <div class="flex items-center gap-2 font-bold text-slate-900 text-sm">
+                <ShieldCheck className="w-4 h-4 text-blue-600" />
+                30-Day Labor Warranty
+              </div>
+              <p class="text-xs text-slate-600">
+                Every service visit is backed by our signature 30-day service guarantee and free re-inspection support.
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">
+              Independent Brand Disclaimer
+            </h2>
+            <p class="text-slate-500 text-xs leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <strong>Disclaimer:</strong> RO Service Support is an independent service center and is not directly associated with, authorized by, or franchised by Kent RO Systems Ltd, Eureka Forbes (Aquaguard), Hindustan Unilever (Pureit), AO Smith India, Livpure, or Havells. All brand trademarks belong to their respective proprietary holders and are used solely for identification and compatibility descriptions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer currentRoute="/about-us" client:only="react" />
+</Layout>

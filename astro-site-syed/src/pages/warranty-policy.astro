@@ -1,0 +1,112 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+const title = 'Warranty Policy | RO Service Support Bangalore';
+const description = 'Warranty policy for RO water purifier repair, spare parts replacement, and AMC services provided by RO Service Support in Bangalore.';
+const canonical = 'https://www.roservicesupport.co.in/warranty-policy';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/warranty-policy" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <a href="/" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        Back to Homepage
+      </a>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md">
+        <div class="border-b border-slate-100 pb-6 mb-8">
+          <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-emerald-200">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Legal Document</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Warranty Policy</h1>
+          <p class="text-xs text-slate-400 mt-2">Last Updated: January 2026</p>
+        </div>
+
+        <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+
+          <p class="text-slate-600">
+            <strong>RO Service Support</strong> is committed to providing high-quality, reliable doorstep RO water purifier services in Bangalore. This Warranty Policy outlines the coverage, terms, and conditions of the warranties we provide on our repair work and spare parts.
+          </p>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">1. 30-Day Labor Warranty</h2>
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-xl">
+              <p class="text-slate-800 font-semibold text-sm">Every completed repair is backed by a 30-day labor warranty.</p>
+            </div>
+            <p class="text-slate-600">What this covers:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0" /><span>Any defect arising from faulty workmanship during our repair.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0" /><span>Repeated failures of the same issue we fixed within 30 days.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 shrink-0" /><span>Free re-inspection and correction visits at no additional cost.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">2. Spare Parts Warranty</h2>
+            <p class="text-slate-600">Genuine-compatible spare parts installed by us carry the following warranty:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>RO Membrane:</strong> 6 months (against manufacturing defects only)</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Booster Pump:</strong> 6 months</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>SMPS Adapter:</strong> 6 months</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Solenoid Valve:</strong> 6 months</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>UV Lamp / Ballast:</strong> 3 months</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Filters (Sediment / Carbon):</strong> 1 month (against clogging defects)</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>AMC Filter Replacements:</strong> Covered under AMC plan duration</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">3. What Is NOT Covered</h2>
+            <p class="text-slate-600">Our warranty does not cover:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" /><span><strong>Physical damage:</strong> Drops, floods, fire, or accidental damage by user.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" /><span><strong>Voltage fluctuations:</strong> Damage from electrical surges, lightning, or unstable power supply.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" /><span><strong>Water contamination:</strong> Damage from high TDS, iron, sand, or chemical impurities in input water beyond specified limits.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" /><span><strong>Third-party tampering:</strong> If the purifier has been serviced or opened by unauthorized personnel after our repair.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" /><span><strong>Normal wear and tear:</strong> Gradual degradation of filters, O-rings, and tubing.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" /><span><strong>Consumables:</strong> Filters, membranes, and cartridges that have reached their rated lifespan.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0" /><span><strong>Cosmetic damage:</strong> Scratches, cracks, or discoloration not affecting functionality.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">4. Manufacturer Warranty Notice</h2>
+            <p class="text-slate-600">
+              RO Service Support is an independent multi-brand service provider. Any repair or filter replacement performed by us on a purifier that is still under its original manufacturer's warranty may <strong>void the manufacturer's warranty</strong>. We always recommend that customers check with their brand's official service center first if the unit is within its active manufacturer warranty period. Our warranty applies only to the specific service we performed and the parts we installed.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">5. How to Claim Warranty</h2>
+            <p class="text-slate-600">To claim warranty support, contact us with:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Full name and mobile number used during booking</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Date of service and invoice/receipt number</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Description of the issue and (if possible) photos/videos</span></li>
+            </ul>
+            <p class="text-slate-600 pt-2">
+              Our team will verify the warranty eligibility and arrange a free inspection visit within 24–48 hours in Bangalore.
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2 mt-3">
+              <p class="text-slate-700"><strong>RO Service Support</strong></p>
+              <p class="text-slate-600 text-xs">Bangalore, Karnataka, India</p>
+              <p class="text-slate-600 text-xs">Phone: <a href="tel:{BUSINESS_DETAILS.phone}" class="text-sky-600 underline">{BUSINESS_DETAILS.formattedPhone}</a></p>
+              <p class="text-slate-600 text-xs">Email: <a href="mailto:{BUSINESS_DETAILS.email}" class="text-sky-600 underline">{BUSINESS_DETAILS.email}</a></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer currentRoute="/warranty-policy" client:only="react" />
+</Layout>

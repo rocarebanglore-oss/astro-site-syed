@@ -1,0 +1,133 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { ArrowLeft, FileText } from 'lucide-react';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+const title = 'Terms of Service | RO Service Support Bangalore';
+const description = 'Terms and Conditions for using RO Service Support website and doorstep water purifier repair services in Bangalore.';
+const canonical = 'https://www.roservicesupport.co.in/terms-of-service';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/terms-of-service" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <a href="/" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        Back to Homepage
+      </a>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md">
+        <div class="border-b border-slate-100 pb-6 mb-8">
+          <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
+            <FileText className="w-3.5 h-3.5" />
+            <span>Legal Document</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Terms of Service</h1>
+          <p class="text-xs text-slate-400 mt-2">Last Updated: January 2026</p>
+        </div>
+
+        <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+
+          <p class="text-slate-600">
+            Welcome to <strong>RO Service Support</strong>. These Terms of Service ("Terms") govern your access to and use of our website <a href="https://www.roservicesupport.co.in" class="text-sky-600 underline">www.roservicesupport.co.in</a> and all related doorstep RO water purifier services provided in Bangalore. By accessing our website or booking a service, you agree to be bound by these Terms.
+          </p>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">1. Services Provided</h2>
+            <p class="text-slate-600">
+              RO Service Support is an independent multi-brand water purifier service provider operating across Bangalore. We offer doorstep repair, filter replacement, installation, uninstallation, AMC (Annual Maintenance Contracts), and spare parts replacement for all major RO brands including Kent, Aquaguard, Pureit, AO Smith, Livpure, Havells, and others.
+            </p>
+            <p class="text-slate-600">
+              We are <strong>not</strong> affiliated, authorized, or franchised by any of the brands mentioned above. All brand names and trademarks belong to their respective owners and are used purely for identification and compatibility purposes.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">2. Booking and Service Confirmation</h2>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>All service bookings are subject to technician availability and scheduling.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Estimated arrival times (60–90 minutes) are indicative, not guaranteed, due to traffic, weather, or unforeseen circumstances.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Booking confirmation will be provided via phone call or SMS.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">3. Service Charges and Payment</h2>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>The doorstep inspection and diagnostic fee starts at ₹299 and is adjusted against the final repair bill if you proceed with the service.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>All charges for parts, labor, and AMC will be quoted transparently before work begins.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Payment is collected post-service via UPI (Google Pay, PhonePe, Paytm), debit/credit card, net banking, or cash.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>No advance payment is required for standard doorstep service bookings.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">4. Warranty and Guarantee</h2>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>All completed repairs carry a <strong>30-day labor warranty</strong> from the date of service.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Replaced spare parts carry the manufacturer's standard warranty (typically 6–12 months).</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Warranty does not cover damage caused by voltage fluctuations, water contamination, physical mishandling, or unauthorized third-party tampering.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">5. User Responsibilities</h2>
+            <p class="text-slate-600">As a user of our website and services, you agree:</p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>To provide accurate contact details, address, and purifier model information.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>To ensure a safe, accessible environment for our technicians to perform the service.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Not to misuse, copy, or redistribute any content, images, or code from our website.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span>Not to submit false bookings, spam forms, or attempt unauthorized access to our systems.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">6. Limitation of Liability</h2>
+            <p class="text-slate-600">
+              RO Service Support shall not be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with the use of our website or services. Our total liability for any claim shall not exceed the amount paid by you for the specific service in question. We are not responsible for pre-existing damage to your purifier or home infrastructure.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">7. Intellectual Property</h2>
+            <p class="text-slate-600">
+              All content on this website — including text, graphics, logos, images, code, and design — is the property of RO Service Support unless otherwise stated. You may not reproduce, distribute, or use any content without prior written permission. Brand names and trademarks of third parties (Kent, Aquaguard, Pureit, etc.) remain the property of their respective owners.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">8. Modifications to Services and Terms</h2>
+            <p class="text-slate-600">
+              We reserve the right to modify, suspend, or discontinue any part of our services or these Terms at any time without prior notice. Continued use of our website after changes constitutes acceptance of the revised Terms.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">9. Governing Law and Jurisdiction</h2>
+            <p class="text-slate-600">
+              These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising out of or relating to these Terms or our services shall be subject to the exclusive jurisdiction of the courts in Bangalore, Karnataka.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">10. Contact Information</h2>
+            <p class="text-slate-600">For questions about these Terms, please contact us:</p>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2 mt-3">
+              <p class="text-slate-700"><strong>RO Service Support</strong></p>
+              <p class="text-slate-600 text-xs">Bangalore, Karnataka, India</p>
+              <p class="text-slate-600 text-xs">Phone: <a href="tel:{BUSINESS_DETAILS.phone}" class="text-sky-600 underline">{BUSINESS_DETAILS.formattedPhone}</a></p>
+              <p class="text-slate-600 text-xs">Email: <a href="mailto:{BUSINESS_DETAILS.email}" class="text-sky-600 underline">{BUSINESS_DETAILS.email}</a></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer currentRoute="/terms-of-service" client:only="react" />
+</Layout>

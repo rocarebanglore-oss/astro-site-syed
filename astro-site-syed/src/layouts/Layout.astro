@@ -1,0 +1,74 @@
+---
+import '@/styles/globals.css';
+import { CallWidgetsWrapper } from '@/components/CallWidgetsWrapper';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogUrl?: string;
+  ogImage?: string;
+}
+
+const {
+  title = `${BUSINESS_DETAILS.name} | Doorstep RO Water Purifier Repair & Service Bangalore`,
+  description = 'Fast 60–90 min doorstep RO water purifier repair, filter replacement, AMC & installation service in Bangalore. Kent, Aquaguard, Pureit, AO Smith & Livpure expert service.',
+  canonical = 'https://www.roservicesupport.co.in',
+  ogTitle,
+  ogDescription,
+  ogUrl,
+  ogImage,
+} = Astro.props;
+
+const fullTitle = title.includes(BUSINESS_DETAILS.name)
+  ? title
+  : `${title} | ${BUSINESS_DETAILS.name}`;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="theme-color" content="#0c54a0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={ogTitle ?? fullTitle} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:url" content={ogUrl ?? canonical} />
+    <meta property="og:type" content="website" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- Icons -->
+    <link rel="icon" href="https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg" />
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link rel="preconnect" href="https://formsubmit.co" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-800 antialiased selection:bg-sky-500 selection:text-white">
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <CallWidgetsWrapper client:only="react" />
+  </body>
+</html>

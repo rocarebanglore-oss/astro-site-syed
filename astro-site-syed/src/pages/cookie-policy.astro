@@ -1,0 +1,131 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { ArrowLeft, Cookie } from 'lucide-react';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+const title = 'Cookie Policy | RO Service Support Bangalore';
+const description = 'Cookie Policy of RO Service Support - how we use cookies and similar technologies on our website.';
+const canonical = 'https://www.roservicesupport.co.in/cookie-policy';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/cookie-policy" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <a href="/" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        Back to Homepage
+      </a>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md">
+        <div class="border-b border-slate-100 pb-6 mb-8">
+          <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-blue-200">
+            <Cookie className="w-3.5 h-3.5" />
+            <span>Legal Document</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Cookie Policy</h1>
+          <p class="text-xs text-slate-400 mt-2">Last Updated: January 2026</p>
+        </div>
+
+        <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+
+          <p class="text-slate-600">
+            This Cookie Policy explains how <strong>RO Service Support</strong> ("we", "us", "our") uses cookies and similar tracking technologies when you visit our website <a href="https://www.roservicesupport.co.in" class="text-sky-600 underline">www.roservicesupport.co.in</a>. By continuing to browse or use our website, you consent to the use of cookies as described in this policy.
+          </p>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">1. What Are Cookies?</h2>
+            <p class="text-slate-600">
+              Cookies are small text files stored on your device (computer, tablet, or mobile) when you visit a website. They help the website remember your preferences, improve performance, and provide analytical insights. Cookies do not contain personal information by themselves and cannot be used to identify you personally.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">2. Types of Cookies We Use</h2>
+
+            <div class="space-y-3">
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                <h3 class="text-sm font-bold text-slate-900 mb-1">Essential Cookies</h3>
+                <p class="text-xs text-slate-600">These are necessary for the website to function properly. They enable basic features like page navigation, form submission, and secure access. Without these, our website may not work correctly.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                <h3 class="text-sm font-bold text-slate-900 mb-1">Performance &amp; Analytics Cookies</h3>
+                <p class="text-xs text-slate-600">These cookies help us understand how visitors interact with our website — which pages are visited most, how long users stay, and where they come from. We use tools like Google Analytics to collect anonymized data that helps us improve user experience.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                <h3 class="text-sm font-bold text-slate-900 mb-1">Functionality Cookies</h3>
+                <p class="text-xs text-slate-600">These remember your preferences such as language, region, and form details so you don't have to re-enter them on each visit.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                <h3 class="text-sm font-bold text-slate-900 mb-1">Marketing &amp; Advertising Cookies</h3>
+                <p class="text-xs text-slate-600">These are used to show you relevant ads based on your interests and to measure the effectiveness of our marketing campaigns. We may use Google Ads, Meta Ads, and similar platforms.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">3. Third-Party Cookies</h2>
+            <p class="text-slate-600">
+              Our website may include cookies from trusted third-party services, including:
+            </p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Google Analytics</strong> — for anonymous traffic analysis.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Google Ads / Meta Ads</strong> — for remarketing and conversion tracking.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Cloudinary</strong> — for optimized image delivery.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>FormSubmit.co</strong> — for secure form submission handling.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">4. How to Manage Cookies</h2>
+            <p class="text-slate-600">
+              You can control or disable cookies through your browser settings. Here is how to do it on popular browsers:
+            </p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Google Chrome:</strong> Settings → Privacy and security → Cookies and other site data</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Mozilla Firefox:</strong> Options → Privacy &amp; Security → Cookies and Site Data</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Safari:</strong> Preferences → Privacy → Cookies and website data</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" /><span><strong>Microsoft Edge:</strong> Settings → Cookies and site permissions</span></li>
+            </ul>
+            <p class="text-slate-600 pt-2">
+              Please note that disabling cookies may impact certain features of our website, such as form submission, personalized content, and smooth navigation.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">5. Consent</h2>
+            <p class="text-slate-600">
+              By continuing to use our website without changing your cookie settings, you consent to our use of cookies as described in this policy. If you do not agree, you may disable cookies through your browser or discontinue using our site.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">6. Updates to This Policy</h2>
+            <p class="text-slate-600">
+              We may update this Cookie Policy from time to time to reflect changes in technology or legal requirements. Updates will be posted on this page with a revised "Last Updated" date.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">7. Contact</h2>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
+              <p class="text-slate-700"><strong>RO Service Support</strong></p>
+              <p class="text-slate-600 text-xs">Bangalore, Karnataka, India</p>
+              <p class="text-slate-600 text-xs">Phone: <a href="tel:{BUSINESS_DETAILS.phone}" class="text-sky-600 underline">{BUSINESS_DETAILS.formattedPhone}</a></p>
+              <p class="text-slate-600 text-xs">Email: <a href="mailto:{BUSINESS_DETAILS.email}" class="text-sky-600 underline">{BUSINESS_DETAILS.email}</a></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer currentRoute="/cookie-policy" client:only="react" />
+</Layout>

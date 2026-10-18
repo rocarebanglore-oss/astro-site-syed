@@ -1,0 +1,130 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { ArrowLeft, AlertTriangle } from 'lucide-react';
+import { BUSINESS_DETAILS } from '@/data/content';
+
+const title = 'Disclaimer | RO Service Support Bangalore';
+const description = 'Official disclaimer notice for RO Service Support - independent multi-brand water purifier service provider in Bangalore.';
+const canonical = 'https://www.roservicesupport.co.in/disclaimer';
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Header currentRoute="/disclaimer" client:only="react" />
+
+  <main class="min-h-screen bg-slate-50 py-12 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <a href="/" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 bg-white border border-slate-200 px-3.5 py-2 rounded-xl mb-6 shadow-2xs transition-colors">
+        <ArrowLeft className="w-4 h-4" />
+        Back to Homepage
+      </a>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md">
+        <div class="border-b border-slate-100 pb-6 mb-8">
+          <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-amber-200">
+            <AlertTriangle className="w-3.5 h-3.5" />
+            <span>Legal Notice</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">Disclaimer</h1>
+          <p class="text-xs text-slate-400 mt-2">Last Updated: January 2026</p>
+        </div>
+
+        <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+
+          <div class="bg-amber-50 border-l-4 border-amber-400 p-5 rounded-r-xl">
+            <p class="text-slate-800 font-semibold text-sm mb-2">Important Brand Notice:</p>
+            <p class="text-slate-700 text-xs sm:text-sm leading-relaxed">
+              <strong>RO Service Support</strong> is an <strong>independent, multi-brand doorstep water purifier sales, service, maintenance, and repair provider</strong>. We are <strong>NOT affiliated with, associated with, authorized by, endorsed by, sponsored by, or in any way officially connected</strong> with any of the following brands or their subsidiaries/affiliates:
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">Kent RO Systems Ltd.</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">Eureka Forbes (Aquaguard)</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">Hindustan Unilever (Pureit)</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">A.O. Smith India</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">Livpure Pvt. Ltd.</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">Havells India Ltd.</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">Blue Star Ltd.</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">V-Guard Industries</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">Zero B (Ion Exchange)</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">LG Electronics</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">Other brand holders</div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 text-center font-medium">All respective owners</div>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Trademark Acknowledgement</h2>
+            <p class="text-slate-600">
+              All brand names, product logos, model numbers, registered trademarks, and service marks displayed on this website belong to their respective proprietary holders. Any reference to these trademarks is strictly made for:
+            </p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0"></span><span><strong>Customer Convenience</strong> — so customers can easily identify which purifier brand they own.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0"></span><span><strong>Identification</strong> — to clarify which brands our certified technicians are trained to service.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0"></span><span><strong>Compatibility</strong> — to indicate the types of water purifiers our independent technicians repair and maintain.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0"></span><span><strong>Descriptive Purposes</strong> — for fair, factual reference and not for endorsement, sponsorship, or affiliation.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">No Brand Endorsement Claimed</h2>
+            <p class="text-slate-600">
+              The use of any brand name, logo, or trademark on this website does not imply:
+            </p>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0"></span><span>That RO Service Support is an authorized or official service partner of the brand.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0"></span><span>That the brand endorses, sponsors, or recommends our independent services.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0"></span><span>That we use only brand-authorized parts (we use OEM-grade, brand-compatible, food-grade spare parts only).</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0"></span><span>That any repair performed by us is covered by the original brand warranty (we provide our own 30-day labor warranty).</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Service and Warranty Disclaimer</h2>
+            <ul class="space-y-2 pl-4">
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0"></span><span>All spare parts we install are <strong>100% genuine-compatible, food-grade, and OEM-quality</strong>, not manufacturer-branded originals.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0"></span><span>Our repairs carry a <strong>30-day labor warranty</strong> against workmanship defects only.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0"></span><span>The original manufacturer warranty on your purifier may be voided if unauthorized parties (including us) have tampered with the unit. We recommend checking with your brand official service center first if your unit is under active warranty.</span></li>
+              <li class="flex items-start gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0"></span><span>Digital TDS testing, filter replacement, and AMC services are recommendations, not guarantees of specific water quality outcomes.</span></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Website Content Disclaimer</h2>
+            <p class="text-slate-600">
+              The information on this website is provided "as is" for general informational purposes only. While we strive to keep all content accurate and up-to-date, we make no warranties or representations of any kind about the completeness, accuracy, reliability, or suitability of the information. Any reliance you place on such information is strictly at your own risk.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">External Links Disclaimer</h2>
+            <p class="text-slate-600">
+              Our website may contain links to external websites or third-party services. We do not control, monitor, or endorse the content, privacy policies, or practices of any third-party site. We are not responsible for any loss or damage caused by the use of these external sites.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Legal Action and Takedown Requests</h2>
+            <p class="text-slate-600">
+              If you are a brand owner and believe any content on this website infringes upon your intellectual property rights or misrepresents a brand affiliation, please contact us immediately at <strong>{BUSINESS_DETAILS.email}</strong>. We will cooperate fully with any legitimate takedown request or content modification within 7 business days.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Contact</h2>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
+              <p class="text-slate-700"><strong>RO Service Support</strong></p>
+              <p class="text-slate-600 text-xs">Bangalore, Karnataka, India</p>
+              <p class="text-slate-600 text-xs">Phone: <a href={`tel:${BUSINESS_DETAILS.phone}`} class="text-sky-600 underline">{BUSINESS_DETAILS.formattedPhone}</a></p>
+              <p class="text-slate-600 text-xs">Email: <a href={`mailto:${BUSINESS_DETAILS.email}`} class="text-sky-600 underline">{BUSINESS_DETAILS.email}</a></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer currentRoute="/disclaimer" client:only="react" />
+</Layout>
