@@ -389,7 +389,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Helpline</span>
               <a href={`tel:${displayPhone}`} className="text-lg font-black text-[#0b5cbe]">{displayPhone}</a>
             </div>
-            <a href={`tel:${displayPhone}`} onClick={() => setMobileMenuOpen(false)} className="w-full bg-[#0b5cbe] hover:bg-[#094fa5] text-white text-base font-bold py-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"><Phone className="w-5 h-5 fill-current" /><span>Call 07090170092</span></a>
+            <a href={`tel:${displayPhone}`} onClick={() => setMobileMenuOpen(false)} className="w-full bg-[#0b5cbe] hover:bg-[#094fa5] text-white text-base font-bold py-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"><Phone className="w-5 h-5 fill-current" /><span>Call 09008315606</span></a>
           </div>
         </div>
       )}
@@ -452,7 +452,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
               <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-2">
                 <a href={`tel:${displayPhone}`} className="bg-[#0066cc] hover:bg-[#0055b3] text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-lg shadow-sm transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer">
                   <Phone className="w-3.5 h-3.5 fill-current" />
-                  <span>Call Now 07090170092</span>
+                  <span>Call Now 09008315606</span>
                 </a>
                 <a href="#booking-section" className="bg-white border-2 border-[#0066cc] text-[#0066cc] hover:bg-blue-50 text-xs sm:text-sm font-bold px-4 sm:px-5 py-2.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer">
                   <span>Book Online</span>
@@ -892,7 +892,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3"><span style={{ backgroundColor: primaryColor }} className="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0">3</span><div><strong className="text-slate-900 block">Comprehensive Multi-Point Inspection</strong><span className="text-slate-500">TDS check, pressure testing, and filter replacement.</span></div></div>
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3"><span style={{ backgroundColor: primaryColor }} className="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center shrink-0">4</span><div><strong className="text-slate-900 block">Post-Service Warranty</strong><span className="text-slate-500">Enjoy clean drinking water with 90-day service warranty.</span></div></div>
             </div>
-            <a href={`tel:${displayPhone}`} onClick={() => { setVideoModalOpen(false); }} aria-label={`Call ${brand.name} Helpline`} style={{ backgroundColor: primaryColor }} className="w-full text-white font-bold py-3 rounded-xl text-sm shadow-xs cursor-pointer flex items-center justify-center gap-2"><Phone className="w-4 h-4 fill-current" /><span>Call 07090170092</span></a>
+            <a href={`tel:${displayPhone}`} onClick={() => { setVideoModalOpen(false); }} aria-label={`Call ${brand.name} Helpline`} style={{ backgroundColor: primaryColor }} className="w-full text-white font-bold py-3 rounded-xl text-sm shadow-xs cursor-pointer flex items-center justify-center gap-2"><Phone className="w-4 h-4 fill-current" /><span>Call 09008315606</span></a>
           </div>
         </div>
       )}
