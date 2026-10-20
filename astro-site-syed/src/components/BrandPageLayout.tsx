@@ -150,7 +150,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  // ⭐ Call Button Click Tracking (Label Daal Diya Hai)
   useEffect(() => {
     const handleCallClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -159,7 +158,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       if (link && link.getAttribute('href')?.startsWith('tel:')) {
         if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
           (window as any).gtag('event', 'conversion', { 
-            'send_to': 'AW-10934329019/darZCOiX3qAdELu98t0o', // ⭐ Call Label
+            'send_to': 'AW-10934329019/darZCOiX3qAdELu98t0o',
             'value': 1.0,
             'currency': 'INR'
           });
@@ -173,7 +172,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
 
   const primaryColor = brand.brandThemeColors?.primary || brand.accentColor || '#007A53';
   
-  // ⭐ NAYA NUMBER YAHAN SET KIYA HAI
   const displayPhone = '9008315606'; 
   const formEmail = 'syedsmaula786@gmail.com';
 
@@ -338,12 +336,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
             <div className="flex items-center gap-2 sm:gap-4">
               <a href="/" className="flex items-center gap-2 sm:gap-3 group select-none">
                 <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-xs shrink-0 group-hover:scale-[1.03] transition-transform">
+                  {/* ✅ FIX: Logo loading lazy kar diya */}
                   <img
                     src={optimizeCloudinary("https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg", { width: 100 })}
                     alt="Roservice Support Online 24x7"
                     width={44}
                     height={44}
-                    loading="eager"
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -409,14 +408,14 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       <section className="relative w-full min-h-[380px] sm:min-h-[420px] max-h-none sm:max-h-[560px] lg:max-h-[620px] flex items-start sm:items-center overflow-hidden border-b border-slate-200/80 bg-white">
         {heroImageToDisplay && (
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            {/* ✅ FIX: Hero Image me decoding="async" hataya aur fetchpriority small me kiya */}
             <img
               src={heroImageToDisplay}
               alt={`${brand.name} RO Service Bangalore`}
               width={1200}
               height={630}
               loading="eager"
-              fetchPriority="high"
-              decoding="async"
+              fetchpriority="high"
               className="absolute inset-0 w-full h-full object-cover object-[center_top]"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/85 sm:bg-gradient-to-r sm:from-white/75 sm:via-white/40 sm:to-transparent" />
