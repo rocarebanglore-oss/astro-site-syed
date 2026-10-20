@@ -113,6 +113,6 @@ const jsonLd = [
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   
-  <!-- ⭐ client:load use kiya hai taaki page turant load ho -->
-  <BrandPageLayout brand={genericBrand} client:load />
+  {/* ✅ client:load hata diya gaya hai performance ke liye */}
+  <BrandPageLayout brand={genericBrand} />
 </Layout>
