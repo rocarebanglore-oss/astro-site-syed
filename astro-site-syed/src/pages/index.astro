@@ -4,35 +4,21 @@ import { BrandPageLayout } from '@/components/BrandPageLayout';
 import type { BrandInfo } from '@/types';
 import { BUSINESS_DETAILS, HOMEPAGE_FAQS } from '@/data/content';
 
-// ✅ FIX: Astro ko bataya ki kaunse brands ke pages build karne hain
-export function getStaticPaths() {
-  return [
-    { params: { brand: 'kent' } },
-    { params: { brand: 'aquaguard' } },
-    { params: { brand: 'pureit' } },
-    { params: { brand: 'ao-smith' } },
-    { params: { brand: 'livpure' } },
-    { params: { brand: 'havells' } },
-  ];
-}
+const title = 'RO Service 24x7 | Best RO Water Purifier Repair & Service Bangalore | Call 070901 70092';
+const description = 'Fastest 60–90 min doorstep RO water purifier repair, filter replacement, AMC & installation service in Bangalore. Expert technicians for Kent, Aquaguard, Pureit, AO Smith & Livpure.';
 
-// URL se current brand nikal raha hai (jaise /kent se 'kent')
-const { brand: brandSlug } = Astro.params;
-const brandName = brandSlug ? brandSlug.toUpperCase() : 'RO Service Support';
-
-// Tumhara purana data, bas name aur id dynamic kar diya hai
 const genericBrand: BrandInfo = {
-  id: brandSlug || 'ro-service-24x7',
-  name: brandName,
-  slug: `/${brandSlug || ''}`,
+  id: 'ro-service-24x7',
+  name: 'RO Service Support',
+  slug: '/',
   logoText: 'RO Service Support',
   logoUrl: '',
   subTagline: 'Doorstep Water Purifier Service',
   tagline: 'Expert Water Purifier Repair & Maintenance',
   description: 'Fastest 60–90 min doorstep RO water purifier repair, filter replacement, AMC & installation service in Bangalore. Expert technicians for all major brands.',
   accentColor: 'blue',
-  metaTitle: `RO Service 24x7 | Best ${brandName} Water Purifier Repair & Service Bangalore`,
-  metaDescription: 'Fastest 60–90 min doorstep RO water purifier repair, filter replacement, AMC & installation service in Bangalore. Expert technicians for Kent, Aquaguard, Pureit, AO Smith & Livpure.',
+  metaTitle: title,
+  metaDescription: description,
   heroMotto: 'Pure Water. Healthy Families. Brighter Tomorrows.',
   commonProblems: [
     'Water purifier not purifying water properly',
@@ -61,17 +47,14 @@ const genericBrand: BrandInfo = {
 };
 
 const heroImagePreload = '/images/hero-bg.webp';
-const title = genericBrand.metaTitle;
-const description = genericBrand.metaDescription;
 
-// JSON-LD schema data
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': 'https://Roservicecare24x7.co.in/#localbusiness',
     name: BUSINESS_DETAILS.name,
-    telephone: '+917090170092',
+    telephone: '+919008315606',
     email: BUSINESS_DETAILS.email,
     url: 'https://Roservicecare24x7.co.in',
     logo: 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg',
@@ -122,14 +105,14 @@ const jsonLd = [
 <Layout
   title={title}
   description={description}
-  canonical={`https://Roservicecare24x7.co.in/${brandSlug || ''}`}
-  ogTitle={title}
-  ogDescription={description}
-  ogUrl={`https://Roservicecare24x7.co.in/${brandSlug || ''}`}
+  canonical="https://Roservicecare24x7.co.in"
+  ogTitle="RO Service 24x7 | Best RO Water Purifier Repair & Maintenance Bangalore"
+  ogDescription="Fastest 60–90 min doorstep RO water purifier repair, filter replacement & AMC in Bangalore."
+  ogUrl="https://Roservicecare24x7.co.in"
   preloadImage={heroImagePreload}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   
-  {/* ✅ Yahan se client:load hata diya gaya hai taaki performance fast ho */}
-  <BrandPageLayout brand={genericBrand} />
+  {/* ✅ FIX: client:load hata kar client:visible laga diya hai */}
+  <BrandPageLayout brand={genericBrand} client:visible />
 </Layout>
