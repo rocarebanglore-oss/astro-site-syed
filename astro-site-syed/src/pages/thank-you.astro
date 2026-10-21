@@ -1,39 +1,40 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 
-// URL se bookingId aur returnUrl nikal rahe hain
 const bookingId = Astro.url.searchParams.get('bookingId') || 'RO-XXXXXX';
-const returnUrlParam = Astro.url.searchParams.get('returnUrl') || '/'; // Default Home
-
-// Button ka text set kar rahe hain
-let buttonText = 'Back to Home';
-if (returnUrlParam.includes('kent')) buttonText = 'Back to Kent Page';
-else if (returnUrlParam.includes('aquaguard')) buttonText = 'Back to Aquaguard Page';
-else if (returnUrlParam.includes('pureit')) buttonText = 'Back to Pureit Page';
-else if (returnUrlParam.includes('ao-smith') || returnUrlParam.includes('aosmith')) buttonText = 'Back to AO Smith Page';
-else if (returnUrlParam.includes('livpure')) buttonText = 'Back to Livpure Page';
-else if (returnUrlParam !== '/') buttonText = 'Back to Previous Page';
 ---
 
 <Layout title="Booking Confirmed | Roservice Support" description="Your RO service request has been received.">
   
   <script is:inline>
     if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {
-        'send_to': 'AW-10934329019/kUwqCOf33KAdELu98t0o' 
-      });
+      gtag('event', 'conversion', { 'send_to': 'AW-10934329019/kUwqCOf33KAdELu98t0o' });
     }
 
-    // URL se asli ID nikal kar update karne ke liye
+    // ✅ NAYA FIX: Browser memory se path nikal kar button set karo
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const realId = urlParams.get('bookingId');
       
       if (realId) {
         const idElement = document.getElementById('real-booking-id');
-        if (idElement) {
-          idElement.innerText = realId;
-        }
+        if (idElement) idElement.innerText = realId;
+      }
+
+      // Browser memory se path uthao
+      const savedPath = sessionStorage.getItem('lastVisitedPath') || '/';
+      const backBtn = document.getElementById('dynamic-back-btn');
+
+      if (backBtn) {
+        backBtn.href = savedPath; // Button ka link set karo
+
+        // Button ka naam badlo
+        if (savedPath.includes('kent')) backBtn.innerText = 'Back to Kent Page';
+        else if (savedPath.includes('aquaguard')) backBtn.innerText = 'Back to Aquaguard Page';
+        else if (savedPath.includes('pureit')) backBtn.innerText = 'Back to Pureit Page';
+        else if (savedPath.includes('ao-smith') || savedPath.includes('aosmith')) backBtn.innerText = 'Back to AO Smith Page';
+        else if (savedPath.includes('livpure')) backBtn.innerText = 'Back to Livpure Page';
+        else backBtn.innerText = 'Back to Home';
       }
     });
   </script>
@@ -58,7 +59,6 @@ else if (returnUrlParam !== '/') buttonText = 'Back to Previous Page';
 
         <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-8">
           <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-1">Your Booking ID</p>
-          <!-- Yahan ID update hogi -->
           <h2 id="real-booking-id" class="text-3xl font-extrabold text-[#0c2b5e] tracking-widest">{bookingId}</h2>
           <p class="text-[11px] text-slate-500 mt-2">Please save this ID for future reference.</p>
         </div>
@@ -69,9 +69,9 @@ else if (returnUrlParam !== '/') buttonText = 'Back to Previous Page';
             Call Support Now
           </a>
           
-          <!-- ✅ Yahan returnUrl wala href lagega aur text dynamic hoga -->
-          <a href={returnUrlParam} class="w-full flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 font-bold py-3 px-4 rounded-xl border border-slate-300 transition-colors">
-            {buttonText}
+          <!-- ✅ Yahan ID "dynamic-back-btn" add ki hai taaki script isko pakad sake -->
+          <a id="dynamic-back-btn" href="/" class="w-full flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 font-bold py-3 px-4 rounded-xl border border-slate-300 transition-colors">
+            Back to Home
           </a>
         </div>
       </div>
