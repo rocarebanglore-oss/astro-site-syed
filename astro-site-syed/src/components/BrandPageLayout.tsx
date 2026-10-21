@@ -4,7 +4,6 @@ import {
 } from 'lucide-react';
 import type { BrandInfo } from '@/types';
 import { BUSINESS_DETAILS } from '@/data/content';
-// ✅ IMPORT UPDATED: generateCloudinarySrcSet bhi import kiya hai fast images ke liye
 import { optimizeCloudinary, generateCloudinarySrcSet } from '@/utils/imageOptimizer';
 
 interface BrandPageLayoutProps {
@@ -178,7 +177,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
 
   const heroImageRaw = brand.heroBgImage || '/images/hero-bg.webp';
   
-  // ✅ NAYA: Hero Image ke liye responsive sizes (SrcSet) generate kar rahe hain
   const heroImageSrcSet = generateCloudinarySrcSet(heroImageRaw, [400, 600, 800, 1200, 1600]);
   const heroImageDefault = optimizeCloudinary(heroImageRaw, { width: 1200, quality: 'auto:good' });
 
@@ -203,10 +201,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     setIsSubmitting(true);
 
     const bookingId = 'RO-' + Math.floor(100000 + Math.random() * 900000);
+    
+    // ✅ FIX 1: Current URL ka path le raha hai (jaise '/kent')
     const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
 
     try {
-      await fetch(`https://formsubmit.co/ajax/${formEmail}`, {
+      // ✅ FIX 2: await hata diya taaki form turant submit ho
+      fetch(`https://formsubmit.co/ajax/${formEmail}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -226,12 +227,18 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       });
       
       setFormSubmitted(true);
-      window.location.href = `/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(currentPath)}`;
+      
+      // ✅ FIX 3: replace() use kiya taaki browser naya URL load kare aur wapas pichle page par na jaye
+      const returnPath = currentPath === '/' ? '/' : currentPath;
+      window.location.replace(`/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(returnPath)}`);
 
     } catch (err) {
       console.warn('FormSubmit lead sending note:', err);
       setFormSubmitted(true);
-      window.location.href = `/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(currentPath)}`;
+      
+      // ✅ FIX 3 (Catch block mein bhi): replace() use kiya
+      const returnPath = currentPath === '/' ? '/' : currentPath;
+      window.location.replace(`/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(returnPath)}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -409,7 +416,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       <section className="relative w-full min-h-[380px] sm:min-h-[420px] max-h-none sm:max-h-[560px] lg:max-h-[620px] flex items-start sm:items-center overflow-hidden border-b border-slate-200/80 bg-white">
         {heroImageRaw && (
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            {/* ✅ UPDATED: Image ab srcSet use kar rahi hai, mobile pe choti aur desktop pe badi load hogi */}
             <img
               src={heroImageDefault}
               srcSet={heroImageSrcSet}
@@ -492,7 +498,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       {/* BOOKING FORM */}
       <section className="bg-slate-50 py-4 sm:py-10 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* ✅ UPDATED: Gradient hatakar solid color daala hai render fast karne ke liye */}
           <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-xl overflow-hidden bg-[#0c2b5e] border border-blue-900/30">
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               <div className="lg:col-span-12 xl:col-span-12 space-y-4">
