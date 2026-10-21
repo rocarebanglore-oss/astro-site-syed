@@ -165,7 +165,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="text-sm font-semibold text-slate-700 hover:text-slate-950 transition-colors flex items-center gap-1.5"
               >
                 <Phone className="w-3.5 h-3.5 text-[#0070e0] animate-phone-rock" />
-                <span>Call 09008315606</span>
+                <span>Call 07090170092</span>
               </a>
 
               <div className="relative">
@@ -364,7 +364,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="w-full text-center px-4 py-2.5 rounded-xl bg-sky-600 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4 fill-white animate-phone-rock" />
-                <span>Call 09008315606</span>
+                <span>Call 07090170092</span>
               </a>
             </div>
           </div>
