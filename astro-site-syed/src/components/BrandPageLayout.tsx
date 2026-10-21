@@ -201,13 +201,11 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     setIsSubmitting(true);
 
     const bookingId = 'RO-' + Math.floor(100000 + Math.random() * 900000);
-    
-    // ✅ FIX 1: Current URL ka path le raha hai (jaise '/kent')
     const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
 
     try {
-      // ✅ FIX 2: await hata diya taaki form turant submit ho
-      fetch(`https://formsubmit.co/ajax/${formEmail}`, {
+      // ✅ FIX: await wapas laga diya taaki mail pakka jaye
+      await fetch(`https://formsubmit.co/ajax/${formEmail}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -228,7 +226,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       
       setFormSubmitted(true);
       
-      // ✅ FIX 3: replace() use kiya taaki browser naya URL load kare aur wapas pichle page par na jaye
+      // ✅ FIX: replace() use kiya taaki browser naya URL load kare aur wapas pichle page par na jaye
       const returnPath = currentPath === '/' ? '/' : currentPath;
       window.location.replace(`/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(returnPath)}`);
 
@@ -236,7 +234,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       console.warn('FormSubmit lead sending note:', err);
       setFormSubmitted(true);
       
-      // ✅ FIX 3 (Catch block mein bhi): replace() use kiya
+      // ✅ FIX: Catch block mein bhi replace() use kiya
       const returnPath = currentPath === '/' ? '/' : currentPath;
       window.location.replace(`/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(returnPath)}`);
     } finally {
