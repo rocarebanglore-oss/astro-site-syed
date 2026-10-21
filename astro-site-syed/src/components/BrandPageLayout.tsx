@@ -203,8 +203,12 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     const bookingId = 'RO-' + Math.floor(100000 + Math.random() * 900000);
     const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
 
+    // ✅ FIX: Path ko localStorage mein save kar diya taaki Thank You page use padh sake
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('returnToPath', currentPath);
+    }
+
     try {
-      // ✅ FIX: await wapas laga diya taaki mail pakka jaye
       await fetch(`https://formsubmit.co/ajax/${formEmail}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -226,17 +230,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       
       setFormSubmitted(true);
       
-      // ✅ FIX: replace() use kiya taaki browser naya URL load kare aur wapas pichle page par na jaye
-      const returnPath = currentPath === '/' ? '/' : currentPath;
-      window.location.replace(`/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(returnPath)}`);
+      window.location.replace(`/thank-you?bookingId=${bookingId}`);
 
     } catch (err) {
       console.warn('FormSubmit lead sending note:', err);
       setFormSubmitted(true);
       
-      // ✅ FIX: Catch block mein bhi replace() use kiya
-      const returnPath = currentPath === '/' ? '/' : currentPath;
-      window.location.replace(`/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(returnPath)}`);
+      window.location.replace(`/thank-you?bookingId=${bookingId}`);
     } finally {
       setIsSubmitting(false);
     }
