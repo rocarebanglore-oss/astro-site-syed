@@ -1,5 +1,8 @@
 import type { APIRoute } from 'astro';
 
+// ✅ API ko static build se bachayega aur Vercel par serverless function banayega
+export const prerender = false;
+
 // ✅ Aapka Purana Webhook URL (Same Google Sheet ke liye)
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbygR-2SFHUYeZPwsc5D58EqatdD_zm_y77cAefWq9VeXLzgxECUsXmb2FXCOmscdH8t/exec';
 
@@ -30,4 +33,12 @@ export const POST: APIRoute = async ({ request }) => {
       status: 200, headers: { 'Content-Type': 'application/json' }
     });
   }
+};
+
+// ✅ Sirf warning hatane ke liye GET method add kiya hai
+export const GET: APIRoute = async () => {
+  return new Response(JSON.stringify({ status: "API is active", message: "Use POST to send data." }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
+  });
 };

@@ -63,15 +63,28 @@ export function getCloudinaryThumbnail(url: string, size: number = 200): string 
 
 /**
  * Generate a responsive srcset from Cloudinary URL
+ * ✅ FIX: Ab yeh automatically mobile, tablet aur desktop ke liye alag-alag size generate karega
  */
 export function generateCloudinarySrcSet(
   url: string,
-  widths: number[] = [600, 900, 1200]
+  widths: number[] = [400, 600, 800, 1200, 1600]
 ): string {
   if (!url || !url.includes('res.cloudinary.com')) return '';
+  
   return widths
-    .map((w) => `${optimizeCloudinary(url, { width: w, quality: 'auto:good' })} ${w}w`)
+    .map((w) => {
+      // Har size ke liye alag URL banayega
+      const optimizedUrl = optimizeCloudinary(url, { width: w, quality: 'auto:good' });
+      return `${optimizedUrl} ${w}w`;
+    })
     .join(', ');
+}
+
+/**
+ * Generate a responsive sizes attribute string
+ */
+export function getResponsiveSizes(mobileWidth: string = '100vw', desktopWidth: string = '50vw'): string {
+  return `(max-width: 768px) ${mobileWidth}, ${desktopWidth}`;
 }
 
 /**

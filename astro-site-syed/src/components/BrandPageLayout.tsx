@@ -4,7 +4,8 @@ import {
 } from 'lucide-react';
 import type { BrandInfo } from '@/types';
 import { BUSINESS_DETAILS } from '@/data/content';
-import { optimizeCloudinary } from '@/utils/imageOptimizer';
+// ✅ IMPORT UPDATED: generateCloudinarySrcSet bhi import kiya hai fast images ke liye
+import { optimizeCloudinary, generateCloudinarySrcSet } from '@/utils/imageOptimizer';
 
 interface BrandPageLayoutProps {
   brand: BrandInfo;
@@ -176,8 +177,10 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
   const formEmail = 'syedsmaula786@gmail.com';
 
   const heroImageRaw = brand.heroBgImage || '/images/hero-bg.webp';
-  const heroImageToDisplay = heroImageRaw.startsWith('http') ? optimizeCloudinary(heroImageRaw, { width: 1200, quality: 'auto:good' }) : heroImageRaw;
-  const heroImageMobile = heroImageRaw.startsWith('http') ? optimizeCloudinary(heroImageRaw, { width: 600, quality: 'auto:good' }) : heroImageRaw;
+  
+  // ✅ NAYA: Hero Image ke liye responsive sizes (SrcSet) generate kar rahe hain
+  const heroImageSrcSet = generateCloudinarySrcSet(heroImageRaw, [400, 600, 800, 1200, 1600]);
+  const heroImageDefault = optimizeCloudinary(heroImageRaw, { width: 1200, quality: 'auto:good' });
 
   const bottomBannerToDisplay = '/images/bottom-banner.webp';
   const currentSeoContent = SEO_CONTENT_DATA[brand.id] || defaultSeoContent;
@@ -223,7 +226,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       });
       
       setFormSubmitted(true);
-
       window.location.href = `/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(currentPath)}`;
 
     } catch (err) {
@@ -336,7 +338,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
             <div className="flex items-center gap-2 sm:gap-4">
               <a href="/" className="flex items-center gap-2 sm:gap-3 group select-none">
                 <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-xs shrink-0 group-hover:scale-[1.03] transition-transform">
-                  {/* ✅ FIX: Logo loading lazy kar diya */}
                   <img
                     src={optimizeCloudinary("https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg", { width: 100 })}
                     alt="Roservice Support Online 24x7"
@@ -406,11 +407,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
 
       {/* HERO SECTION */}
       <section className="relative w-full min-h-[380px] sm:min-h-[420px] max-h-none sm:max-h-[560px] lg:max-h-[620px] flex items-start sm:items-center overflow-hidden border-b border-slate-200/80 bg-white">
-        {heroImageToDisplay && (
+        {heroImageRaw && (
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            {/* ✅ FIX: Hero Image me decoding="async" hataya aur fetchpriority small me kiya */}
+            {/* ✅ UPDATED: Image ab srcSet use kar rahi hai, mobile pe choti aur desktop pe badi load hogi */}
             <img
-              src={heroImageToDisplay}
+              src={heroImageDefault}
+              srcSet={heroImageSrcSet}
+              sizes="100vw"
               alt={`${brand.name} RO Service Bangalore`}
               width={1200}
               height={630}
@@ -489,7 +492,8 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       {/* BOOKING FORM */}
       <section className="bg-slate-50 py-4 sm:py-10 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-xl overflow-hidden bg-gradient-to-br from-[#0c2b5e] to-[#0c3975] border border-blue-900/30">
+          {/* ✅ UPDATED: Gradient hatakar solid color daala hai render fast karne ke liye */}
+          <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-xl overflow-hidden bg-[#0c2b5e] border border-blue-900/30">
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               <div className="lg:col-span-12 xl:col-span-12 space-y-4">
                 <div>

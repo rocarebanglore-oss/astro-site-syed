@@ -3,9 +3,17 @@ import Layout from '@/layouts/Layout.astro';
 import { BrandPageLayout } from '@/components/BrandPageLayout';
 import { BRAND_PAGES_DATA } from '@/data/content';
 
+// ✅ 1. BUILD ERROR FIX: Astro ko bataya ki data file mein jo brands hain unke pages banao
+export function getStaticPaths() {
+  const brandKeys = Object.keys(BRAND_PAGES_DATA);
+  return brandKeys.map((brand) => ({
+    params: { brand: brand },
+  }));
+}
+
 const { brand: brandSlug } = Astro.params;
 
-// Data file se brand ka data nikalna
+// ✅ 2. ASLI DATA: Data file se brand ka data nikal rahe hain
 const brandData = BRAND_PAGES_DATA[brandSlug?.toLowerCase() || ''];
 
 if (!brandData) {
@@ -26,6 +34,6 @@ const heroImagePreload = brandData.heroBgImage;
   canonical={canonical}
   preloadImage={heroImagePreload}
 >
-  <!-- ⭐ client:load use kiya hai taaki page turant load ho -->
-  <BrandPageLayout brand={brandData} client:load />
+  {/* ✅ 3. SPEED FIX: Yahan se 'client:load' hata diya hai taaki page turant load ho */}
+  <BrandPageLayout brand={brandData} />
 </Layout>
