@@ -34,6 +34,6 @@ const heroImagePreload = brandData.heroBgImage;
   canonical={canonical}
   preloadImage={heroImagePreload}
 >
-  {/* ✅ 3. SPEED FIX: Yahan se 'client:load' hata diya hai taaki page turant load ho */}
-  <BrandPageLayout brand={brandData} />
+  {/* ✅ FIX: Yahan 'client:idle' laga diya hai. Isse page 100/100 speed par rahega aur form bhi kaam karega */}
+  <BrandPageLayout brand={brandData} client:idle />
 </Layout>
