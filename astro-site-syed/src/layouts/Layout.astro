@@ -67,21 +67,39 @@ const fullTitle = title.includes(BUSINESS_DETAILS.name)
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
 
-    <!-- ⭐ GOOGLE TAG (BASE CODE) - Yahan ID daali hui hai -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10934329019"></script>
-    <script>
+    <!-- ⭐ GOOGLE TAG (LAZY LOAD FOR SPEED) -->
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-10934329019');
+      
+      function loadGTM() {
+        if (window.__gtmLoaded) return;
+        window.__gtmLoaded = true;
+
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-10934329019';
+        document.head.appendChild(script);
+
+        script.onload = function() {
+          gtag('js', new Date());
+          gtag('config', 'AW-10934329019');
+        };
+      }
+
+      // Pehli interaction par GTM load karo
+      ['scroll', 'pointerdown', 'keydown', 'touchstart'].forEach(function(event) {
+        window.addEventListener(event, loadGTM, { once: true, passive: true });
+      });
+      setTimeout(loadGTM, 3500);
     </script>
 
-    <!-- ⭐ DEVICE GUARD TRACKING SCRIPT (Multi-Page Smart Block) -->
+    <!-- ⭐ DEVICE GUARD TRACKING SCRIPT -->
     <script is:inline>
       window.addEventListener('load', function() {
         setTimeout(function() {
           (function() {
-            var MY_FINGERPRINTS = []; // Apne device ka fingerprint yahan daalo test ke baad
+            var MY_FINGERPRINTS = []; 
             
             var savedBlockStatus = localStorage.getItem('wm_device_blocked');
             if (savedBlockStatus === 'true') {
@@ -155,11 +173,11 @@ const fullTitle = title.includes(BUSINESS_DETAILS.name)
               .catch(function() {});
             }
           })();
-        }, 1500); 
+        }, 3000); // ✅ 1.5s se badhakar 3s kar diya taaki page pehle fast load ho
       });
     </script>
 
-    <!-- ⭐ UNIVERSAL CONVERSION BLOCK (Catches Call/WhatsApp dynamically) -->
+    <!-- ⭐ UNIVERSAL CONVERSION BLOCK -->
     <script is:inline>
       document.addEventListener('DOMContentLoaded', function() {
         document.body.addEventListener('click', function(e) {
@@ -184,6 +202,7 @@ const fullTitle = title.includes(BUSINESS_DETAILS.name)
       <slot />
     </main>
 
-    <CallWidgetsWrapper client:only="react" />
+    <!-- ✅ Call Widgets ko client:idle kiya taaki main thread block na ho -->
+    <CallWidgetsWrapper client:idle />
   </body>
 </html>
