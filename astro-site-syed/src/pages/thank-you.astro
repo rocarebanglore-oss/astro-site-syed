@@ -1,7 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 
-const bookingId = Astro.url.searchParams.get('bookingId') || 'RO-XXXXXX';
+// Astro URL se ID nikalne ki koshish karega
+const initialBookingId = Astro.url.searchParams.get('bookingId') || 'RO-XXXXXX';
 const returnUrlParam = Astro.url.searchParams.get('returnUrl');
 
 let returnUrl = '/';
@@ -27,6 +28,19 @@ if (returnUrlParam) {
         'send_to': 'AW-10934329019/kUwqCOf33KAdELu98t0o' // Form Label
       });
     }
+
+    // ✅ NAYA FIX: Browser URL se asli ID nikal kar screen par update karega
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const realId = urlParams.get('bookingId');
+      
+      if (realId) {
+        const idElement = document.getElementById('real-booking-id');
+        if (idElement) {
+          idElement.innerText = realId;
+        }
+      }
+    });
   </script>
 
   <section class="py-20 bg-slate-50 min-h-[70vh] flex items-center justify-center px-4">
@@ -49,7 +63,8 @@ if (returnUrlParam) {
 
         <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-8">
           <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-1">Your Booking ID</p>
-          <h2 class="text-3xl font-extrabold text-[#0c2b5e] tracking-widest">{bookingId}</h2>
+          <!-- ✅ FIX: Yahan id="real-booking-id" add kiya hai taaki script isko pakad sake -->
+          <h2 id="real-booking-id" class="text-3xl font-extrabold text-[#0c2b5e] tracking-widest">{initialBookingId}</h2>
           <p class="text-[11px] text-slate-500 mt-2">Please save this ID for future reference.</p>
         </div>
 
