@@ -1,51 +1,49 @@
 import type { APIRoute } from 'astro';
 
-// ✅ API ko static build se bachayega aur Vercel par serverless function banayega
 export const prerender = false;
 
-// ✅ Aapka Purana Webhook URL (Google Sheet ke liye)
-const WEBHOOK = 'https://script.google.com/macros/s/AKfycbygR-2SFHUYeZPwsc5D58EqatdD_zm_y77cAefWq9VeXLzgxECUsXmb2FXCOmscdH8t/exec';
+// ✅ APNA NAYA WEBHOOK URL YAHAN DAALEIN
+const WEBHOOK = 'https://script.google.com/macros/s/YOUR_NEW_DEPLOYMENT_ID/exec';
 
-// ==========================================
-// GOOGLE ADS API CREDENTIALS (Vercel se aayenge)
-// ==========================================
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
 const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID;
-// Note: Ab Developer Token ki zaroorat nahi hai.
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
 
-    // IP address nikalna (Vercel/Cloudflare ke headers se)
     const ip = request.headers.get('cf-connecting-ip')?.trim()
             || request.headers.get('x-real-ip')?.trim()
             || request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
             || 'unknown';
 
-    // 1. Pehle Google Sheet (Webhook) par data bhejo
-    const res = await fetch(WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ip: ip, 
-        fp: data.fp, 
-        clicks: data.clicks, 
-        gclid: data.gclid,
-        url: data.url, 
-        ua: data.ua, 
-        ts: Date.now()
-      })
-    });
+    let result = { blocked: false };
 
-    const result = await res.json();
-
-    // 2. Agar 3 clicks poore ho gaye hain (result.blocked == true), toh Google Ads mein block karo
-    if (result.blocked === true && ip !== 'unknown') {
+    // 1. Google Sheet (Webhook) par data bhejo
+    try {
+      const res = await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ip: ip, fp: data.fp, clicks: data.clicks, gclid: data.gclid,
+          url: data.url, ua: data.ua, ts: Date.now()
+        })
+      });
       
-      // Google OAuth se naya Access Token generate karo
+      const textResponse = await res.text();
+      try {
+        result = JSON.parse(textResponse);
+      } catch (e) {
+        console.error("Webhook se invalid response aaya:", textResponse.substring(0, 100));
+      }
+    } catch (webhookError) {
+      console.error("Webhook fetch error:", webhookError);
+    }
+
+    // 2. Agar block karna hai, toh Google Ads API call karo
+    if (result.blocked === true && ip !== 'unknown') {
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -60,7 +58,6 @@ export const POST: APIRoute = async ({ request }) => {
       const tokenData = await tokenResponse.json();
 
       if (tokenData.access_token) {
-        // Turant Google Ads API ko call karke IP block karo (v19 version use kiya hai)
         const adsResponse = await fetch(`https://googleads.googleapis.com/v19/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
           headers: {
@@ -69,15 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            operations: [
-              {
-                create: {
-                  ipBlock: {
-                    ipAddress: ip
-                  }
-                }
-              }
-            ]
+            operations: [{ create: { ipBlock: { ipAddress: ip } } }]
           })
         });
 
@@ -87,12 +76,9 @@ export const POST: APIRoute = async ({ request }) => {
         } else {
           console.log("Success: IP blocked in Google Ads: ", ip);
         }
-      } else {
-        console.error("OAuth Token Error: Access token nahi mila. Keys check karein.");
       }
     }
 
-    // Frontend ko success response bhejo
     return new Response(JSON.stringify({ ok: true, blocked: result.blocked || false }), {
       status: 200, headers: { 'Content-Type': 'application/json' }
     });
@@ -104,10 +90,8 @@ export const POST: APIRoute = async ({ request }) => {
   }
 };
 
-// ✅ Health check ke liye GET method
 export const GET: APIRoute = async () => {
-  return new Response(JSON.stringify({ status: "API is active", message: "Use POST to send data." }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
+  return new Response(JSON.stringify({ status: "API is active" }), {
+    status: 200, headers: { 'Content-Type': 'application/json' }
   });
 };
