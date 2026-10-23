@@ -2,8 +2,8 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-// ✅ APNA NAYA WEBHOOK URL YAHAN DAALEIN
-const WEBHOOK = 'https://script.google.com/macros/s/YOUR_NEW_DEPLOYMENT_ID/exec';
+// ✅ AAPKA NAYA WEBHOOK URL
+const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
