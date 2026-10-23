@@ -13,7 +13,7 @@ const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
 const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID;
-const DEVELOPER_TOKEN = import.meta.env.GOOGLE_DEVELOPER_TOKEN;
+// Note: Ab Developer Token ki zaroorat nahi hai.
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -45,54 +45,50 @@ export const POST: APIRoute = async ({ request }) => {
     // 2. Agar 3 clicks poore ho gaye hain (result.blocked == true), toh Google Ads mein block karo
     if (result.blocked === true && ip !== 'unknown') {
       
-      // Check karo ki Developer Token Vercel mein add kiya hai ya nahi
-      if (!DEVELOPER_TOKEN) {
-        console.warn("Warning: GOOGLE_DEVELOPER_TOKEN Vercel mein set nahi hai. IP block nahi ho payega.");
-      } else {
-        // Google OAuth se naya Access Token generate karo
-        const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+      // Google OAuth se naya Access Token generate karo
+      const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          refresh_token: REFRESH_TOKEN,
+          grant_type: 'refresh_token',
+        }),
+      });
+
+      const tokenData = await tokenResponse.json();
+
+      if (tokenData.access_token) {
+        // Turant Google Ads API ko call karke IP block karo (v19 version use kiya hai)
+        const adsResponse = await fetch(`https://googleads.googleapis.com/v19/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({
-            client_id: CLIENT_ID,
-            client_secret: CLIENT_SECRET,
-            refresh_token: REFRESH_TOKEN,
-            grant_type: 'refresh_token',
-          }),
-        });
-
-        const tokenData = await tokenResponse.json();
-
-        if (tokenData.access_token) {
-          // Turant Google Ads API ko call karke IP block karo (v19 version use kiya hai)
-          const adsResponse = await fetch(`https://googleads.googleapis.com/v19/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${tokenData.access_token}`,
-              'developer-token': DEVELOPER_TOKEN,
-              'login-customer-id': CUSTOMER_ID,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              operations: [
-                {
-                  create: {
-                    ipBlock: {
-                      ipAddress: ip
-                    }
+          headers: {
+            'Authorization': `Bearer ${tokenData.access_token}`,
+            'login-customer-id': CUSTOMER_ID,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            operations: [
+              {
+                create: {
+                  ipBlock: {
+                    ipAddress: ip
                   }
                 }
-              ]
-            })
-          });
+              }
+            ]
+          })
+        });
 
-          if (!adsResponse.ok) {
-            const adsError = await adsResponse.json();
-            console.error("Google Ads API Error: ", adsError);
-          } else {
-            console.log("Success: IP blocked in Google Ads: ", ip);
-          }
+        if (!adsResponse.ok) {
+          const adsError = await adsResponse.json();
+          console.error("Google Ads API Error: ", adsError);
+        } else {
+          console.log("Success: IP blocked in Google Ads: ", ip);
         }
+      } else {
+        console.error("OAuth Token Error: Access token nahi mila. Keys check karein.");
       }
     }
 
