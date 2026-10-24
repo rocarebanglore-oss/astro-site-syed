@@ -6,7 +6,7 @@ export const prerender = false;
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
 // ==========================================
-// GOOGLE ADS API CREDENTIALS (Vercel se aayenge)
+// GOOGLE ADS API CREDENTIALS
 // ==========================================
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
@@ -22,7 +22,6 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
 
-    // User ka IP address nikalna
     const ip = request.headers.get('cf-connecting-ip')?.trim()
             || request.headers.get('x-real-ip')?.trim()
             || request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
@@ -30,7 +29,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     let result = { blocked: false };
 
-    // 1. Webhook Call (Google Sheet par data bhejna)
+    // 1. Webhook Call
     try {
       const res = await fetch(WEBHOOK, {
         method: 'POST',
@@ -51,11 +50,10 @@ export const POST: APIRoute = async ({ request }) => {
       console.error("Webhook fetch error:", webhookError);
     }
 
-    // 2. Google Ads API Call (Agar 3 clicks ho gaye hain)
+    // 2. Google Ads API Call
     if (result.blocked === true && ip !== 'unknown') {
       console.log("Block condition met. Calling API for IP:", ip);
 
-      // OAuth Token Generate karein
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -77,12 +75,12 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       if (tokenData.access_token) {
-        // ✅ API v26 use kar rahe hain (Purana v19 hata diya)
+        // ✅ Developer-token header hata diya gaya hai
         const adsResponse = await fetch(`https://googleads.googleapis.com/v26/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`,
-            'login-customer-id': MCC_ID, // ✅ MCC ID yahan use ho rahi hai
+            'login-customer-id': MCC_ID,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
@@ -90,7 +88,6 @@ export const POST: APIRoute = async ({ request }) => {
           })
         });
 
-        // Response check karein
         if (!adsResponse.ok) {
           const adsErrorText = await adsResponse.text();
           try {
