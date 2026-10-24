@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-// ✅ AAPKA WEBHOOK URL
+// ✅ AAPKA NAYA WEBHOOK URL
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
 // ==========================================
@@ -11,12 +11,14 @@ const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6q
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
+
+// Client Account ID (Jisme ads chal rahe hain) - bina dash ke
 const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID; 
 
-// ✅ AAPKI MCC ID
+// ✅ Manager (MCC) Account ID (Bina dash ke)
 const MCC_ID = '5166636500'; 
 
-const DEVELOPER_TOKEN = import.meta.env.GOOGLE_DEVELOPER_TOKEN; 
+// DEVELOPER_TOKEN ki ab zaroorat nahi hai
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -29,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     let result = { blocked: false };
 
-    // 1. Webhook Call
+    // 1. Webhook Call (Google Sheet)
     try {
       const res = await fetch(WEBHOOK, {
         method: 'POST',
@@ -54,6 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (result.blocked === true && ip !== 'unknown') {
       console.log("Block condition met. Calling API for IP:", ip);
 
+      // OAuth Token Generate karein
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -75,17 +78,12 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       if (tokenData.access_token) {
-        // 🚨 YAHAN BACKTICK (`) KA DHYAN RAKHNA HAI
-        const apiUrl = `https://googleads.googleapis.com/v19/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`;
-        
-        console.log("Calling API URL:", apiUrl); // Yeh line check karne ke liye hai ki URL kaisa ban raha hai
-
-        const adsResponse = await fetch(apiUrl, {
+        // ✅ Dhyan dein: API version v26 hai aur developer-token header hata diya gaya hai
+        const adsResponse = await fetch(`https://googleads.googleapis.com/v26/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`,
-            'developer-token': DEVELOPER_TOKEN,
-            'login-customer-id': MCC_ID,
+            'login-customer-id': MCC_ID, // ✅ MCC ID yahan use ho rahi hai
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
@@ -93,6 +91,7 @@ export const POST: APIRoute = async ({ request }) => {
           })
         });
 
+        // Response check karein
         if (!adsResponse.ok) {
           const adsErrorText = await adsResponse.text();
           try {
