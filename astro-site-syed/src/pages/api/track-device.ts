@@ -2,7 +2,6 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-// ✅ AAPKA WEBHOOK URL (Google Sheet)
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
 // ==========================================
@@ -12,10 +11,7 @@ const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
 
-// Client Account ID (Jisme ads chal rahe hain: 784-441-1097)
 const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID; 
-
-// ✅ Manager (MCC) Account ID (Bina dash ke: 516-663-6500)
 const MCC_ID = '5166636500'; 
 
 export const POST: APIRoute = async ({ request }) => {
@@ -29,7 +25,6 @@ export const POST: APIRoute = async ({ request }) => {
 
     let result = { blocked: false };
 
-    // 1. Webhook Call
     try {
       const res = await fetch(WEBHOOK, {
         method: 'POST',
@@ -50,7 +45,6 @@ export const POST: APIRoute = async ({ request }) => {
       console.error("Webhook fetch error:", webhookError);
     }
 
-    // 2. Google Ads API Call
     if (result.blocked === true && ip !== 'unknown') {
       console.log("Block condition met. Calling API for IP:", ip);
 
@@ -75,7 +69,7 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       if (tokenData.access_token) {
-        // ✅ Developer-token header hata diya gaya hai
+        // ✅ Developer-token hata diya gaya hai, aur v26 use ho raha hai
         const adsResponse = await fetch(`https://googleads.googleapis.com/v26/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
           headers: {
