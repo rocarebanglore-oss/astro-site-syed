@@ -2,22 +2,27 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
+// ✅ AAPKA WEBHOOK URL (Google Sheet)
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
 // ==========================================
-// GOOGLE ADS API CREDENTIALS
+// GOOGLE ADS API CREDENTIALS (Vercel se aayenge)
 // ==========================================
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
 
+// Client Account ID (Jisme ads chal rahe hain: 784-441-1097)
 const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID; 
+
+// ✅ Manager (MCC) Account ID (Bina dash ke: 516-663-6500)
 const MCC_ID = '5166636500'; 
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
 
+    // User ka IP address nikalna
     const ip = request.headers.get('cf-connecting-ip')?.trim()
             || request.headers.get('x-real-ip')?.trim()
             || request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
@@ -25,13 +30,19 @@ export const POST: APIRoute = async ({ request }) => {
 
     let result = { blocked: false };
 
+    // 1. Webhook Call (Google Sheet par data bhejna aur check karna)
     try {
       const res = await fetch(WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ip: ip, fp: data.fp, clicks: data.clicks, gclid: data.gclid,
-          url: data.url, ua: data.ua, ts: Date.now()
+          ip: ip, 
+          fp: data.fp, 
+          clicks: data.clicks, 
+          gclid: data.gclid,
+          url: data.url, 
+          ua: data.ua, 
+          ts: Date.now()
         })
       });
       
@@ -45,9 +56,11 @@ export const POST: APIRoute = async ({ request }) => {
       console.error("Webhook fetch error:", webhookError);
     }
 
+    // 2. Google Ads API Call (Agar 3 clicks ho gaye hain)
     if (result.blocked === true && ip !== 'unknown') {
       console.log("Block condition met. Calling API for IP:", ip);
 
+      // OAuth Token Generate karein
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -69,12 +82,12 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       if (tokenData.access_token) {
-        // ✅ Developer-token hata diya gaya hai, aur v26 use ho raha hai
+        // ✅ API v26 use kar rahe hain aur developer-token hata diya gaya hai
         const adsResponse = await fetch(`https://googleads.googleapis.com/v26/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`,
-            'login-customer-id': MCC_ID,
+            'login-customer-id': MCC_ID, // ✅ MCC ID yahan use ho rahi hai
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
@@ -82,6 +95,7 @@ export const POST: APIRoute = async ({ request }) => {
           })
         });
 
+        // Response check karein
         if (!adsResponse.ok) {
           const adsErrorText = await adsResponse.text();
           try {
