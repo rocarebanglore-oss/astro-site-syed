@@ -2,12 +2,22 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
+// ✅ AAPKA NAYA WEBHOOK URL
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
+// ==========================================
+// GOOGLE ADS API CREDENTIALS
+// ==========================================
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
-const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID;
+
+// Client Account ID (Jisme ads chal rahe hain) - bina dash ke
+const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID; 
+
+// ✅ NAYA: Manager (MCC) Account ID (Bina dash ke)
+const MCC_ID = '5166636500'; 
+
 const DEVELOPER_TOKEN = import.meta.env.GOOGLE_DEVELOPER_TOKEN; 
 
 export const POST: APIRoute = async ({ request }) => {
@@ -21,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     let result = { blocked: false };
 
-    // 1. Webhook Call
+    // 1. Webhook Call (Google Sheet)
     try {
       const res = await fetch(WEBHOOK, {
         method: 'POST',
@@ -33,16 +43,20 @@ export const POST: APIRoute = async ({ request }) => {
       });
       
       const textResponse = await res.text();
-      try { result = JSON.parse(textResponse); } catch (e) { }
+      try {
+        result = JSON.parse(textResponse);
+      } catch (e) {
+        console.error("Webhook JSON Error:", textResponse.substring(0, 100));
+      }
     } catch (webhookError) {
       console.error("Webhook fetch error:", webhookError);
     }
 
-    // 2. Google Ads API Call
+    // 2. Google Ads API Call (Agar 3 clicks ho gaye hain)
     if (result.blocked === true && ip !== 'unknown') {
       console.log("Block condition met. Calling API for IP:", ip);
 
-      // --- OAuth Token Fetch ---
+      // OAuth Token Generate karein
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -54,7 +68,6 @@ export const POST: APIRoute = async ({ request }) => {
         }),
       });
 
-      // Handle HTML OAuth errors safely
       const tokenText = await tokenResponse.text();
       let tokenData;
       try {
@@ -65,13 +78,13 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       if (tokenData.access_token) {
-        // --- Ads API Call ---
+        // Ads API ko call karein
         const adsResponse = await fetch(`https://googleads.googleapis.com/v19/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`,
             'developer-token': DEVELOPER_TOKEN,
-            'login-customer-id': CUSTOMER_ID,
+            'login-customer-id': MCC_ID, // ✅ Yahan MCC ID dena zaroori hai
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
@@ -79,13 +92,11 @@ export const POST: APIRoute = async ({ request }) => {
           })
         });
 
-        // Handle Ads API errors safely
+        // Response check karein
         if (!adsResponse.ok) {
           const adsErrorText = await adsResponse.text();
-          let adsError;
           try {
-            adsError = JSON.parse(adsErrorText);
-            console.error("Ads API JSON Error:", adsError);
+            console.error("Ads API JSON Error:", JSON.parse(adsErrorText));
           } catch (e) {
             console.error("Ads API HTML Error:", adsErrorText.substring(0, 200));
           }
