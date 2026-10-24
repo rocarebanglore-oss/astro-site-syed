@@ -2,12 +2,8 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-// ✅ AAPKA NAYA WEBHOOK URL
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
-// ==========================================
-// GOOGLE ADS API CREDENTIALS
-// ==========================================
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
@@ -18,7 +14,6 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
 
-    // Original IP nikalne ka logic
     const ip = request.headers.get('cf-connecting-ip')?.trim()
             || request.headers.get('x-real-ip')?.trim()
             || request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
@@ -26,7 +21,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     let result = { blocked: false };
 
-    // 1. Google Sheet (Webhook) par data bhejo
+    // 1. Webhook Call
     try {
       const res = await fetch(WEBHOOK, {
         method: 'POST',
@@ -38,19 +33,16 @@ export const POST: APIRoute = async ({ request }) => {
       });
       
       const textResponse = await res.text();
-      try {
-        result = JSON.parse(textResponse);
-      } catch (e) {
-        console.error("Webhook JSON Error:", textResponse.substring(0, 100));
-      }
+      try { result = JSON.parse(textResponse); } catch (e) { }
     } catch (webhookError) {
       console.error("Webhook fetch error:", webhookError);
     }
 
-    // 2. Agar 3 clicks ho gaye (blocked: true), toh Google Ads API call karo
+    // 2. Google Ads API Call
     if (result.blocked === true && ip !== 'unknown') {
-      console.log("Block condition met. Calling Google Ads API for IP:", ip);
+      console.log("Block condition met. Calling API for IP:", ip);
 
+      // --- OAuth Token Fetch ---
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -62,9 +54,18 @@ export const POST: APIRoute = async ({ request }) => {
         }),
       });
 
-      const tokenData = await tokenResponse.json();
+      // Handle HTML OAuth errors safely
+      const tokenText = await tokenResponse.text();
+      let tokenData;
+      try {
+        tokenData = JSON.parse(tokenText);
+      } catch (e) {
+        console.error("OAuth Error (HTML Received):", tokenText.substring(0, 200));
+        return new Response(JSON.stringify({ error: "OAuth Failed" }), { status: 500 });
+      }
 
       if (tokenData.access_token) {
+        // --- Ads API Call ---
         const adsResponse = await fetch(`https://googleads.googleapis.com/v19/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
           headers: {
@@ -78,14 +79,19 @@ export const POST: APIRoute = async ({ request }) => {
           })
         });
 
+        // Handle Ads API errors safely
         if (!adsResponse.ok) {
-          const adsError = await adsResponse.json();
-          console.error("Google Ads API Error: ", adsError);
+          const adsErrorText = await adsResponse.text();
+          let adsError;
+          try {
+            adsError = JSON.parse(adsErrorText);
+            console.error("Ads API JSON Error:", adsError);
+          } catch (e) {
+            console.error("Ads API HTML Error:", adsErrorText.substring(0, 200));
+          }
         } else {
-          console.log("Success: IP blocked in Google Ads: ", ip);
+          console.log("Success: IP blocked in Google Ads:", ip);
         }
-      } else {
-        console.error("OAuth Token Error: Access token not found.");
       }
     }
 
@@ -94,14 +100,8 @@ export const POST: APIRoute = async ({ request }) => {
     });
   } catch (err) {
     console.error("Backend Error:", err);
-    return new Response(JSON.stringify({ ok: false, blocked: false }), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
-    });
+    return new Response(JSON.stringify({ ok: false }), { status: 200 });
   }
 };
 
-export const GET: APIRoute = async () => {
-  return new Response(JSON.stringify({ status: "API is active" }), {
-    status: 200, headers: { 'Content-Type': 'application/json' }
-  });
-};
+export const GET: APIRoute = async () => new Response("API Active");
