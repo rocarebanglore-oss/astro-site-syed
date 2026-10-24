@@ -6,13 +6,13 @@ export const prerender = false;
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
 // ==========================================
-// GOOGLE ADS API CREDENTIALS (Vercel se aayenge)
+// GOOGLE ADS API CREDENTIALS
 // ==========================================
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
 const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID;
-const DEVELOPER_TOKEN = import.meta.env.GOOGLE_DEVELOPER_TOKEN; // ✅ Wapas add ho gaya
+const DEVELOPER_TOKEN = import.meta.env.GOOGLE_DEVELOPER_TOKEN;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     let result = { blocked: false };
 
-    // 1. Google Sheet (Webhook) par data bhejo
+    // 1. Google Sheet (Webhook)
     try {
       const res = await fetch(WEBHOOK, {
         method: 'POST',
@@ -36,17 +36,18 @@ export const POST: APIRoute = async ({ request }) => {
         })
       });
       
+      // YEH NAYA CODE HAI JO CRASH NAHI HONE DEGA
       const textResponse = await res.text();
       try {
         result = JSON.parse(textResponse);
       } catch (e) {
-        console.error("Webhook se invalid response aaya:", textResponse.substring(0, 100));
+        console.error("Webhook ne JSON nahi bheja:", textResponse.substring(0, 100));
       }
     } catch (webhookError) {
       console.error("Webhook fetch error:", webhookError);
     }
 
-    // 2. Agar block karna hai, toh Google Ads API call karo
+    // 2. Google Ads API
     if (result.blocked === true && ip !== 'unknown') {
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
@@ -66,7 +67,7 @@ export const POST: APIRoute = async ({ request }) => {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`,
-            'developer-token': DEVELOPER_TOKEN, // ✅ Developer token use ho raha hai
+            'developer-token': DEVELOPER_TOKEN,
             'login-customer-id': CUSTOMER_ID,
             'Content-Type': 'application/json',
           },
