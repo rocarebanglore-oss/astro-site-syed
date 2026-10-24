@@ -5,10 +5,14 @@ export const prerender = false;
 // ✅ AAPKA NAYA WEBHOOK URL
 const WEBHOOK = 'https://script.google.com/macros/s/AKfycbwDpIk5w_9O1-KZJ7xAgE6qFe2CsQh2cQS39rBqtHPGOsih9slGpMdgDQU6p12QkovD/exec';
 
+// ==========================================
+// GOOGLE ADS API CREDENTIALS (Vercel se aayenge)
+// ==========================================
 const CLIENT_ID = import.meta.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.GOOGLE_CLIENT_SECRET;
 const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
 const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID;
+const DEVELOPER_TOKEN = import.meta.env.GOOGLE_DEVELOPER_TOKEN; // ✅ Wapas add ho gaya
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -62,6 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`,
+            'developer-token': DEVELOPER_TOKEN, // ✅ Developer token use ho raha hai
             'login-customer-id': CUSTOMER_ID,
             'Content-Type': 'application/json',
           },
