@@ -15,7 +15,7 @@ const REFRESH_TOKEN = import.meta.env.GOOGLE_REFRESH_TOKEN;
 // Client Account ID (Jisme ads chal rahe hain) - bina dash ke
 const CUSTOMER_ID = import.meta.env.GOOGLE_CUSTOMER_ID; 
 
-// ✅ NAYA: Manager (MCC) Account ID (Bina dash ke)
+// ✅ Manager (MCC) Account ID (Bina dash ke)
 const MCC_ID = '5166636500'; 
 
 const DEVELOPER_TOKEN = import.meta.env.GOOGLE_DEVELOPER_TOKEN; 
@@ -73,18 +73,18 @@ export const POST: APIRoute = async ({ request }) => {
       try {
         tokenData = JSON.parse(tokenText);
       } catch (e) {
-        console.error("OAuth Error (HTML Received):", tokenText.substring(0, 200));
+        console.error("OAuth Error:", tokenText.substring(0, 200));
         return new Response(JSON.stringify({ error: "OAuth Failed" }), { status: 500 });
       }
 
       if (tokenData.access_token) {
-        // Ads API ko call karein
+        // ✅ Dhyan dein: URL ke aage aur peeche Backtick (`) laga hai, single quote (') nahi.
         const adsResponse = await fetch(`https://googleads.googleapis.com/v19/customers/${CUSTOMER_ID}/customerNegativeCriteria:mutate`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`,
             'developer-token': DEVELOPER_TOKEN,
-            'login-customer-id': MCC_ID, // ✅ Yahan MCC ID dena zaroori hai
+            'login-customer-id': MCC_ID, // ✅ MCC ID yahan use ho rahi hai
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
