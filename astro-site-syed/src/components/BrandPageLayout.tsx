@@ -77,6 +77,9 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // 👇 WEB3FORMS KEY
+  const WEB3FORMS_ACCESS_KEY = "375172bb-62e1-4906-b4c6-25b704ea4100";
+
   const brandDisplayName = brand.id === 'ro-service-24x7' || brand.name.toLowerCase().includes('multi-brand') || brand.name.toLowerCase().includes('ro service center') ? 'RO' : brand.name === 'KENT' ? 'Kent' : brand.name;
   const lookingForHeading = `${brandDisplayName} Water Purifier Repair Service Bangalore`;
   const isHomepage = brand.id === 'ro-service-24x7' || brand.slug === '/' || brand.name.toLowerCase().includes('ro service center');
@@ -203,40 +206,43 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     const bookingId = 'RO-' + Math.floor(100000 + Math.random() * 900000);
     const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
 
-    // ✅ FIX: Path ko localStorage mein save kar diya taaki Thank You page use padh sake
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('returnToPath', currentPath);
-    }
-
     try {
-      await fetch(`https://formsubmit.co/ajax/${formEmail}`, {
+      // ✅ Web3Forms API Call
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Accept': 'application/json' 
+        },
         body: JSON.stringify({
-          'Booking ID': bookingId,
-          'Customer Name': fullName.trim(),
-          'Mobile Number': cleanPhone,
-          'Pincode': pincode.trim() || 'Bangalore (Not specified)',
-          'Address': address.trim() || 'Not specified',
-          'Service Type': serviceType,
-          'Brand': brand.name,
-          'Page URL': typeof window !== 'undefined' ? window.location.href : '',
-          'Submitted At': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-          _subject: `New RO Lead: ${fullName.trim()} - ${brand.name} (${cleanPhone}) - ID: ${bookingId}`,
-          _template: 'table',
-          _captcha: 'false',
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New RO Lead: ${fullName.trim()} - ${brand.name}`,
+          "Booking ID": bookingId,
+          "Customer Name": fullName.trim(),
+          "Mobile Number": cleanPhone,
+          "Pincode": pincode.trim() || 'Bangalore (Not specified)',
+          "Address": address.trim() || 'Not specified',
+          "Service Type": serviceType,
+          "Brand": brand.name,
+          "Page URL": typeof window !== 'undefined' ? window.location.href : '',
+          "Submitted At": new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
         }),
       });
-      
-      setFormSubmitted(true);
-      
-      window.location.replace(`/thank-you?bookingId=${bookingId}`);
 
+      const data = await response.json();
+
+      if (data.success || response.ok) {
+        setFormSubmitted(true);
+        // ✅ Thank You Page par redirect
+        window.location.href = `/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(currentPath)}`;
+      } else {
+        setFormError('Something went wrong. Please call us directly.');
+      }
     } catch (err) {
-      console.warn('FormSubmit lead sending note:', err);
+      console.warn('Form submission error:', err);
       setFormSubmitted(true);
-      
-      window.location.replace(`/thank-you?bookingId=${bookingId}`);
+      // Fallback redirect
+      window.location.href = `/thank-you?bookingId=${bookingId}&returnUrl=${encodeURIComponent(currentPath)}`;
     } finally {
       setIsSubmitting(false);
     }
@@ -256,16 +262,16 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     e.preventDefault();
     if (!newsletterEmail.trim()) return;
     try {
-      await fetch(`https://formsubmit.co/ajax/${formEmail}`, {
+      // ✅ Newsletter Web3Forms API Call
+      await fetch("https://api.web3forms.com/submit", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New Newsletter Subscriber`,
           Email: newsletterEmail.trim(),
           Brand: brand.name,
           Subscription: 'Newsletter & Updates',
-          _subject: `New Newsletter Subscriber: ${newsletterEmail.trim()}`,
-          _template: 'table',
-          _captcha: 'false',
         }),
       });
     } catch (err) {
@@ -520,11 +526,11 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                       </div>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><Phone className="w-3.5 h-3.5" /></div>
-                        <input type="tel" id="booking-phone" aria-label="Mobile Number" required maxLength={10} placeholder="Mobile Number" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full pl-9 pr-3 py-3 sm:py-2.5 bg-white text-slate-900 placeholder-slate-400 text-sm sm:text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <input type="tel" id="booking-phone" aria-label="Mobile Number" required maxLength={10} placeholder="Mobile Number" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))} className="w-full pl-9 pr-3 py-3 sm:py-2.5 bg-white text-slate-900 placeholder-slate-400 text-sm sm:text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
                       </div>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><MapPin className="w-3.5 h-3.5" /></div>
-                        <input type="text" id="booking-pincode" aria-label="Enter Your Pincode" maxLength={6} placeholder="Enter Your Pincode" value={pincode} onChange={(e) => setPincode(e.target.value)} className="w-full pl-9 pr-3 py-3 sm:py-2.5 bg-white text-slate-900 placeholder-slate-400 text-sm sm:text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                        <input type="text" id="booking-pincode" aria-label="Enter Your Pincode" maxLength={6} placeholder="Enter Your Pincode" value={pincode} onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))} className="w-full pl-9 pr-3 py-3 sm:py-2.5 bg-white text-slate-900 placeholder-slate-400 text-sm sm:text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
                       </div>
                     </div>
 
@@ -746,7 +752,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                 <form onSubmit={handlePincodeCheck} className="flex flex-col sm:flex-row items-center gap-2.5 pt-2 max-w-lg mx-auto">
                   <div className="relative w-full sm:flex-1">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><MapPin className="w-3.5 h-3.5" /></div>
-                    <input type="text" id="check-pincode-input" aria-label="Enter Your Pincode to check service availability" maxLength={6} placeholder="Enter Your Pincode" value={checkPincode} onChange={(e) => setCheckPincode(e.target.value)} className="w-full pl-9 pr-3 py-3 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm sm:text-xs focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all" />
+                    <input type="text" id="check-pincode-input" aria-label="Enter Your Pincode to check service availability" maxLength={6} placeholder="Enter Your Pincode" value={checkPincode} onChange={(e) => setCheckPincode(e.target.value.replace(/\D/g, ''))} className="w-full pl-9 pr-3 py-3 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 text-sm sm:text-xs focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all" />
                   </div>
                   <button type="submit" aria-label="Check Service Availability" style={{ backgroundColor: primaryColor }} className="w-full sm:w-auto text-white font-bold text-sm sm:text-xs py-3 sm:py-2.5 px-5 rounded-xl shadow-xs hover:opacity-95 transition-all whitespace-nowrap cursor-pointer">Check Availability →</button>
                 </form>
