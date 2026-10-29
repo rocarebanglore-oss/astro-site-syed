@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Phone, CheckCircle2, AlertCircle, Loader2, Send, User, MapPin, Wrench } from 'lucide-react';
 import { BUSINESS_DETAILS } from '../data/content';
@@ -42,33 +40,22 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [botField, setBotField] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [successData, setSuccessData] = useState<{ bookingId: string } | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
 
+  // 👇 AAPKI WEB3FORMS KEY
+  const WEB3FORMS_ACCESS_KEY = "375172bb-62e1-4906-b4c6-25b704ea4100"; 
+
   const brandOptions = [
-    'Kent',
-    'Aquaguard',
-    'Pureit',
-    'AO Smith',
-    'LG',
-    'Havells',
-    'Zero B',
-    'Aqua Pearl',
-    'V-Guard',
-    'Livpure',
-    'Blue Star',
-    'Whirlpool',
-    'Other Brands',
+    'Kent', 'Aquaguard', 'Pureit', 'AO Smith', 'LG',
+    'Havells', 'Zero B', 'Aqua Pearl', 'V-Guard', 'Livpure',
+    'Blue Star', 'Whirlpool', 'Other Brands',
   ];
 
   useEffect(() => {
     if (preselectedBrand) {
-      setFormData((prev) => ({
-        ...prev,
-        selectedBrand: preselectedBrand,
-      }));
+      setFormData((prev) => ({ ...prev, selectedBrand: preselectedBrand }));
     }
   }, [preselectedBrand]);
 
@@ -105,60 +92,58 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     }
   };
 
-  const encode = (data: Record<string, string>) => {
-    return Object.keys(data)
-      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-      .join('&');
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setServerError(null);
-
-    if (botField) {
-      // Quietly treat spam bot submission as successful
-      setIsSuccess(true);
-      return;
-    }
 
     if (!validate()) return;
 
     setIsSubmitting(true);
 
     try {
-      const payload: Record<string, string> = {
-        'form-name': 'lead-booking-form',
-        'bot-field': botField,
-        fullName: formData.fullName.trim(),
-        mobileNumber: formData.mobileNumber.trim(),
-        pinCode: formData.pinCode.trim() || 'Bangalore (Not specified)',
-        selectedBrand: formData.selectedBrand,
-        serviceType: formData.serviceType || 'RO Water Purifier Service',
-        sourcePage: sourcePage,
+      // 1. Booking ID Generate karein (RO- + 6 random numbers)
+      const randomNum = Math.floor(100000 + Math.random() * 900000);
+      const bookingId = `RO-${randomNum}`;
+
+      // 2. Web3Forms ko data bhejein
+      const payload = {
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `New Booking: ${formData.fullName} - ${sourcePage}`,
+        from_name: "24x7 RO Support Website",
+        "Booking ID": bookingId, 
+        "Full Name": formData.fullName.trim(),
+        "Mobile Number": formData.mobileNumber.trim(),
+        "Pin Code": formData.pinCode.trim() || 'Not specified',
+        "Brand": formData.selectedBrand,
+        "Service Type": formData.serviceType || 'RO Water Purifier Service',
+        "Source Page": sourcePage,
       };
 
-      const response = await fetch('/', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode(payload),
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload),
       });
 
-      if (response.ok || response.status === 200 || response.status === 302) {
-        setIsSuccess(true);
+      const data = await response.json();
+
+      if (data.success || response.ok) {
+        // Success! Booking ID save karein taaki screen par dikha sakein
+        setSuccessData({ bookingId });
         setFormData({
-          fullName: '',
-          mobileNumber: '',
-          pinCode: '',
+          fullName: '', mobileNumber: '', pinCode: '',
           selectedBrand: preselectedBrand || 'Kent',
           serviceType: SERVICE_OPTIONS[0],
         });
       } else {
-        // Even if non-200 in dev/mock, show success to user
-        setIsSuccess(true);
+        setServerError("Something went wrong. Please call us directly.");
       }
     } catch (err) {
-      console.warn('Netlify form submission note:', err);
-      setIsSuccess(true);
+      console.error(err);
+      setServerError("Network error. Please check your connection or call us.");
     } finally {
       setIsSubmitting(false);
     }
@@ -178,17 +163,25 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         </p>
       </div>
 
-      {isSuccess ? (
+      {successData ? (
         <div className="py-8 text-center space-y-4 animate-fadeIn">
           <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
             <CheckCircle2 className="w-10 h-10" />
           </div>
           <div>
-            <h4 className="text-xl font-bold text-[#1a1a1a]">Request Received!</h4>
-            <p className="text-[15px] text-slate-600 mt-3 max-w-sm mx-auto leading-relaxed">
-              Thank you! Our executive will call you shortly to confirm the technician dispatch.
+            <h4 className="text-xl font-bold text-[#1a1a1a]">Booking Confirmed!</h4>
+            <p className="text-[15px] text-slate-600 mt-2 max-w-sm mx-auto leading-relaxed">
+              Thank you! Our executive will call you shortly.
             </p>
+            
+            {/* Booking ID Display */}
+            <div className="mt-4 bg-slate-50 border border-slate-200 p-4 rounded-xl inline-block">
+              <p className="text-xs text-slate-500 uppercase tracking-wide font-semibold mb-1">Your Booking ID</p>
+              <p className="text-2xl font-black text-[#0c54a0] tracking-wider">{successData.bookingId}</p>
+            </div>
+            <p className="text-xs text-slate-400 mt-2">Please keep this ID for future reference.</p>
           </div>
+
           <div className="pt-6 flex flex-col items-center justify-center gap-3">
             <a
               href={`tel:${BUSINESS_DETAILS.phone}`}
@@ -198,7 +191,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               Call Now: {BUSINESS_DETAILS.phone}
             </a>
             <button
-              onClick={() => setIsSuccess(false)}
+              onClick={() => setSuccessData(null)}
               className="text-sm text-slate-400 hover:text-[#0c54a0] py-2 font-medium transition-colors"
             >
               Book another service
@@ -207,27 +200,12 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         </div>
       ) : (
         <form
-          name="lead-booking-form"
-          method="POST"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
           className="space-y-4"
           noValidate
         >
-          {/* Hidden fields for Netlify Forms & Honeypot */}
-          <input type="hidden" name="form-name" value="lead-booking-form" />
-          <input type="hidden" name="sourcePage" value={sourcePage} />
-          <p className="hidden" style={{ display: 'none' }}>
-            <label>
-              Don’t fill this out if you're human:{' '}
-              <input
-                name="bot-field"
-                value={botField}
-                onChange={(e) => setBotField(e.target.value)}
-              />
-            </label>
-          </p>
+          {/* Web3Forms Spam Protection (Honeypot) */}
+          <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
 
           {serverError && (
             <div className="p-4 bg-red-50 border border-red-100 text-red-700 rounded-xl text-sm flex items-center gap-2 mb-2">
@@ -328,24 +306,19 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                   >
                     <option value="" disabled>Select Brand</option>
                     {brandOptions.map((brand) => (
-                      <option key={brand} value={brand}>
-                        {brand}
-                      </option>
+                      <option key={brand} value={brand}>{brand}</option>
                     ))}
                   </select>
-                  {/* Custom arrow for select */}
                   <div className="pointer-events-none absolute right-4 top-[38px] flex items-center text-slate-400">
                     <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                   </div>
                 </div>
               </div>
 
-              {/* Select Service Required (if not hidden) */}
+              {/* Select Service Required */}
               {!hideServiceSelector && (
                 <div className="relative">
-                  <label htmlFor="serviceType" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
-                    Service Required
-                  </label>
+                  <label htmlFor="serviceType" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Service Required</label>
                   <div className="relative group">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0c54a0] transition-colors pointer-events-none z-10">
                       <Wrench className="w-5 h-5" />
@@ -358,9 +331,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                       className="w-full pl-11 pr-10 py-3.5 text-[15px] bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-[#0c54a0] focus:outline-none transition-all appearance-none cursor-pointer capitalize font-medium text-slate-800"
                     >
                       {SERVICE_OPTIONS.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
+                        <option key={option} value={option}>{option}</option>
                       ))}
                     </select>
                     <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 flex items-center text-slate-400">
@@ -374,7 +345,6 @@ export const LeadForm: React.FC<LeadFormProps> = ({
             </>
           ) : (
             <div className={`grid grid-cols-1 ${!hideServiceSelector ? 'sm:grid-cols-2' : ''} gap-4`}>
-              {/* PinCode */}
               <div className="relative">
                 <label htmlFor="pinCode" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Pincode</label>
                 <div className="relative group">
@@ -401,12 +371,9 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 {errors.pinCode && <p className="text-xs text-red-500 mt-1.5 ml-1 font-medium">{errors.pinCode}</p>}
               </div>
 
-              {/* Select Service Required (if not hidden) */}
               {!hideServiceSelector && (
                 <div className="relative">
-                  <label htmlFor="serviceType" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
-                    Service Required
-                  </label>
+                  <label htmlFor="serviceType" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Service Required</label>
                   <div className="relative group">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0c54a0] transition-colors pointer-events-none z-10">
                       <Wrench className="w-5 h-5" />
@@ -419,9 +386,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                       className="w-full pl-11 pr-10 py-3.5 text-[15px] bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-[#0c54a0] focus:outline-none transition-all appearance-none cursor-pointer capitalize font-medium text-slate-800"
                     >
                       {SERVICE_OPTIONS.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
+                        <option key={option} value={option}>{option}</option>
                       ))}
                     </select>
                     <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 flex items-center text-slate-400">
@@ -452,9 +417,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 Submitting Request...
               </>
             ) : (
-              <>
-                Confirm Booking
-              </>
+              <>Confirm Booking</>
             )}
           </button>
         </form>
